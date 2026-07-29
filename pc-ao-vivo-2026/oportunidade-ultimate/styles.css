@@ -1,0 +1,838 @@
+/* ==========================================================================
+   PC Ao Vivo 2026 — Oportunidade Ultimate
+   Fonte de verdade do CSS (versão legível). O navegador lê o CSS crítico
+   INLINE no <head> do index.html — editar SEMPRE nos dois. (README §2)
+
+   Prefixo de classe: ou-  (oportunidade-ultimate)
+
+   Direção visual
+   --------------
+   Palco escuro + feixe ciano vindos da própria foto. Cada acento tem UM
+   trabalho e aparece uma vez só:
+     vermelho -> a tarja de urgência do topo
+     ciano    -> atmosfera e estrutura (o "eixo de luz")
+     verde    -> a única ação da página (leva ao WhatsApp)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Fontes (self-hosted — README §2 e §4.9)
+   -------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: 'Saira Condensed';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('assets/fonts/SairaCondensed-900-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('assets/fonts/Inter-400-800-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Fallbacks com métricas ajustadas: o texto não "pula" quando a fonte real
+   carrega (README §4.9). */
+@font-face {
+  font-family: 'Saira Condensed Fallback';
+  src: local('Arial Narrow'), local('Arial'), local('ArialMT');
+  font-display: swap;
+  ascent-override: 143.3382%;
+  descent-override: 55.4409%;
+  line-gap-override: 0%;
+  size-adjust: 79.1834%;
+}
+
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial'), local('ArialMT');
+  font-display: swap;
+  ascent-override: 90.4881%;
+  descent-override: 22.5405%;
+  line-gap-override: 0%;
+  size-adjust: 107.0403%;
+}
+
+/* Bandeiras do seletor de DDI. Windows não renderiza emoji de bandeira —
+   fonte cobrindo só o range Unicode regional (README §5.3). */
+@font-face {
+  font-family: 'Twemoji Country Flags';
+  unicode-range: U+1F1E6-1F1FF, U+1F3F4, U+E0062-E0063, U+E0065, U+E0067,
+                 U+E006C, U+E006E, U+E0073-E0074, U+E0077, U+E007F;
+  src: url('assets/TwemojiCountryFlags.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* --------------------------------------------------------------------------
+   2. Tokens
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* Superfícies — amostradas do preto de palco da foto */
+  --ink-950: #04080B;
+  --ink-900: #081118;
+  --ink-850: #0B1720;
+  --ink-800: #0D1B24;
+  --ink-700: #17303D;
+
+  /* Feixe ciano — o acento estrutural da página */
+  --beam:      #16C8E8;
+  --beam-soft: #7EE4F5;
+  --beam-deep: #0B6E86;
+
+  /* Urgência — usada UMA vez, na tarja do topo */
+  --alert:    #FF2E2E;
+  --alert-ink:#FFFFFF;   /* texto e o ponto separador da tarja */
+
+  /* Ação — verde WhatsApp: é para onde o botão leva */
+  --wa:      #25D366;
+  --wa-lift: #2BE874;
+  --wa-deep: #14A94D;
+
+  /* Texto */
+  --paper:  #FFFFFF;
+  --mist:   #C3D2DA;
+  --mist-2: #8CA3AE;
+
+  --font-display: 'Saira Condensed', 'Saira Condensed Fallback', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter', 'Inter Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+
+  /* Cadência única de animação: sweep do botão, respiro do glow e pulso do
+     feixe compartilham este tempo — a luz "viaja" da foto até o botão. */
+  --beat: 3.2s;
+}
+
+* { box-sizing: border-box; }
+
+/* Faz o atributo `hidden` vencer o display:flex do overlay (README §5.1) */
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ink-950);
+  color: var(--paper);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Trava o scroll do fundo enquanto o modal está aberto */
+body.ou-locked { overflow: hidden; }
+
+/* O hero cresce para preencher a janela: a foto é full-bleed e o rodapé
+   encosta embaixo, sem faixa preta sobrando em tela alta. */
+.ou-root {
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.ou-root > .ou-hero { flex: 1; }
+
+img { max-width: 100%; display: block; }
+
+:where(a, button, input, select):focus-visible {
+  outline: 2px solid var(--beam);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Tarja de urgência (topo, vermelha)
+   -------------------------------------------------------------------------- */
+
+.ou-alert {
+  position: relative;
+  z-index: 5;
+  background: var(--alert);
+  color: var(--alert-ink);
+  padding: 10px 20px;
+}
+
+.ou-alert__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px 14px;
+  text-align: center;
+}
+
+.ou-alert__when {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+  font-weight: 900;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.ou-alert__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--alert-ink);
+  opacity: .55;
+  flex: none;
+  align-self: center;
+}
+
+.ou-alert__what {
+  font-size: clamp(.86rem, 1.2vw, .97rem);
+  font-weight: 600;
+  line-height: 1.35;
+  text-wrap: balance;   /* evita a última linha órfã quando quebra no celular */
+}
+
+/* --------------------------------------------------------------------------
+   4. Hero — foto de pessoa (padrão README §4.6)
+   -------------------------------------------------------------------------- */
+
+.ou-hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(40px, 6vw, 84px) 24px clamp(56px, 7vw, 96px);
+}
+
+/* A foto. Desktop: cover alinhada à direita e ao TOPO — o corte do `cover`
+   sobra por baixo, nunca na cabeça dele. */
+.ou-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url('assets/hero-geronimo.webp');
+  background-size: cover;
+  background-position: right top;
+  background-repeat: no-repeat;
+}
+
+/* Scrim horizontal: escurece o lado do texto sem apagar a foto. */
+.ou-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg,
+      var(--ink-950) 0%,
+      rgba(4, 8, 11, .95) 32%,
+      rgba(4, 8, 11, .68) 50%,
+      rgba(4, 8, 11, .18) 72%,
+      rgba(4, 8, 11, 0) 100%),
+    linear-gradient(to top,
+      var(--ink-950) 0%,
+      rgba(4, 8, 11, .35) 26%,
+      rgba(4, 8, 11, 0) 60%);
+}
+
+.ou-hero__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ou-hero__col {
+  max-width: 620px;
+}
+
+/* "Pré-Ultimate" nunca quebra no hífen */
+.ou-nb { white-space: nowrap; }
+
+/* Marca do produto, logo acima do título: diz DE QUAL mentoria se trata
+   antes de dizer quem é o mentor. Dimensionada pela altura — o width/height
+   do <img> carrega a proporção e evita CLS (README §4.9). */
+.ou-hero__logo {
+  height: clamp(34px, 4vw, 46px);
+  width: auto;
+  margin: 0 0 clamp(16px, 2.2vw, 24px);
+}
+
+/* Eyebrow */
+.ou-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--beam-soft);
+  margin: 0 0 18px;
+}
+
+.ou-eyebrow::before {
+  content: '';
+  width: 26px;
+  height: 2px;
+  background: var(--beam);
+  flex: none;
+}
+
+/* Título — tratamento de "lower third" de palco:
+   o nome grande, a promessa como linha subordinada. */
+.ou-hero__title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--paper);
+  margin: 0;
+  line-height: .86;
+  letter-spacing: -.005em;
+  /* Dimensionado pela MENOR das duas medidas: numa tela baixa e larga o título
+     cede altura para o CTA caber junto com ele; num celular estreito cede
+     largura para "GERONIMO THEML" ficar em uma linha só. Uma expressão
+     contínua, sem breakpoint — não há salto de tamanho em nenhuma largura. */
+  font-size: clamp(2.55rem, min(11vw, 8.6vh), 5.6rem);
+}
+
+.ou-hero__title-sub {
+  display: block;
+  font-size: .58em;
+  letter-spacing: .04em;
+  color: var(--beam-soft);
+  margin-top: .12em;
+}
+
+/* SIGNATURE — o eixo de luz.
+   Hairline ciano sob o título com um pulso que percorre a linha na mesma
+   cadência do botão: a luz sai da foto, cruza o texto e chega na ação. */
+.ou-beam {
+  position: relative;
+  height: 2px;
+  margin: clamp(22px, 3vw, 32px) 0 clamp(22px, 3vw, 30px);
+  background: linear-gradient(90deg, var(--beam-deep) 0%, rgba(11, 110, 134, .22) 62%, transparent 100%);
+  overflow: hidden;
+}
+
+.ou-beam::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--beam-soft), transparent);
+  transform: translateX(-110%);
+  animation: ou-beam-travel var(--beat) ease-in-out infinite;
+}
+
+@keyframes ou-beam-travel {
+  0%        { transform: translateX(-110%); opacity: 0; }
+  18%       { opacity: 1; }
+  55%, 100% { transform: translateX(330%); opacity: 0; }
+}
+
+.ou-hero__lead {
+  font-size: clamp(1.02rem, 1.4vw, 1.19rem);
+  line-height: 1.62;
+  color: var(--mist);
+  margin: 0 0 18px;
+  max-width: 54ch;
+}
+
+.ou-strong {
+  color: var(--paper);
+  font-weight: 700;
+}
+
+/* "faturar 100.000+ por ano" — marcado com o feixe, não com negrito a mais */
+.ou-mark {
+  color: var(--paper);
+  font-weight: 700;
+  box-shadow: inset 0 -.42em 0 rgba(22, 200, 232, .22);
+}
+
+.ou-hero__exclusive {
+  font-size: clamp(.98rem, 1.3vw, 1.08rem);
+  line-height: 1.55;
+  color: var(--paper);
+  margin: 0 0 clamp(26px, 3.5vw, 34px);
+  padding-left: 16px;
+  border-left: 2px solid var(--beam);
+  max-width: 52ch;
+}
+
+/* --------------------------------------------------------------------------
+   5. CTA do hero — a única ação da página. Abre o modal de captura.
+   -------------------------------------------------------------------------- */
+
+.ou-hero__cta-wrap { max-width: 430px; }
+
+.ou-hero__cta-lead {
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+  line-height: 1.1;
+  letter-spacing: .01em;
+  color: var(--paper);
+  margin: 0 0 14px;
+}
+
+/* --------------------------------------------------------------------------
+   6. Botão. Verde porque leva ao WhatsApp.
+   Animação de iluminação: banda de luz viajando + glow respirando, ambos na
+   cadência --beat (mesma do feixe).
+   -------------------------------------------------------------------------- */
+
+.ou-cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  /* padding lateral estreito no celular: o rótulo cabe em uma linha */
+  padding: 18px clamp(14px, 3vw, 24px);
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(1.05rem, 1.9vw, 1.45rem);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  color: #04240F;
+  background: linear-gradient(180deg, var(--wa-lift) 0%, var(--wa) 46%, var(--wa-deep) 100%);
+  animation: ou-breathe var(--beat) ease-in-out infinite;
+}
+
+/* banda de luz que atravessa o botão */
+.ou-cta::before {
+  content: '';
+  position: absolute;
+  inset: -60% -12%;
+  z-index: -1;
+  background: linear-gradient(105deg,
+    transparent 38%,
+    rgba(255, 255, 255, .72) 50%,
+    transparent 62%);
+  transform: translateX(-125%);
+  animation: ou-sweep var(--beat) ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes ou-sweep {
+  0%        { transform: translateX(-125%); }
+  55%, 100% { transform: translateX(125%); }
+}
+
+@keyframes ou-breathe {
+  0%, 100% {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, .34),
+      0 10px 26px -12px rgba(37, 211, 102, .5),
+      0 0 0 0 rgba(37, 211, 102, .34);
+  }
+  55% {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, .5),
+      0 16px 46px -10px rgba(37, 211, 102, .9),
+      0 0 0 12px rgba(37, 211, 102, 0);
+  }
+}
+
+.ou-cta:hover  { filter: brightness(1.07); }
+.ou-cta:active { transform: translateY(1px); }
+
+/* Dentro do modal o botão fica parado: não há nada disputando atenção ali,
+   a animação só viraria ruído. */
+.ou-cta--still,
+.ou-cta[aria-busy="true"] { animation: none; }
+
+.ou-cta--still {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .4),
+    0 14px 38px -14px rgba(37, 211, 102, .75);
+}
+
+.ou-cta--still::before { animation: none; opacity: 0; }
+
+.ou-cta[aria-busy="true"] {
+  filter: saturate(.55);
+  cursor: progress;
+}
+
+.ou-cta[aria-busy="true"]::before { animation: none; opacity: 0; }
+
+.ou-cta__arrow {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: .82em;
+  transition: transform .18s ease;
+}
+
+.ou-cta:hover .ou-cta__arrow { transform: translateX(4px); }
+
+.ou-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: .78rem;
+  color: var(--mist-2);
+  margin: 14px 0 0;
+  text-align: center;
+}
+
+.ou-note__lock {
+  width: 12px;
+  height: 12px;
+  flex: none;
+  fill: var(--mist-2);
+}
+
+/* --------------------------------------------------------------------------
+   7. Modal de captura (README §5)
+   Overlay -> modal -> dois estados irmãos (#modal-form / #modal-success)
+   alternados por `hidden`.
+   -------------------------------------------------------------------------- */
+
+.ou-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(2, 5, 7, .84);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: ou-fade .18s ease-out;
+}
+
+@keyframes ou-fade { from { opacity: 0; } }
+
+.ou-modal {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  background: linear-gradient(180deg, var(--ink-800), var(--ink-900));
+  border: 1px solid var(--ink-700);
+  border-radius: 14px;
+  padding: clamp(24px, 5vw, 32px);
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .95);
+  animation: ou-rise .24s cubic-bezier(.22, 1, .36, 1);
+}
+
+@keyframes ou-rise {
+  from { opacity: 0; transform: translateY(14px); }
+}
+
+/* o mesmo feixe da página, agora na borda superior do modal */
+.ou-modal::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  border-radius: 14px 14px 0 0;
+  background: linear-gradient(90deg, transparent, var(--beam), transparent);
+}
+
+.ou-modal__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  color: var(--mist-2);
+  cursor: pointer;
+  transition: color .15s ease, background-color .15s ease;
+}
+
+.ou-modal__close:hover {
+  color: var(--paper);
+  background: rgba(255, 255, 255, .07);
+}
+
+.ou-modal__close-icon { width: 16px; height: 16px; fill: currentColor; }
+
+.ou-modal__eyebrow {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--beam-soft);
+  margin: 0 0 8px;
+}
+
+.ou-modal__title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(1.55rem, 4.4vw, 1.95rem);
+  line-height: 1;
+  margin: 0 0 8px;
+  color: var(--paper);
+  padding-right: 28px;
+}
+
+.ou-modal__desc {
+  font-size: .93rem;
+  line-height: 1.5;
+  color: var(--mist-2);
+  margin: 0 0 22px;
+}
+
+/* --------------------------------------------------------------------------
+   8. Campos
+   -------------------------------------------------------------------------- */
+
+.ou-fields {
+  display: grid;
+  gap: 14px;
+}
+
+.ou-field__label,
+.ou-phone__label {
+  display: block;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--mist-2);
+  margin-bottom: 7px;
+}
+
+.ou-field__input,
+.ou-phone__input,
+.ou-country {
+  width: 100%;
+  padding: 13px 14px;
+  font-family: var(--font-body);
+  font-size: 16px;   /* 16px evita o zoom automático do iOS ao focar */
+  color: var(--paper);
+  background: var(--ink-850);
+  border: 1px solid var(--ink-700);
+  border-radius: 8px;
+  outline: 0;
+  transition: border-color .16s ease, box-shadow .16s ease;
+}
+
+.ou-field__input::placeholder,
+.ou-phone__input::placeholder { color: #5C7280; }
+
+.ou-field__input:focus,
+.ou-phone__input:focus,
+.ou-country:focus {
+  border-color: var(--beam);
+  box-shadow: 0 0 0 3px rgba(22, 200, 232, .16);
+}
+
+/* Campo inválido depois de uma tentativa de envio */
+.ou-field__input[aria-invalid="true"],
+.ou-phone__input[aria-invalid="true"] {
+  border-color: var(--alert);
+  box-shadow: 0 0 0 3px rgba(255, 46, 46, .14);
+}
+
+.ou-phone__row {
+  display: flex;
+  gap: 8px;
+}
+
+.ou-country {
+  flex: none;
+  width: 108px;
+  padding-inline: 6px;
+  /* fonte de bandeiras PRIMEIRO (README §5.3) */
+  font-family: 'Twemoji Country Flags', var(--font-body);
+  font-size: 14px;
+}
+
+.ou-phone__input {
+  flex: 1;
+  min-width: 0;
+}
+
+.ou-error {
+  font-size: .82rem;
+  color: #FF8C8C;
+  margin: 2px 0 0;
+}
+
+.ou-cta-wrap { margin-top: 22px; }
+
+/* --------------------------------------------------------------------------
+   9. Estado de sucesso — feedback caso o redirect demore (README §5.5)
+   -------------------------------------------------------------------------- */
+
+.ou-success { text-align: center; padding: 14px 0 6px; }
+
+.ou-success__mark {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(37, 211, 102, .14);
+  border: 1px solid rgba(37, 211, 102, .45);
+}
+
+.ou-success__icon { width: 22px; height: 22px; fill: var(--wa-lift); }
+
+.ou-success__title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 1.7rem;
+  line-height: 1;
+  margin: 0 0 8px;
+  color: var(--paper);
+}
+
+.ou-success__desc {
+  font-size: .93rem;
+  line-height: 1.5;
+  color: var(--mist-2);
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   10. Rodapé
+   -------------------------------------------------------------------------- */
+
+.ou-footer {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid rgba(23, 48, 61, .8);
+  padding: 26px 24px 34px;
+  background: var(--ink-950);
+}
+
+.ou-footer__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px 16px;
+  font-size: .76rem;
+  color: #5C7280;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   11. Desktop: o ritmo vertical cede à altura da janela
+   Numa captura, o CTA precisa estar visível sem rolagem. Os espaços são
+   medidos em vh, então em notebook de tela baixa a página se comprime em vez
+   de empurrar o botão para baixo da dobra.
+   -------------------------------------------------------------------------- */
+
+@media (min-width: 900px) {
+  /* conteúdo centrado na altura do hero */
+  .ou-hero {
+    display: flex;
+    align-items: center;
+    padding: clamp(28px, 4.4vh, 84px) 24px clamp(24px, 3.6vh, 70px);
+  }
+  .ou-hero__inner { width: 100%; }
+
+  .ou-eyebrow         { margin-bottom: clamp(10px, 1.8vh, 18px); }
+  .ou-hero__logo      { margin-bottom: clamp(12px, 2.2vh, 24px); }
+  .ou-beam            { margin: clamp(16px, 2.6vh, 32px) 0; }
+  .ou-hero__lead      { margin-bottom: clamp(10px, 1.8vh, 18px); }
+  .ou-hero__exclusive { margin-bottom: clamp(18px, 3vh, 34px); }
+  .ou-hero__cta-lead  { margin-bottom: clamp(10px, 1.6vh, 14px); }
+
+  .ou-footer { padding: clamp(16px, 2.4vh, 26px) 24px clamp(20px, 3vh, 34px); }
+
+  /* Nome e e-mail dividem a linha: o modal parece (e é) mais curto.
+     Continuam sendo três campos. */
+  .ou-fields { grid-template-columns: 1fr 1fr; }
+  .ou-phone,
+  .ou-cta-wrap { grid-column: 1 / -1; }
+}
+
+/* --------------------------------------------------------------------------
+   12. Mobile (≤ 680px) — muda COMPORTAMENTO, não tamanho (README §4.6)
+   A foto vira `contain` no topo, com máscara dissolvendo no fundo, e o texto
+   desce. O aspect-ratio precisa ser o da imagem real.
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 680px) {
+  .ou-hero-bg {
+    inset: 0 0 auto 0 !important;
+    aspect-ratio: 1672 / 941;
+    background-size: contain !important;
+    background-position: top center !important;
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 58%);
+    mask-image: linear-gradient(to top, transparent 0%, #000 58%);
+  }
+
+  .ou-hero-scrim {
+    background:
+      linear-gradient(to top,
+        var(--ink-950) 0%,
+        rgba(4, 8, 11, .96) 34%,
+        rgba(4, 8, 11, .55) 52%,
+        rgba(4, 8, 11, 0) 74%);
+  }
+
+  /* abre espaço para a foto acima do texto */
+  .ou-hero { padding-top: 0; }
+  .ou-hero__col { padding-top: 46vw; }
+
+  .ou-hero__cta-wrap { max-width: none; }
+
+  /* Em coluna, o `align-items: baseline` da regra base passa a valer no eixo
+     horizontal e encosta os itens à esquerda — aqui ele vira `center`. */
+  .ou-alert__inner { flex-direction: column; align-items: center; gap: 4px; }
+  .ou-alert__dot { display: none; }
+
+  .ou-footer__inner { justify-content: flex-start; }
+
+  /* o modal encosta no rodapé da tela: mais área útil no celular */
+  .ou-modal-overlay { padding: 12px; align-items: flex-end; }
+  .ou-modal { max-height: calc(100vh - 24px); }
+}
+
+/* --------------------------------------------------------------------------
+   13. Movimento reduzido — glow estático, sem varredura
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .ou-cta {
+    animation: none;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, .4),
+      0 14px 38px -12px rgba(37, 211, 102, .7);
+  }
+  .ou-cta::before { animation: none; opacity: 0; }
+  .ou-beam::after { animation: none; opacity: 0; }
+  .ou-cta__arrow  { transition: none; }
+  .ou-modal-overlay,
+  .ou-modal { animation: none; }
+}

@@ -1,0 +1,387 @@
+/* ==========================================================================
+   PC Ao Vivo 2026 — Oportunidade Ultimate · Página de obrigado
+   Fonte de verdade do CSS (versão legível). O navegador lê o CSS crítico
+   INLINE no <head> do index.html — editar SEMPRE nos dois. (README §2)
+
+   Prefixo de classe: ty-
+
+   Na captura o Geronimo é o assunto. Aqui o assunto é a ação de quem chegou:
+   a foto vira atmosfera e o feixe ciano vira a barra de progresso — o mesmo
+   eixo de luz da página anterior, agora medindo o passo que falta.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Fontes (self-hosted — README §2 e §4.9)
+   -------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: 'Saira Condensed';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('../assets/fonts/SairaCondensed-900-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('../assets/fonts/Inter-400-800-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Saira Condensed Fallback';
+  src: local('Arial Narrow'), local('Arial'), local('ArialMT');
+  font-display: swap;
+  ascent-override: 143.3382%;
+  descent-override: 55.4409%;
+  line-gap-override: 0%;
+  size-adjust: 79.1834%;
+}
+
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial'), local('ArialMT');
+  font-display: swap;
+  ascent-override: 90.4881%;
+  descent-override: 22.5405%;
+  line-gap-override: 0%;
+  size-adjust: 107.0403%;
+}
+
+/* --------------------------------------------------------------------------
+   2. Tokens — os mesmos da captura
+   -------------------------------------------------------------------------- */
+
+:root {
+  --ink-950: #04080B;
+  --ink-900: #081118;
+  --ink-800: #0D1B24;
+  --ink-700: #17303D;
+
+  --beam:      #16C8E8;
+  --beam-soft: #7EE4F5;
+  --beam-deep: #0B6E86;
+
+  --wa:      #25D366;
+  --wa-lift: #2BE874;
+  --wa-deep: #14A94D;
+
+  --paper:  #FFFFFF;
+  --mist:   #C3D2DA;
+  --mist-2: #8CA3AE;
+
+  --font-display: 'Saira Condensed', 'Saira Condensed Fallback', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter', 'Inter Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+
+  --beat: 3.2s;
+}
+
+* { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ink-950);
+  color: var(--paper);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+:where(a, button):focus-visible {
+  outline: 2px solid var(--beam);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Palco — mobile é o layout base: coluna com scroll normal
+   -------------------------------------------------------------------------- */
+
+.ty-root {
+  position: relative;
+  isolation: isolate;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* A foto vira ambiente: presença, não foco. */
+.ty-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url('../assets/hero-geronimo.webp');
+  background-size: cover;
+  background-position: 72% top;
+  background-repeat: no-repeat;
+  opacity: .68;
+}
+
+/* Escurece o miolo (onde fica o texto) e deixa a figura respirar nas bordas —
+   é o que mantém a continuidade visual com a página de captura. */
+.ty-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(120% 90% at 50% 44%, rgba(4, 8, 11, .82) 0%, rgba(4, 8, 11, .62) 46%, rgba(4, 8, 11, .88) 100%),
+    linear-gradient(to bottom, rgba(4, 8, 11, .5), rgba(4, 8, 11, .68));
+}
+
+.ty-inner {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: clamp(40px, 8vw, 72px) 24px clamp(32px, 6vw, 56px);
+}
+
+.ty-col { width: 100%; max-width: 560px; }
+
+/* "Pré-Ultimate" nunca quebra no hífen */
+.ty-nb { white-space: nowrap; }
+
+/* --------------------------------------------------------------------------
+   4. Progresso — aqui a numeração é informação real: existe um passo 2.
+   -------------------------------------------------------------------------- */
+
+/* A barra tem a mesma largura do botão: os dois dividem um eixo, e a barra
+   lê como "o quanto do caminho até aquele botão já foi feito". */
+.ty-progress {
+  max-width: 460px;
+  margin: 0 auto clamp(28px, 4vw, 44px);
+}
+
+.ty-progress__meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--mist-2);
+  margin-bottom: 10px;
+}
+
+.ty-progress__pct { color: var(--beam-soft); }
+
+.ty-progress__track {
+  height: 6px;
+  border-radius: 99px;
+  background: rgba(23, 48, 61, .9);
+  overflow: hidden;
+}
+
+/* SIGNATURE — o mesmo feixe da captura, agora medindo o progresso. */
+.ty-progress__fill {
+  position: relative;
+  width: 0;
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--beam-deep), var(--beam));
+  box-shadow: 0 0 18px rgba(22, 200, 232, .65);
+  overflow: hidden;
+  animation: ty-fill 1s .3s cubic-bezier(.22, 1, .36, 1) forwards;
+}
+
+.ty-progress__fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .85), transparent);
+  transform: translateX(-100%);
+  animation: ty-beam-travel var(--beat) 1.2s ease-in-out infinite;
+}
+
+@keyframes ty-fill {
+  to { width: 50%; }
+}
+
+@keyframes ty-beam-travel {
+  0%        { transform: translateX(-100%); }
+  55%, 100% { transform: translateX(220%); }
+}
+
+/* --------------------------------------------------------------------------
+   5. Texto
+   -------------------------------------------------------------------------- */
+
+.ty-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--paper);
+  margin: 0 0 clamp(14px, 2vw, 20px);
+  line-height: .9;
+  letter-spacing: -.005em;
+  font-size: clamp(2.6rem, 6.4vw, 4.6rem);
+  text-wrap: balance;
+}
+
+.ty-lead {
+  font-size: clamp(1.02rem, 1.5vw, 1.22rem);
+  line-height: 1.55;
+  color: var(--mist);
+  margin: 0 auto clamp(28px, 4vw, 40px);
+  max-width: 42ch;
+  text-wrap: balance;
+}
+
+.ty-lead strong { color: var(--paper); font-weight: 700; }
+
+/* --------------------------------------------------------------------------
+   6. Botão — mesma iluminação da captura
+   -------------------------------------------------------------------------- */
+
+.ty-cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+  padding: 19px 26px;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  color: #04240F;
+  background: linear-gradient(180deg, var(--wa-lift) 0%, var(--wa) 46%, var(--wa-deep) 100%);
+  animation: ty-breathe var(--beat) ease-in-out infinite;
+}
+
+.ty-cta::before {
+  content: '';
+  position: absolute;
+  inset: -60% -12%;
+  z-index: -1;
+  background: linear-gradient(105deg,
+    transparent 38%,
+    rgba(255, 255, 255, .72) 50%,
+    transparent 62%);
+  transform: translateX(-125%);
+  animation: ty-sweep var(--beat) ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes ty-sweep {
+  0%        { transform: translateX(-125%); }
+  55%, 100% { transform: translateX(125%); }
+}
+
+@keyframes ty-breathe {
+  0%, 100% {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, .34),
+      0 10px 26px -12px rgba(37, 211, 102, .5),
+      0 0 0 0 rgba(37, 211, 102, .34);
+  }
+  55% {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, .5),
+      0 16px 46px -10px rgba(37, 211, 102, .9),
+      0 0 0 12px rgba(37, 211, 102, 0);
+  }
+}
+
+.ty-cta:hover  { filter: brightness(1.07); }
+.ty-cta:active { transform: translateY(1px); }
+
+.ty-cta__icon { width: 22px; height: 22px; flex: none; fill: #04240F; }
+
+.ty-hint {
+  font-size: .8rem;
+  color: var(--mist-2);
+  margin: 16px 0 0;
+}
+
+.ty-footer {
+  position: relative;
+  z-index: 2;
+  padding: 0 24px 28px;
+  text-align: center;
+  font-size: .74rem;
+  color: #5C7280;
+}
+
+/* --------------------------------------------------------------------------
+   7. Desktop: "cabe na tela" (README §4.7) — a página não rola
+   -------------------------------------------------------------------------- */
+
+@media (min-width: 900px) {
+  html, body { height: 100%; }
+  body { height: 100vh; overflow: hidden; }
+
+  .ty-root  { height: 100vh; }
+  .ty-inner { padding: clamp(20px, 3vh, 40px) 24px clamp(14px, 2vh, 24px); }
+
+  .ty-progress { margin-bottom: clamp(18px, 3.4vh, 40px); }
+  .ty-title    { font-size: clamp(2.4rem, 6.4vh, 4.6rem); margin-bottom: clamp(10px, 1.8vh, 20px); }
+  .ty-lead     { font-size: clamp(1rem, 2vh, 1.22rem); margin-bottom: clamp(20px, 3.6vh, 40px); }
+  .ty-hint     { margin-top: clamp(10px, 1.8vh, 16px); }
+}
+
+/* telas baixas: garante que nada seja cortado */
+@media (min-width: 900px) and (max-height: 640px) {
+  body { overflow-y: auto; height: auto; }
+  .ty-root { height: auto; min-height: 100vh; }
+}
+
+/* --------------------------------------------------------------------------
+   8. Mobile (≤ 680px)
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 680px) {
+  .ty-bg { background-position: 76% top; opacity: .55; }
+  .ty-scrim {
+    background:
+      radial-gradient(150% 62% at 50% 40%, rgba(4, 8, 11, .86) 0%, rgba(4, 8, 11, .7) 44%, rgba(4, 8, 11, .94) 100%),
+      linear-gradient(to bottom, rgba(4, 8, 11, .42), rgba(4, 8, 11, .78));
+  }
+}
+
+/* --------------------------------------------------------------------------
+   9. Movimento reduzido
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .ty-progress__fill { width: 50%; animation: none; }
+  .ty-progress__fill::after { animation: none; opacity: 0; }
+  .ty-cta {
+    animation: none;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, .4),
+      0 14px 38px -12px rgba(37, 211, 102, .7);
+  }
+  .ty-cta::before { animation: none; opacity: 0; }
+}
