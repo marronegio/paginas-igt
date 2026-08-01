@@ -125,11 +125,23 @@
      Máscara (XX) XXXXX-XXXX — só Brasil (README §5.4)
      ---------------------------------------------------------------------- */
 
+  /* Dígitos nacionais de um número BR: sem o 0 de interurbano e sem o 55 que
+     vem junto quando o lead cola o número completo. Sem isto o telefone sai
+     com dígito a mais e o CRM, ao normalizar, entrega um número quebrado. */
+  function digitsBr(raw) {
+    var d = raw.replace(/\D/g, '');
+    d = d.replace(/^0+/, '');                                  // 0 de longa distância
+    if (d.length > 11 && d.indexOf('55') === 0) d = d.slice(2); // colado com DDI
+    return d.slice(0, 11);
+  }
+
   function formatBrPhone(raw) {
-    var d = raw.replace(/\D/g, '').slice(0, 11);
-    if (d.length === 0) return '';
-    if (d.length <= 2)  return '(' + d;
-    if (d.length <= 7)  return '(' + d.slice(0, 2) + ') ' + d.slice(2);
+    var d = digitsBr(raw);
+    if (d.length === 0)  return '';
+    if (d.length <= 2)   return '(' + d;
+    if (d.length <= 6)   return '(' + d.slice(0, 2) + ') ' + d.slice(2);
+    // 10 dígitos = fixo (XXXX-XXXX); 11 = celular (XXXXX-XXXX)
+    if (d.length <= 10)  return '(' + d.slice(0, 2) + ') ' + d.slice(2, 6) + '-' + d.slice(6);
     return '(' + d.slice(0, 2) + ') ' + d.slice(2, 7) + '-' + d.slice(7);
   }
 
@@ -166,6 +178,12 @@
 
   function digitsOf(v) { return v.replace(/\D/g, ''); }
 
+  /* Dígitos que seguem para o CRM. Autofill do navegador não dispara `input`,
+     então a máscara pode não ter passado por aqui — normaliza no submit também. */
+  function nationalDigits(v) {
+    return state.country === 'BR' ? digitsBr(v) : digitsOf(v);
+  }
+
   function setInvalid(el, invalid) {
     if (invalid) el.setAttribute('aria-invalid', 'true');
     else el.removeAttribute('aria-invalid');
@@ -182,7 +200,7 @@
       errors.push([fields.email, 'Digite um e-mail válido.']);
     }
 
-    var d = digitsOf(fields.phone.value);
+    var d = nationalDigits(fields.phone.value);
     var phoneOk = state.country === 'BR' ? (d.length === 10 || d.length === 11) : d.length >= 6;
     if (!phoneOk) {
       errors.push([fields.phone, state.country === 'BR'
@@ -222,8 +240,9 @@
     if (label) label.textContent = 'Entrando no grupo…';
 
     var country  = COUNTRIES.filter(function (c) { return c.code === state.country; })[0] || COUNTRIES[0];
-    var masked   = fields.phone.value.trim();
-    var onlyNums = country.dial.replace(/\D/g, '') + digitsOf(masked);
+    var raw      = fields.phone.value.trim();
+    var masked   = state.country === 'BR' ? formatBrPhone(raw) : raw;
+    var onlyNums = country.dial.replace(/\D/g, '') + nationalDigits(raw);
     var now      = new Date();
     var pad      = function (n) { return (n < 10 ? '0' : '') + n; };
 
