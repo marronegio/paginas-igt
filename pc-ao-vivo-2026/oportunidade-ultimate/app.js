@@ -27,8 +27,8 @@
       mode: 'cors', ct: 'application/json' },
 
     // Clint: sem CORS no preflight -> "simple request" (text/plain + no-cors).
-    // { url: 'https://functions-api.clint.digital/endpoints/integration/webhook/COLE-AQUI-O-UUID-CLINT',
-    //   mode: 'no-cors', ct: 'text/plain;charset=UTF-8' }
+    { url: 'https://functions-api.clint.digital/endpoints/integration/webhook/1a402b49-98e7-47d8-8dfd-63b45e4b362b',
+      mode: 'no-cors', ct: 'text/plain;charset=UTF-8' }
   ];
 
   /* ----------------------------------------------------------------------
@@ -232,6 +232,12 @@
       email:        fields.email.value.trim(),
       whatsapp:     country.dial + ' ' + masked,
       telefone:     '+' + onlyNums,
+
+      // Espelhos para o mapeamento da Clint, que espera `name` / `phone`.
+      // Os campos acima continuam intactos para o n8n (README §7.2).
+      name:         fields.nome.value.trim(),
+      phone:        '+' + onlyNums,
+
       utm_campaign: '',
       utm_medium:   '',
       utm_source:   '',
