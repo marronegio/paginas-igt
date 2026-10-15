@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inscrição confirmada — Formação em Coaching Criacional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ===== Obrigado page ===== */
+  .obg{
+    position:relative;
+    min-height:100vh;
+    background:var(--navy) url('images/obg-bg.webp') no-repeat center right;
+    background-size:cover;
+    display:flex;flex-direction:column;
+  }
+  .obg-main{
+    flex:1 0 auto;
+    display:flex;align-items:center;justify-content:center;
+    padding:72px 24px;
+  }
+  .obg-inner{
+    width:100%;max-width:600px;margin:0 auto;text-align:center;
+  }
+  .obg-logo{width:230px;margin:0 auto 30px;}
+  .obg h1{
+    font-family:'Raleway',sans-serif;font-weight:700;
+    font-size:46px;line-height:1.12;color:#fff;letter-spacing:-.5px;
+    margin-bottom:20px;
+  }
+  .obg h1 .gold{color:var(--gold);}
+  .obg-sub{
+    font-size:19px;line-height:1.55;color:#cdd9e2;
+    max-width:480px;margin:0 auto 44px;
+  }
+  .obg-sub b{color:#fff;font-weight:700;}
+
+  /* Step cards */
+  .obg-steps{display:flex;flex-direction:column;gap:22px;text-align:left;margin-bottom:54px;}
+  .step-card{
+    background:rgba(2,18,32,.78);
+    border:1px solid var(--navy-border);
+    border-radius:16px;
+    padding:36px 38px;
+    display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:center;
+    backdrop-filter:blur(2px);
+  }
+  .step-num{
+    font-family:'Inter Tight',sans-serif;font-weight:800;
+    font-size:72px;line-height:.9;color:var(--gold);
+    align-self:center;
+  }
+  .step-body h3{
+    font-family:'Raleway',sans-serif;font-weight:700;
+    font-size:25px;color:#fff;margin-bottom:12px;
+  }
+  .step-body p{
+    font-size:16px;line-height:1.55;color:var(--txt-on-dark);
+  }
+  .step-body .cta{margin-top:22px;}
+
+  /* Gold CTA variant */
+  .cta--gold{
+    background:var(--gold);color:#001626;
+    box-shadow:0 10px 24px -8px rgba(229,177,0,.5);
+  }
+  .cta--gold:hover{background:var(--gold-bright);box-shadow:0 16px 30px -8px rgba(229,177,0,.6);}
+  .cta--gold .chev{background:rgba(0,22,38,.16);}
+  .cta--gold .chev svg path{stroke:#001626;}
+  .cta--compact{padding:16px 26px;font-size:15px;width:auto;}
+
+  /* Doubts block */
+  .obg-doubts{text-align:center;}
+  .obg-doubts p{
+    font-family:'Raleway',sans-serif;font-weight:600;
+    font-size:21px;color:#fff;margin-bottom:20px;
+  }
+  .obg-doubts .cta{width:auto;}
+
+  /* Footer */
+  .obg-footer{
+    flex:none;
+    background:rgba(0,16,28,.55);
+    border-top:1px solid rgba(255,255,255,.06);
+    padding:34px 0;
+  }
+  .obg-footer .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;}
+  .obg-footer img{width:160px;opacity:.92;}
+  .obg-footer p{font-size:14px;color:#8094a3;}
+  .obg-footer p b{color:#c2d2dd;font-weight:700;}
+
+  @media(max-width:760px){
+    .obg{
+      background:var(--navy) url('images/obg-bg.webp') no-repeat top center;
+      background-size:140% auto;
+    }
+    .obg-main{padding:48px 20px;}
+    .obg-logo{width:160px;margin-bottom:24px;}
+    .obg h1{font-size:31px;}
+    .obg-sub{font-size:16px;margin-bottom:34px;}
+    .step-card{grid-template-columns:1fr;gap:6px;padding:28px 24px;}
+    .step-num{font-size:54px;}
+    .step-body h3{font-size:21px;}
+    .obg-doubts p{font-size:18px;}
+    .cta{width:100%;}
+    .cta--compact,.obg-doubts .cta{width:auto;}
+    .obg-footer .wrap{flex-direction:column;text-align:center;gap:16px;}
+  }
+</style>
+</head>
+<body>
+
+<main class="obg" data-screen-label="Obrigado">
+  <div class="obg-main">
+    <div class="obg-inner">
+      <img class="obg-logo" src="images/logo-igt-white.webp" alt="IGT — Formação em Coaching Criacional">
+
+      <h1>Sua inscrição <span class="gold">está confirmada.</span></h1>
+      <p class="obg-sub">Você acaba de tomar a decisão mais importante da sua vida. <b>Eu te honro por isso!</b></p>
+
+      <div class="obg-steps">
+        <article class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <h3>Acesse seu e-mail</h3>
+            <p>Te mandei um e-mail com todos os detalhes que você precisa saber a partir de agora, incluindo seu acesso individual à área de membros da FCC. Leia com atenção.</p>
+          </div>
+        </article>
+
+        <article class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <h3>Próximo passo</h3>
+            <p>Se o e-mail não chegar em até 10 minutos, cheque na sua caixa de spam ou chame o meu time aqui:</p>
+            <a href="https://links.igtcoaching.com.br/fale-com-o-time" target="_blank" class="cta cta--gold cta--compact">FALAR COM MEU TIME <span class="chev"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+          </div>
+        </article>
+      </div>
+
+      <div class="obg-doubts">
+        <p>Ainda com dúvidas?</p>
+        <a href="https://links.igtcoaching.com.br/fale-com-o-time" target="_blank" class="cta cta--compact">FALE COM A GENTE AQUI <span class="chev"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="obg-footer">
+    <div class="wrap">
+      <img src="images/logo-igt-white.webp" alt="IGT — Formação em Coaching Criacional">
+      <p><b>2026 © Geronimo Thelm.</b> Direitos Autorais Reservados.</p>
+    </div>
+  </footer>
+</main>
+
+</body>
+</html>
