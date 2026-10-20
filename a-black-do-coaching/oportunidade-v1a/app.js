@@ -21,14 +21,13 @@
   // Destino após a captura. Recebe as UTMs repassadas.
   var THANK_YOU_URL = 'obrigado/';
 
-  // TODO antes de subir: trocar os dois {UUID-...} pelos da ação (peça ao time de automação).
   var WEBHOOKS = [
     // IGT / n8n: devolve headers CORS, aceita application/json.
-    { url: 'https://webhook.igtcoaching.com.br/webhook/{UUID-N8N-DA-ACAO}',
+    { url: 'https://webhook.igtcoaching.com.br/webhook/084478b2-e299-46ee-9c15-aad4ae257c5e',
       mode: 'cors', ct: 'application/json' },
 
     // Clint: sem CORS no preflight -> "simple request" (text/plain + no-cors).
-    { url: 'https://functions-api.clint.digital/endpoints/integration/webhook/{UUID-CLINT-DA-ACAO}',
+    { url: 'https://functions-api.clint.digital/endpoints/integration/webhook/493787e9-05b4-4441-878f-1855feaed38b',
       mode: 'no-cors', ct: 'text/plain;charset=UTF-8' }
   ];
 

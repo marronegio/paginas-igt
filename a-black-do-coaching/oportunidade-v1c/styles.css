@@ -622,7 +622,19 @@ img { max-width: 100%; display: block; }
 
 /* Seção da live sobre o azul da identidade: o ciano some como destaque,
    então o destaque vira preto e cards/botão invertem para preto */
-.bk-live { background: var(--grad-brand); }
+.bk-live { background: var(--grad-brand); isolation: isolate; }
+/* textura de papel amassado mesclada ao azul: o tile foi normalizado para
+   cinza médio, então em overlay só as dobras clareiam/escurecem o azul */
+.bk-live::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url('assets/textura-papel.webp') center / cover no-repeat;  /* uma imagem só, sem repetir nem distorcer */
+  mix-blend-mode: overlay;
+  opacity: .7;
+  pointer-events: none;
+}
 .bk-live .bk-cyan { background: none; color: var(--brand-ink); -webkit-text-fill-color: currentColor; }
 .bk-live .bk-agenda li {
   background: var(--brand-ink);
@@ -729,8 +741,7 @@ img { max-width: 100%; display: block; }
   overflow-y: auto;
   background: var(--ink-800);
   border-top: 4px solid var(--cyan);
-  border-image: var(--grad-cyan-x) 1;
-  border-radius: 4px;
+  border-image: var(--grad-cyan-x) 1;   /* border-image ignora raio: cantos retos */
   padding: clamp(24px, 5vw, 34px);
   box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .95);
   animation: bk-rise .24s var(--ease);
@@ -831,7 +842,7 @@ img { max-width: 100%; display: block; }
   .bk-price__row,
   .bk-date__day { font-size: 2.1rem; }
   .bk-date { flex-direction: column; align-items: flex-start; gap: 6px; padding-left: 18px; }
-  .bk-date__meta { font-size: .64rem; letter-spacing: .06em; }
+  .bk-date__meta { font-size: .7rem; letter-spacing: .04em; }  /* >= 11px */
   .bk-price { flex: none; }  /* o preço não encolhe; a data é quem cede */
   .bk-label,
   .bk-price__note { white-space: nowrap; }

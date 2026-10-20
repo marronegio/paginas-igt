@@ -11,12 +11,15 @@ As três pastas são autossuficientes (cada uma tem `assets/`, `app.js` e `obrig
 
 Fluxo: CTA → popup (nome, e-mail, WhatsApp) → webhooks n8n + Clint → `/obrigado/` (90%) → Grupo VIP.
 
-## Antes de subir — pendências (nas 3 pastas)
+## Configuração da ação
 
-| # | O que | Onde |
-|---|---|---|
-| 1 | UUIDs dos webhooks (n8n + Clint) | `app.js` → `WEBHOOKS` |
-| 2 | Link do Grupo VIP do WhatsApp | `obrigado/ty.js` → `GROUP_URL` **e** `href` do `#group-cta` em `obrigado/index.html` |
+| Item | Onde |
+|---|---|
+| Webhooks n8n + Clint | `app.js` → `WEBHOOKS` |
+| Link do Grupo VIP (`black-do-coaching-grupos-wpp-nov26`) | `obrigado/ty.js` → `GROUP_URL` **e** `href` do `#group-cta` em `obrigado/index.html` |
+
+Antes de mandar tráfego: faça um envio real e confira a chegada do lead nos
+painéis do n8n e da Clint.
 
 ## Ao editar
 

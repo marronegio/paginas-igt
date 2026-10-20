@@ -10,10 +10,9 @@
 (function () {
   'use strict';
 
-  /* CONFIGURAÇÃO DA AÇÃO — TODO antes de subir: link do Grupo VIP.
-     Trocar aqui E no href do #group-cta no index.html (os dois iguais).
-     Enquanto estiver com o placeholder, vale o href que já está no HTML. */
-  var GROUP_URL = 'https://links.igtcoaching.com.br/COLE-AQUI-O-LINK-DO-GRUPO';
+  /* CONFIGURAÇÃO DA AÇÃO — link do Grupo VIP.
+     Se trocar, troque aqui E no href do #group-cta no index.html (os dois iguais). */
+  var GROUP_URL = 'https://links.igtcoaching.com.br/black-do-coaching-grupos-wpp-nov26';
 
   /* Quem não clica também precisa chegar no grupo: leva sozinho depois de N s. */
   var REDIRECT_SECONDS = 5;
