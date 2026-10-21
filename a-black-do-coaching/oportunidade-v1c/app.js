@@ -18,8 +18,8 @@
      CONFIGURAÇÃO DA AÇÃO  (README §11 — é só isto que muda entre ações)
      ---------------------------------------------------------------------- */
 
-  // Destino após a captura. Recebe as UTMs repassadas.
-  var THANK_YOU_URL = 'obrigado/';
+  // Destino após a captura: obrigado única das 3 variações. Recebe as UTMs repassadas.
+  var THANK_YOU_URL = '../obrigado/';
 
   var WEBHOOKS = [
     // IGT / n8n: devolve headers CORS, aceita application/json.

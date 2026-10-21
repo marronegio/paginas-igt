@@ -1,7 +1,7 @@
 # A Black do Coaching — Captação (live 9/11, 20h)
 
 Teste A/B/C da LP de captação. Segue o padrão do [README da raiz](../README.md).
-As três pastas são autossuficientes (cada uma tem `assets/`, `app.js` e `obrigado/`).
+Cada variação é autossuficiente (`assets/`, `app.js`). A página de obrigado é **uma só** para as três: `obrigado/`, com os próprios assets.
 
 | Pasta | Hero | Resto da página |
 |---|---|---|
@@ -9,14 +9,14 @@ As três pastas são autossuficientes (cada uma tem `assets/`, `app.js` e `obrig
 | `oportunidade-v1b/` | "Investimento não vai ser o problema…" | igual à v1a |
 | `oportunidade-v1c/` | "Passei dos 40. Ainda dá pra virar coach?" | igual à v1a |
 
-Fluxo: CTA → popup (nome, e-mail, WhatsApp) → webhooks n8n + Clint → `/obrigado/` (90%) → Grupo VIP.
+Fluxo: CTA → popup (nome, e-mail, WhatsApp) → webhooks n8n + Clint → `../obrigado/` (90%) → Grupo VIP.
 
 ## Configuração da ação
 
 | Item | Onde |
 |---|---|
 | Webhooks n8n + Clint | `app.js` → `WEBHOOKS` |
-| Link do Grupo VIP (`black-do-coaching-grupos-wpp-nov26`) | `obrigado/ty.js` → `GROUP_URL` **e** `href` do `#group-cta` em `obrigado/index.html` |
+| Link do Grupo VIP (`black-do-coaching-grupos-wpp-nov26`) | `a-black-do-coaching/obrigado/ty.js` → `GROUP_URL` **e** `href` do `#group-cta` em `obrigado/index.html` |
 
 Antes de mandar tráfego: faça um envio real e confira a chegada do lead nos
 painéis do n8n e da Clint.

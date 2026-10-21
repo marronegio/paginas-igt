@@ -1,5 +1,5 @@
 /* ==========================================================================
-   A Black do Coaching — Página de obrigado
+   A Black do Coaching — Página de obrigado (única para v1a, v1b e v1c)
 
    Um trabalho só: levar ao grupo do WhatsApp sem perder as UTMs
    (README §6.4 — link estático perde a atribuição).
