@@ -11,6 +11,9 @@ Cada variação é autossuficiente (`assets/`, `app.js`). A página de obrigado 
 
 Fluxo: CTA → popup (nome, e-mail, WhatsApp) → webhooks n8n + Clint → `../obrigado/` (90%) → Grupo VIP.
 
+`member-get-member/` é a página de indique e ganhe: gera o link da `oportunidade-v1a/`
+com `utm_term` = e-mail de quem indicou. Detalhes no [README dela](member-get-member/README.md).
+
 ## Configuração da ação
 
 | Item | Onde |

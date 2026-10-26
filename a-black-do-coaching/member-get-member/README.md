@@ -1,7 +1,7 @@
 # A Black do Coaching — Indique e ganhe
 
-Página de uma dobra só. Segue o padrão do [README da raiz](../README.md) e a
-identidade visual de [`a-black-do-coaching/`](../a-black-do-coaching/README.md).
+Página de uma dobra só. Segue o padrão do [README da raiz](../../README.md) e a
+identidade visual de [`a-black-do-coaching/`](../README.md).
 
 Fluxo: formulário (nome, e-mail, WhatsApp) → webhook n8n (só ele, sem Clint) → o link de
 indicação aparece na tela, com **Copiar link** e **Enviar no WhatsApp**. Não há redirect.
