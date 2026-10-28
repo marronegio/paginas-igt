@@ -15,9 +15,8 @@ Fluxo: CTA → popup (nome, e-mail, WhatsApp) → webhooks n8n + Clint → `../o
 | Item | Onde | Status |
 |---|---|---|
 | Webhooks n8n + Clint | `captacao/app.js` → `WEBHOOKS` | configurados |
-| Link do Grupo VIP | `obrigado/ty.js` → `GROUP_URL` **e** `href` do `#group-cta` em `obrigado/index.html` | **pendente** (`COLE-AQUI-…`) |
+| Link do Grupo VIP (`black-mba-grupos-wpp-nov26`) | `obrigado/ty.js` → `GROUP_URL` **e** `href` do `#group-cta` em `obrigado/index.html` | configurado |
 
-Enquanto o link do grupo tiver `COLE-AQUI`, a obrigado não redireciona sozinha.
 Antes de mandar tráfego, faça um envio real e confira a chegada do lead nos
 painéis do n8n e da Clint.
 
@@ -37,8 +36,13 @@ arredondados, prata → bronze, as mesmas da foto da hero):
 
 - na seção "Para quem lidera", duas molduras se cruzam e formam o diagrama dos dois
   eixos do MBA: Neurociência (prata) e Liderança (bronze), com o logo na interseção.
-  É a única animação da página: as molduras se juntam quando o diagrama entra na tela
-  (sem JS ou com `prefers-reduced-motion`, aparecem já juntas);
+  As molduras se juntam quando o diagrama entra na tela (sem JS ou com
+  `prefers-reduced-motion`, aparecem já juntas);
+- no fundo da seção da condição, linhas finas prata e bronze saem das bordas e um
+  ponto de luz corre por cada uma, em ritmos e sentidos diferentes (só CSS; posição
+  e ritmo de cada linha nos `style` do `.mb-offer__lines`). O painel é levemente
+  translúcido para a luz passar por trás. Com `prefers-reduced-motion`, as linhas
+  ficam paradas e sem luz;
 - a ficha "O MBA", a data da revelação na hero e o painel da condição usam a mesma moldura;
 - na chamada final e na obrigado, molduras soltas ficam só nas laterais, sem cruzar o texto.
 

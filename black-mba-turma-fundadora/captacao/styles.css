@@ -59,6 +59,7 @@
 
   --font: 'Kumbh Sans', 'Kumbh Sans Fallback', Arial, sans-serif;
   --radius: 14px;
+  --wrap: 1280px;          /* largura do conteúdo: topo, hero e seções */
 
   /* Grafismo: a linha acende nos cantos (prata em cima, bronze embaixo) e some no meio */
   --frame-dark: linear-gradient(135deg, rgba(178, 188, 202, .85) 0%, rgba(114, 123, 138, .16) 38%, rgba(150, 116, 88, .16) 62%, rgba(206, 170, 138, .9) 100%);
@@ -102,7 +103,7 @@ strong { font-weight: 700; }
 /* --------------------------------------------------------------------------
    Layout
    -------------------------------------------------------------------------- */
-.mb-wrap { max-width: 1160px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 40px); }
+.mb-wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 clamp(20px, 4vw, 40px); }
 .mb-section { padding: clamp(72px, 10vw, 136px) 0; }
 .mb-paper { background: var(--paper); color: var(--slate); }
 
@@ -181,7 +182,7 @@ strong { font-weight: 700; }
    -------------------------------------------------------------------------- */
 .mb-topbar { background: var(--slate); color: var(--paper); font-size: .875rem; }
 .mb-topbar__inner {
-  max-width: 1160px;
+  max-width: var(--wrap);
   margin: 0 auto;
   padding: 10px clamp(20px, 4vw, 40px);
   display: flex;
@@ -232,7 +233,7 @@ strong { font-weight: 700; }
 }
 .mb-hero__inner {
   width: 100%;
-  max-width: 1160px;
+  max-width: var(--wrap);
   margin: 0 auto;
   padding: clamp(56px, 7vw, 104px) clamp(20px, 4vw, 40px);
 }
@@ -245,9 +246,26 @@ strong { font-weight: 700; }
   margin: 0 0 28px;
   font-weight: 700;
   font-size: clamp(2.05rem, 1.25rem + 2.6vw, 3.25rem);
-  line-height: 1.1;
+  line-height: 1.3;  /* folga para o destaque de uma linha não encostar no da outra */
   letter-spacing: -.016em;
   text-wrap: balance;
+}
+
+/* Destaque bronze na headline. O fundo ocupa a caixa natural da letra (1.24em
+   na Kumbh: 0.25em acima das maiúsculas e 0.25em abaixo da linha de base, o que
+   cobre o "p"), então o texto fica centrado. Cada linha quebrada vira uma pílula
+   própria (clone). A margem negativa devolve o padding: o texto segue alinhado
+   às outras linhas. Degradê só na rampa bronze do manual; o tom mais claro ainda
+   dá contraste 3.4:1 com o branco (texto grande). */
+.mb-mark {
+  margin: 0 -.16em;
+  padding: 0 .16em;
+  border-radius: .2em;
+  color: #fff;
+  background: linear-gradient(105deg, #7a5c45 0%, var(--bronze) 50%, #a8845f 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18);  /* mesmo brilho do botão */
+  -webkit-box-decoration-break: clone;
+          box-decoration-break: clone;
 }
 
 /* Data da revelação dentro de uma moldura do grafismo */
@@ -413,13 +431,49 @@ strong { font-weight: 700; }
 /* --------------------------------------------------------------------------
    A condição da Turma Fundadora
    -------------------------------------------------------------------------- */
-.mb-offer { scroll-margin-top: 24px; }
+.mb-offer { position: relative; isolation: isolate; overflow: hidden; scroll-margin-top: 24px; }
+
+/* Fundo: linhas finas do grafismo (prata e bronze), saindo das bordas como as
+   molduras da hero, com um ponto de luz correndo por cada uma. Posição, tamanho
+   e ritmo de cada linha vêm do HTML (--t, --l, --w/--h, --d, --dl). */
+.mb-offer__lines { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.mb-line { position: absolute; overflow: hidden; --c: rgba(220, 226, 234, .9); --track: rgba(160, 170, 184, .16); }
+.mb-line--bronze { --c: rgba(222, 186, 152, .95); --track: rgba(201, 168, 139, .16); }
+.mb-line--h {
+  top: var(--t);
+  left: var(--l);
+  width: var(--w);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--track) 12%, var(--track) 88%, transparent);
+}
+.mb-line--v {
+  top: var(--t);
+  left: var(--l);
+  width: 1px;
+  height: var(--h);
+  background: linear-gradient(180deg, transparent, var(--track) 12%, var(--track) 88%, transparent);
+}
+.mb-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: var(--d) linear var(--dl) infinite;
+  will-change: transform;
+}
+.mb-line--h::after { width: 30%; height: 100%; background: linear-gradient(90deg, transparent, var(--c), transparent); animation-name: mb-run-x; }
+.mb-line--v::after { width: 100%; height: 30%; background: linear-gradient(180deg, transparent, var(--c), transparent); animation-name: mb-run-y; }
+.mb-line--rev::after { animation-direction: reverse; }
+
+/* A luz percorre a linha em 75% do ciclo e espera fora dela no resto */
+@keyframes mb-run-x { 0% { transform: translateX(-100%); } 75%, 100% { transform: translateX(334%); } }
+@keyframes mb-run-y { 0% { transform: translateY(-100%); } 75%, 100% { transform: translateY(334%); } }
 .mb-offer__panel {
   display: flex;
   flex-wrap: wrap;
   gap: clamp(36px, 5vw, 72px);
   padding: clamp(28px, 5vw, 64px);
-  background: linear-gradient(160deg, #1a212b 0%, #121720 100%);
+  background: linear-gradient(160deg, rgba(26, 33, 43, .86) 0%, rgba(18, 23, 32, .9) 100%);  /* deixa a luz das linhas passar de leve */
 }
 .mb-offer__what { flex: 1 1 340px; min-width: 0; }
 .mb-offer__deal { flex: 1 1 320px; min-width: 0; }
@@ -520,6 +574,31 @@ strong { font-weight: 700; }
 .mb-final__f2 { left: -4%; bottom: -16%; width: 19%; height: 44%; }
 .mb-final__f3 { right: -8%; top: -18%; width: 24%; height: 50%; }
 .mb-final__f4 { right: 3%; bottom: 7%; width: 15%; height: 50%; }
+
+/* Molduras vivas: a borda fica sempre visível bem de leve e duas luzes (prata e
+   bronze) correm por ela, girando o ângulo do gradiente cônico (--mb-a); ao mesmo
+   tempo cada moldura deriva alguns px (--dx/--dy). Só animam com a seção na tela
+   (.is-live, posto pelo app.js); sem JS ficam paradas. */
+@property --mb-a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+
+.mb-final__frames .mb-frame {
+  background:
+    conic-gradient(from var(--mb-a),
+      transparent 0deg, transparent 50deg, rgba(226, 231, 238, .95) 105deg, transparent 122deg,
+      transparent 230deg, rgba(224, 190, 158, .95) 285deg, transparent 302deg),
+    linear-gradient(rgba(160, 170, 184, .14), rgba(160, 170, 184, .14));
+  animation: mb-spin 10s linear infinite, mb-drift 16s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+.mb-final.is-live .mb-frame { animation-play-state: running; }
+
+.mb-final__frames .mb-final__f1 { --dx: 16px;  --dy: -10px; animation-duration: 11s, 17s;   animation-delay: -2s, -5s; }
+.mb-final__frames .mb-final__f2 { --dx: -10px; --dy: 12px;  animation-duration: 14s, 15s;   animation-delay: -6s, -1s; animation-direction: reverse, alternate; }
+.mb-final__frames .mb-final__f3 { --dx: -18px; --dy: 10px;  animation-duration: 12s, 19s;   animation-delay: -8s, -9s; }
+.mb-final__frames .mb-final__f4 { --dx: 12px;  --dy: 16px;  animation-duration: 9.5s, 14s; animation-delay: -3s, -7s; animation-direction: reverse, alternate; }
+
+@keyframes mb-spin { to { --mb-a: 360deg; } }
+@keyframes mb-drift { from { transform: translate(0, 0); } to { transform: translate(var(--dx), var(--dy)); } }
 
 .mb-final__title {
   margin: 0 0 20px;
@@ -704,5 +783,7 @@ strong { font-weight: 700; }
 
 /* Sem movimento para quem pediu */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+  .mb-line::after { display: none; }  /* as linhas ficam, paradas */
+  .mb-final__frames .mb-frame { animation: none; }
 }

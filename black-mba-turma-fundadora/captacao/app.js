@@ -137,6 +137,21 @@
   }
 
   /* ----------------------------------------------------------------------
+     Molduras da chamada final: a borda animada repinta a cada quadro, então
+     só roda com a seção na tela (CSS: .mb-final.is-live).
+     ---------------------------------------------------------------------- */
+
+  function initLiveFrames() {
+    var section = $('.mb-final');
+    if (!section) return;
+    if (!('IntersectionObserver' in window)) { section.classList.add('is-live'); return; }
+
+    new IntersectionObserver(function (entries) {
+      section.classList.toggle('is-live', entries[0].isIntersecting);
+    }).observe(section);
+  }
+
+  /* ----------------------------------------------------------------------
      Abrir / fechar o popup (README §5.2)
      ---------------------------------------------------------------------- */
 
@@ -353,6 +368,7 @@
   function init() {
     initCountdown();
     initAxes();
+    initLiveFrames();
 
     var form = $('#capture-form');
     if (!form) return;

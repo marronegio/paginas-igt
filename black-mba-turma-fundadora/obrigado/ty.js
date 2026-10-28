@@ -12,8 +12,8 @@
 
   /* CONFIGURAÇÃO DA AÇÃO — link do Grupo VIP.
      Se trocar, troque aqui E no href do #group-cta no index.html (os dois iguais).
-     PENDENTE: enquanto tiver COLE-AQUI, não há redirecionamento automático. */
-  var GROUP_URL = 'https://links.igtcoaching.com.br/COLE-AQUI-O-LINK-DO-GRUPO-VIP';
+     Com COLE-AQUI no link, não há redirecionamento automático (proteção para ações novas). */
+  var GROUP_URL = 'https://links.igtcoaching.com.br/black-mba-grupos-wpp-nov26';
 
   /* Quem não clica também precisa chegar no grupo: leva sozinho depois de N s. */
   var REDIRECT_SECONDS = 5;
