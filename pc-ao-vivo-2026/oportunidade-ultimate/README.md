@@ -27,7 +27,7 @@ Anúncio (UTMs) ──► index.html
                       │  submit
                       ├──► POST webhook n8n IGT
                       ├──► POST webhook CRM Clint
-                      └──► /obrigado/ (UTMs + xcod) ──► grupo no WhatsApp
+                      └──► /obrigado/ (UTMs) ──► grupo no WhatsApp
 ```
 
 O popup segue a [§5](../../README.md#5-popup-pré-checkout): mesma estrutura de
@@ -37,7 +37,8 @@ bandeiras e máscara BR. A diferença é o destino — não há checkout, o subm
 à `/obrigado/`.
 
 Resto do padrão aplicado: os dois webhooks com `keepalive`, repasse integral de
-UTMs, GTM nas duas páginas, pixels da VK com `data-no-xcod-url`.
+UTMs, GTM nas duas páginas, Central de Links nas duas páginas e `data-ab-form` no
+formulário ([§8](../../README.md#8-rastreamento-central-de-links)).
 
 ---
 
@@ -93,6 +94,6 @@ pareça sair da foto e chegar na ação. Tudo desligado em
 - Submit: `#modal-success` aparece **e** o redirect dispara
 - Payload dos dois webhooks conforme [§7.2](../../README.md#72-payload-padrão),
   com `mode`/`Content-Type` certos por destino e `keepalive: true`
-- UTMs (inclusive `fbclid`) + `xcod` com `vid` chegam na `/obrigado/`; UTMs
+- UTMs (inclusive `fbclid`) chegam na `/obrigado/`; UTMs
   seguem para o link do grupo
 - CSS inline parseado inteiro pelo navegador (86 regras, nenhuma at-rule vazia)

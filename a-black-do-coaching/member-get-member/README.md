@@ -28,8 +28,8 @@ quem indicou.
 
 - CSS: `styles.css` é a versão legível; o `<style>` do `index.html` é a minificada. Altere nos dois.
 - JS: editou `app.js`? Suba o `?v=` do `<script>`.
-- O botão "Enviar no WhatsApp" é `<button>`, não `<a>`: o pixel de vendas da VK
-  reescreve o `href` de todo link da página e colaria `xcod`/`utm_content` na mensagem.
+- O botão "Enviar no WhatsApp" é `<button>`, não `<a>`: foi por causa do pixel de vendas
+  da VK, que reescrevia o `href` de todo link. A VK saiu (out/2026); pode virar `<a>`.
 
 ## Design
 

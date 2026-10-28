@@ -2,7 +2,7 @@
 
 Documento de referência para **todas as ações** (lançamentos, imersões, captações, webinários) da IGT.
 
-Define o que é obrigatório em qualquer LP nova: responsividade, popup pré-checkout, encaminhamento de UTMs, webhooks, pixels da VK e GTM.
+Define o que é obrigatório em qualquer LP nova: responsividade, popup pré-checkout, encaminhamento de UTMs, webhooks, rastreamento da Central de Links e GTM.
 
 > **Implementação de referência:** este repositório (`igt-protocolo-6porcento-2026`). Todos os trechos de código abaixo estão em produção aqui e podem ser copiados como estão. Ao iniciar uma ação nova, clone esta estrutura e altere apenas o que a [§11](#11-o-que-muda-a-cada-ação) lista.
 
@@ -17,7 +17,7 @@ Define o que é obrigatório em qualquer LP nova: responsividade, popup pré-che
 5. [Popup pré-checkout](#5-popup-pré-checkout)
 6. [Encaminhamento de UTMs](#6-encaminhamento-de-utms)
 7. [Webhooks](#7-webhooks)
-8. [Scripts da VK](#8-scripts-da-vk)
+8. [Rastreamento: Central de Links](#8-rastreamento-central-de-links)
 9. [Script do GTM](#9-script-do-gtm)
 10. [Deploy e cache](#10-deploy-e-cache)
 11. [O que muda a cada ação](#11-o-que-muda-a-cada-ação)
@@ -40,7 +40,7 @@ Define o que é obrigatório em qualquer LP nova: responsividade, popup pré-che
 | Item | Valor |
 |---|---|
 | Container GTM | `GTM-WSTL4F8` |
-| Conta VK (leads e vendas) | `cK0i3FbAiLmfmeAOoJlK` |
+| Rastreador (Central de Links) | `https://centrallinks-beta.vercel.app/t.js` |
 | Host de webhook n8n | `webhook.igtcoaching.com.br` |
 | Host de webhook CRM | `functions-api.clint.digital` |
 | Encurtador de links | `links.igtcoaching.com.br` |
@@ -92,10 +92,11 @@ Anúncio (Meta/Google) com UTMs
         ▼                                                 │
     MODAL: nome + e-mail + WhatsApp (DDI)                 │
         │  submit                                          │
+        ├──► Central de Links registra o lead (§8)         │
         ├──► POST webhook n8n IGT                          │
         ├──► POST webhook CRM Clint                        │
         └──► redirect ► checkout (Hotmart)                 │
-                 (com UTMs encaminhadas + xcod da VK) ◄────┘
+                 (com UTMs encaminhadas) ◄─────────────────┘
                         │
                         ▼
                   /obrigado/ → grupo de WhatsApp
@@ -264,7 +265,7 @@ Modal que captura **nome + e-mail + WhatsApp (com DDI)** antes de mandar o lead 
       <h3 class="p6-modal__title" id="modal-title">Garanta sua vaga</h3>
       <p class="p6-modal__desc">Preencha para seguir ao pagamento — <strong class="p6-strong-white">R$<span data-lote="price">32</span>,00</strong>, à vista ou em até 5x.</p>
 
-      <form class="p6-modal__fields" id="checkout-form" novalidate>
+      <form data-ab-form class="p6-modal__fields" id="checkout-form" novalidate>
         <div class="p6-field">
           <label class="p6-field__label" for="in-nome">Nome completo</label>
           <input class="p6-field__input" id="in-nome" name="nome" type="text"
@@ -310,6 +311,7 @@ Modal que captura **nome + e-mail + WhatsApp (com DDI)** antes de mandar o lead 
 | `autocomplete="name" / "email" / "tel"` | Autofill do navegador = menos atrito |
 | `type="email"` e `type="tel"` | Teclado correto no mobile |
 | `novalidate` no `<form>` | Desliga o balão nativo; validação fica com o `required` + regras próprias |
+| `data-ab-form` no `<form>` | A Central de Links registra início de preenchimento e lead ([§8](#8-rastreamento-central-de-links)) |
 | `aria-label` no `<select>` de DDI | Não tem label visível |
 | Fecha por: botão X, clique no overlay e tecla `Esc` | Três saídas |
 | `[hidden] { display: none !important; }` no CSS | Faz o atributo `hidden` vencer o `display:flex` da classe |
@@ -434,8 +436,10 @@ Após o submit, `#modal-success` aparece **e** o redirect dispara. O sucesso é 
 
 As UTMs seguem por **dois caminhos independentes**:
 
-1. **Na URL do checkout** (atribuição de venda na Hotmart/VK) — `withForwardedParams()`
+1. **Na URL do checkout** (atribuição de venda na Hotmart) — `withForwardedParams()`
 2. **No corpo do webhook** (atribuição de lead no CRM) — `submitForm()`
+
+A Central de Links lê as UTMs sozinha, direto da URL da página ([§8](#8-rastreamento-central-de-links)).
 
 ### 6.1 Repasse para a URL do checkout
 
@@ -452,11 +456,6 @@ function withForwardedParams(baseUrl) {
       if (!target.searchParams.has(key)) target.searchParams.append(key, value); // não sobrescreve o que o link já define
     });
 
-    // VK Metrics: identifica a venda com o anúncio Meta que originou o clique.
-    var adId     = incoming.get('utm_content') || '';
-    var vkSource = incoming.get('vk_source')   || 'paid_metaads';
-    target.searchParams.set('xcod', JSON.stringify({ vid: adId, vsrc: vkSource, url: 'checkout', v: 1 }));
-
     return target.toString();
   } catch (e) {
     return baseUrl;   // qualquer erro: manda pro checkout mesmo assim, nunca trava a venda
@@ -468,10 +467,11 @@ function withForwardedParams(baseUrl) {
 
 | Decisão | Por quê |
 |---|---|
-| Repassa **tudo**, sem whitelist | Parâmetro novo (`fbclid`, `gclid`, `vk_source`, `sck` extra…) passa sem alterar código |
+| Repassa **tudo**, sem whitelist | Parâmetro novo (`fbclid`, `gclid`, `sck` extra…) passa sem alterar código |
 | `if (!target.searchParams.has(key))` | O link de checkout já traz `off`, `split`, `sck` — a URL da LP nunca sobrescreve |
 | `try/catch` com `return baseUrl` | URL malformada não pode impedir a compra |
-| `xcod` com `set()` (não `append`) | É gerado pela LP, sempre um só |
+
+> Até out/2026 esta função também montava o `xcod` para a VK Metrics. A VK saiu: não monte mais `xcod`. Os `ty.js` das obrigado ainda descartam um `xcod` que chegue na URL, para ele não ir parar na mensagem do WhatsApp.
 
 ### 6.2 UTMs no payload do webhook
 
@@ -496,9 +496,7 @@ var payload = {
 
 | Parâmetro | Origem | Uso |
 |---|---|---|
-| `utm_source`, `utm_medium`, `utm_campaign`, `utm_term` | Anúncio | Webhook + URL do checkout |
-| `utm_content` | Anúncio — **deve conter o ID do anúncio Meta** | Vira `xcod.vid` (atribuição VK) + webhook |
-| `vk_source` | Anúncio (opcional) | Vira `xcod.vsrc`; default `paid_metaads` |
+| `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term` | Anúncio | Webhook + URL do checkout + Central de Links |
 | `sck` | Fixo na URL de cada lote/oferta | Identifica lote e origem na Hotmart |
 
 ### 6.4 Navegação interna
@@ -607,80 +605,83 @@ Os webhooks disparam em paralelo; **não** se espera resposta antes de redirecio
 
 ---
 
-## 8. Scripts da VK
+## 8. Rastreamento: Central de Links
 
-A VK (VK Digital / VK Metrics) faz a atribuição de vendas ao anúncio de origem. São **dois blocos**, ambos no **fim do `<body>`**, depois do `app.js`. [index.html:326-353](index.html#L326-L353).
+A VK Metrics saiu (out/2026). O rastreamento agora é da **Central de Links**, a nossa ferramenta de teste A/B. Ela **não substitui** webhook nem formulário: só observa a página e avisa a Central. Registra três eventos, sempre por visitante:
 
-Conta VK da IGT (a mesma em todas as ações): **`cK0i3FbAiLmfmeAOoJlK`**
+| Evento | Quando |
+|---|---|
+| `pageview` | A página abre |
+| `form_inicio` | O primeiro campo de um formulário marcado recebe foco. Conta uma vez por visita |
+| `lead` | O formulário é enviado **e** a validação da página não o barra |
 
-### 8.1 Pixel de Leads
+Junto de cada evento vão as UTMs da URL (`utm_source` … `utm_term`), o `referrer` e um ID de visitante (`ab_vid`, em cookie + `localStorage`). A Central identifica a variante do teste pelo endereço da página.
 
-```html
-<!--Script de Leads-->
-<script async="true">
-  (function(w, d, s, u) {
-  w.vkPixel = w.vkPixel || { _q: [] };
-  w.vkPixel._q.push(['init', 'cK0i3FbAiLmfmeAOoJlK']);
-  var js = d.createElement(s);
-  js.src = u;
-  js.async = true;
-  d.head.appendChild(js);
-  })(window, document, 'script', 'https://cf.vkdigital.com.br/pixel.js?v=55');
-</script>
-```
+### 8.1 Script — último item do `<body>`, em todas as páginas
 
-### 8.2 Pixel de Vendas + PageView
+Em **todas** as páginas da ação (LP, `/obrigado/`, `/disclaimer/`), logo antes de `</body>`. O código é o mesmo para todas:
 
 ```html
-<!--Script de Vendas-->
-<script>
-  !function(w,d,c,u){
-  (w.vkPixelSales=w.vkPixelSales||{_q:[]})._q.push(['init',c]);
-  (w.vkPageViewPixel=w.vkPageViewPixel||{_q:[]})._q.push(['init',c,'page_view']);
-  ['https://cf.vkdigital.com.br/sales_pixel.js?v=56','https://cf.vkdigital.com.br/event_pageview.js'].forEach(function(src,i){
-  var s=d.createElement('script');
-  s.src=src;
-  s.async=1;
-  if(i===0) {
-  s.setAttribute('data-no-xcod-url','');
-  }
-  d.head.appendChild(s);
-  });
-  }(window,document,'cK0i3FbAiLmfmeAOoJlK');
-</script>
+<!-- Rastreamento: Central de Links (README §8) -->
+<script src="https://centrallinks-beta.vercel.app/t.js" async></script>
 ```
 
-### 8.3 Regras (não altere sem entender)
+É a "opção 1" da Central (arquivo hospedado): o código do rastreador fica na Central, então qualquer ajuste lá chega a todas as páginas sozinho, em até 5 minutos (cache do `t.js`). **Não** cole o conteúdo do `t.js` na página.
+
+### 8.2 `data-ab-form` em todo `<form>`
+
+O rastreador só reconhece sozinho o formulário do ActiveCampaign. Os nossos são próprios, então **todo** `<form>` leva o atributo:
+
+```html
+<form data-ab-form class="p6-modal__fields" id="checkout-form" novalidate>
+```
+
+Sem ele, a Central registra a visita, mas nunca o início de preenchimento nem o lead.
+
+### 8.3 Submit: cancelar só o envio inválido (obrigatório)
+
+O rastreador só conta `lead` se o evento de submit **não** foi cancelado (`event.defaultPrevented`), e confere isso **depois** dos tratadores da própria página. Os nossos forms nunca podem ser enviados pelo navegador (o redirect é feito no JS, [§7.3](#73-disparo)), e o padrão antigo — `ev.preventDefault()` na primeira linha do listener — faz a Central **nunca** contar lead, sem erro nenhum no console.
+
+O padrão certo cancela o envio inválido no `<form>` e o válido no `document`, que roda depois do rastreador:
+
+```js
+function submitForm(fields, button) {
+  if (state.sending) return false;          // false = não enviou
+  if (!validate(fields)) return false;
+  /* … webhooks + redirect (§7.3) … */
+  return true;
+}
+
+form.addEventListener('submit', function (ev) {
+  if (!submitForm(fields, button)) ev.preventDefault();   // inválido: a Central não conta lead
+});
+document.addEventListener('submit', function (ev) {
+  if (ev.target === form) ev.preventDefault();             // válido: cancelado depois que a Central viu
+});
+```
 
 | Regra | Motivo |
 |---|---|
-| Os dois blocos **no fim do `<body>`**, após o `app.js` | São `async` e não bloqueiam render; a fila `_q` garante a ordem |
-| `data-no-xcod-url` no `sales_pixel.js` | **Desliga a injeção automática de `xcod` da VK.** Sem isso o script sobrescreve o `xcod` montado pela LP e a atribuição por criativo se perde |
-| Padrão de fila (`_q.push(['init', …])`) | O `init` é enfileirado antes do script existir — sem race condition |
-| Versões pinadas (`pixel.js?v=55`, `sales_pixel.js?v=56`) | Atualize só quando a VK pedir, e em todas as ações de uma vez |
+| Nunca `preventDefault()` incondicional no listener do `<form>` | A Central perde todos os leads, silenciosamente |
+| O listener no `document` é obrigatório | Sem ele o navegador envia o form de verdade: GET na própria página com nome, e-mail e telefone na URL |
+| Clique repetido (`state.sending`) devolve `false` | Senão cada clique extra conta mais um lead |
 
-### 8.4 Integração VK ↔ LP: o parâmetro `xcod`
+### 8.4 Regras
 
-A LP é quem constrói o `xcod` e anexa na URL do checkout ([§6.1](#61-repasse-para-a-url-do-checkout)):
+| Regra | Motivo |
+|---|---|
+| O endereço cadastrado na Central é igual ao que o público acessa (`https`, com ou sem `www`) | Endereço diferente: a visita é descartada **sem aviso** |
+| Inicie o teste na Central antes de mandar tráfego | Ela só conta visitas com o teste ativo |
+| Foco automático conta como início | Nas LPs com popup, o `openCheckout()` foca o primeiro campo: o `form_inicio` acontece ao **abrir** o popup, não no primeiro clique no campo |
 
-```js
-target.searchParams.set('xcod', JSON.stringify({
-  vid:  incoming.get('utm_content') || '',              // ID do anúncio Meta
-  vsrc: incoming.get('vk_source')   || 'paid_metaads',  // origem
-  url:  'checkout',
-  v:    1
-}));
-```
+### 8.5 Como conferir
 
-Resultado (antes do encode):
+DevTools → aba **Network**, filtro `track`. Cada evento é um `POST` para `centrallinks-beta.vercel.app/api/track`, com o `tipo` no corpo:
 
-```
-https://pay.hotmart.com/{PRODUTO}?off={OFERTA}&…&xcod={"vid":"1234567890","vsrc":"paid_metaads","url":"checkout","v":1}
-```
-
-**Contrato com o time de tráfego, válido para toda ação:** o `utm_content` do anúncio **precisa** carregar o ID do anúncio Meta. É dele que sai o `vid`. Se vier vazio, a venda não é atribuída ao criativo.
-
-> Histórico da LP de referência: esse valor já esteve em outro parâmetro e foi movido para dentro do `xcod` (commits `612810d`, `f1dbf1b`). Se a atribuição sumir em alguma ação, verifique primeiro se o `data-no-xcod-url` continua no lugar.
+1. Abrir a LP → `pageview`.
+2. Abrir o popup / focar o primeiro campo → `form_inicio` (uma vez só).
+3. Enviar com campo inválido → **nada**.
+4. Enviar válido → `lead`, e o redirect acontece.
 
 ---
 
@@ -786,9 +787,9 @@ Regras dos lotes: datas ISO com `-03:00`; `sck` distinto por lote (é como o lot
 
 **No HTML:** copy, `<title>`, `<meta description>`, assets do hero e logos, textos do modal, links da `/obrigado/`.
 
-**Fora do código:** UUIDs de webhook (n8n + Clint), produto/ofertas na Hotmart, secrets de FTP do repositório.
+**Fora do código:** UUIDs de webhook (n8n + Clint), produto/ofertas na Hotmart, secrets de FTP do repositório, cadastro do teste na Central de Links (endereços das páginas).
 
-**Não muda:** GTM `GTM-WSTL4F8` · conta VK `cK0i3FbAiLmfmeAOoJlK` · `withForwardedParams()` · `formatBrPhone()` · lista `COUNTRIES` · estrutura do payload de webhook · `.htaccess`.
+**Não muda:** GTM `GTM-WSTL4F8` · script da Central de Links (`t.js`) · `withForwardedParams()` · `formatBrPhone()` · lista `COUNTRIES` · estrutura do payload de webhook · `.htaccess`.
 
 ---
 
@@ -818,10 +819,12 @@ Regras dos lotes: datas ISO com `-03:00`; `sck` distinto por lote (é como o lot
 
 **Rastreamento**
 - [ ] GTM `GTM-WSTL4F8`: bloco `<head>` **e** `<noscript>`, em todas as páginas do funil
-- [ ] VK: pixel de leads + pixel de vendas no fim do `<body>`
-- [ ] `data-no-xcod-url` presente no `sales_pixel.js`
-- [ ] Abrir a LP com `?utm_source=x&utm_content=123&utm_campaign=y` e confirmar no checkout: UTMs presentes **e** `xcod` com `vid=123`
-- [ ] Time de tráfego confirmou que o `utm_content` dos anúncios leva o ID do criativo
+- [ ] Central de Links: `t.js` antes de `</body>` em **todas** as páginas da ação
+- [ ] `data-ab-form` em **todo** `<form>`
+- [ ] Submit no padrão da [§8.3](#83-submit-cancelar-só-o-envio-inválido-obrigatório) (nada de `preventDefault()` incondicional)
+- [ ] Endereços das páginas cadastrados na Central iguais aos acessados (`https`, `www`) e teste **iniciado**
+- [ ] Network com filtro `track`: `pageview` ao abrir, `form_inicio` ao focar, **nada** no envio inválido, `lead` no envio válido
+- [ ] Abrir a LP com `?utm_source=x&utm_content=123&utm_campaign=y` e confirmar que as UTMs chegam no checkout (ou na `/obrigado/`)
 
 **Webhooks**
 - [ ] Submit de teste chega no n8n IGT

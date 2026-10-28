@@ -214,11 +214,6 @@
         if (!target.searchParams.has(key)) target.searchParams.append(key, value);
       });
 
-      // VK Metrics: identifica o lead com o anúncio Meta que originou o clique.
-      var adId     = incoming.get('utm_content') || '';
-      var vkSource = incoming.get('vk_source')   || 'paid_metaads';
-      target.searchParams.set('xcod', JSON.stringify({ vid: adId, vsrc: vkSource, url: 'captura', v: 1 }));
-
       return target.toString();
     } catch (e) {
       return baseUrl;   // qualquer erro: segue o fluxo mesmo assim
@@ -285,8 +280,8 @@
      ---------------------------------------------------------------------- */
 
   function submitForm(fields, button) {
-    if (state.sending) return;
-    if (!validate(fields)) return;
+    if (state.sending) return false;          // false = não enviou
+    if (!validate(fields)) return false;
 
     state.sending = true;
     button.setAttribute('aria-busy', 'true');
@@ -348,6 +343,7 @@
     modalSuccess.hidden = false;
 
     window.location.href = withForwardedParams(THANK_YOU_URL);
+    return true;
   }
 
   /* ----------------------------------------------------------------------
@@ -391,9 +387,14 @@
       if (state.country === 'BR') fields.phone.value = formatBrPhone(fields.phone.value);
     });
 
+    /* Central de Links (README §8): o rastreador só conta `lead` se o submit
+       não foi cancelado. Por isso aqui só se cancela o envio inválido; o válido
+       é cancelado no document, depois que o rastreador já o viu. */
     form.addEventListener('submit', function (ev) {
-      ev.preventDefault();
-      submitForm(fields, button);
+      if (!submitForm(fields, button)) ev.preventDefault();
+    });
+    document.addEventListener('submit', function (ev) {
+      if (ev.target === form) ev.preventDefault();   // o navegador nunca envia o form de verdade
     });
 
     /* Delegação por atributo: N botões podem abrir o mesmo modal sem duplicar

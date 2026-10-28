@@ -327,7 +327,7 @@
           <h2 class="mb-modal__title" id="modal-title">Entre no Grupo VIP da Turma Fundadora</h2>
           <p class="mb-modal__desc">A condição é revelada ao vivo, dia 24 de novembro, às 20h. Entrada gratuita.</p>
 
-          <form class="mb-fields" id="capture-form" novalidate>
+          <form data-ab-form class="mb-fields" id="capture-form" novalidate>
             <div class="mb-field">
               <label class="mb-field__label" for="in-nome">Seu nome</label>
               <input class="mb-field__input" id="in-nome" name="nome" type="text" placeholder="Seu nome completo"
@@ -377,37 +377,10 @@
 
   </div>
 
-  <script src="app.js?v=2" defer></script>
+  <script src="app.js?v=3" defer></script>
 
-  <!--Script de Leads-->
-  <script async="true">
-    (function (w, d, s, u) {
-      w.vkPixel = w.vkPixel || { _q: [] };
-      w.vkPixel._q.push(['init', 'cK0i3FbAiLmfmeAOoJlK']);
-      var js = d.createElement(s);
-      js.src = u;
-      js.async = true;
-      d.head.appendChild(js);
-    })(window, document, 'script', 'https://cf.vkdigital.com.br/pixel.js?v=55');
-  </script>
-
-  <!--Script de Vendas-->
-  <script>
-    !function (w, d, c, u) {
-      (w.vkPixelSales = w.vkPixelSales || { _q: [] })._q.push(['init', c]);
-      (w.vkPageViewPixel = w.vkPageViewPixel || { _q: [] })._q.push(['init', c, 'page_view']);
-      ['https://cf.vkdigital.com.br/sales_pixel.js?v=56', 'https://cf.vkdigital.com.br/event_pageview.js'].forEach(function (src, i) {
-        var s = d.createElement('script');
-        s.src = src;
-        s.async = 1;
-        if (i === 0) {
-          s.setAttribute('data-no-xcod-url', '');
-        }
-        d.head.appendChild(s);
-      });
-    }(window, document, 'cK0i3FbAiLmfmeAOoJlK');
-  </script>
-
+  <!-- Rastreamento: Central de Links (README §8) -->
+  <script src="https://centrallinks-beta.vercel.app/t.js" async></script>
 </body>
 
 </html>

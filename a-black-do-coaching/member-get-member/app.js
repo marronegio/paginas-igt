@@ -193,8 +193,8 @@
   }
 
   function submitForm(fields, button) {
-    if (state.sending) return;
-    if (!validate(fields)) return;
+    if (state.sending) return false;          // false = não enviou
+    if (!validate(fields)) return false;
 
     state.sending = true;
     button.setAttribute('aria-busy', 'true');
@@ -227,6 +227,7 @@
     });
 
     showResult();
+    return true;
   }
 
   /* ----------------------------------------------------------------------
@@ -323,9 +324,14 @@
       if (state.country === 'BR') fields.phone.value = formatBrPhone(fields.phone.value);
     });
 
+    /* Central de Links (README §8): o rastreador só conta `lead` se o submit
+       não foi cancelado. Por isso aqui só se cancela o envio inválido; o válido
+       é cancelado no document, depois que o rastreador já o viu. */
     form.addEventListener('submit', function (ev) {
-      ev.preventDefault();
-      submitForm(fields, button);
+      if (!submitForm(fields, button)) ev.preventDefault();
+    });
+    document.addEventListener('submit', function (ev) {
+      if (ev.target === form) ev.preventDefault();   // o navegador nunca envia o form de verdade
     });
 
     $('#mg-copy').addEventListener('click', onCopy);

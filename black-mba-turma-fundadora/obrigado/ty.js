@@ -24,7 +24,7 @@
       var incoming = new URLSearchParams(window.location.search);
 
       incoming.forEach(function (value, key) {
-        if (key === 'xcod') return;                       // xcod é da LP, não vai pro WhatsApp
+        if (key === 'xcod') return;                       // xcod (legado da VK) não vai pro WhatsApp
         if (!target.searchParams.has(key)) target.searchParams.append(key, value);
       });
 
