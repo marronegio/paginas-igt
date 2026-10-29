@@ -314,6 +314,19 @@ img { max-width: 100%; display: block; }
   line-height: 1.6;
   color: var(--mist-2);
 }
+.mg-footer p { margin: 0 auto; }
+.mg-footer p + p { margin-top: 10px; }
+.mg-footer__terms {
+  max-width: 110ch;
+  font-size: .7rem;
+  line-height: 1.55;
+}
+.mg-footer__terms a {
+  color: var(--mist);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.mg-footer__terms a:hover { color: var(--paper); }
 
 /* ===== Responsivo ===== */
 @media (min-width: 900px) {
