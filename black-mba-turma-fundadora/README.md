@@ -52,4 +52,4 @@ depoimentos usam o nome espaçado em caixa alta, recurso do manual.
 
 Hero: a foto é dimensionada pela largura e fica sempre à direita; a coluna de texto
 vai até 47vw. Abaixo de 1024px a foto vira faixa no topo e o texto desce; abaixo de
-680px entra o recorte `hero-mba-mobile.webp`, centrado no Geronimo.
+680px entra o recorte `hero-mba-palco-mobile.webp`, centrado no Geronimo.

@@ -219,7 +219,7 @@ strong { font-weight: 700; }
   inset: 0 0 auto 0;
   z-index: -2;
   aspect-ratio: 1672 / 941;
-  background: url('assets/hero-mba.webp') right top / cover no-repeat;
+  background: url('assets/hero-mba-palco.webp') right top / cover no-repeat;
   -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 28%);
   mask-image: linear-gradient(to top, transparent 0%, #000 28%);
 }
@@ -751,7 +751,7 @@ strong { font-weight: 700; }
   /* Foto no topo (recorte próprio, centrado no Geronimo), dissolvendo no fundo */
   .mb-hero-bg {
     aspect-ratio: 860 / 784;
-    background-image: url('assets/hero-mba-mobile.webp');
+    background-image: url('assets/hero-mba-palco-mobile.webp');
     background-position: top center;
     -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 50%);
     mask-image: linear-gradient(to top, transparent 0%, #000 50%);
