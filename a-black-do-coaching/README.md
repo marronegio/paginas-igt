@@ -18,6 +18,9 @@ com `utm_term` = e-mail de quem indicou. Detalhes no [README dela](member-get-me
 `fcc-oportunidade-obrigado/`. Segue o manual da FCC (não a identidade da captação).
 Detalhes e pendências no [README dela](fcc-oportunidade/README.md).
 
+`ao-vivo-v1/` e `ao-vivo-v2/` são a captação do dia da live: avisam que o Geronimo está
+ao vivo no Zoom e levam o lead **direto para a sala**. Detalhes em [Captação ao vivo](#captação-ao-vivo).
+
 ## Configuração da ação
 
 | Item | Onde |
@@ -57,3 +60,34 @@ Animações: a hero entra escalonada no carregamento. O resto aparece ao entrar
 na tela rolando para baixo e some ao sair por baixo rolando para cima
 (`initReveal()` no `app.js` + bloco "Animações de entrada" no `styles.css`).
 Sem JS ou com `prefers-reduced-motion`, tudo fica visível e estático.
+
+## Captação ao vivo
+
+Teste A/B da captação do dia 9/11. Copy: "Copy _ Página de captura _ Header Ao Vivo (09_11) _ Opções A e B".
+Uma dobra só, na identidade da Black.
+
+| Pasta | Copy | Headline |
+|---|---|---|
+| `ao-vivo-v1/` | Opção A (direta) | "Hoje, às 20h, vou revelar ao vivo o maior desconto…" |
+| `ao-vivo-v2/` | Opção B (chá revelação) | "Chá revelação do Geronimo: Calma que é desconto!" |
+
+Fluxo: CTA → popup (nome, e-mail, WhatsApp) → webhooks n8n + Clint (os mesmos da captação) →
+**link do Zoom** (`links.igtcoaching.com.br/black-do-coaching-nov26-link-zoom`, com as UTMs
+repassadas, como a obrigado faz com o grupo). Não há obrigado nem grupo.
+
+O link fica em `ZOOM_URL`, no `app.js` **das duas pastas**. Trocou? Troque nas duas e suba o `?v=`.
+
+Temporizador: a hora da live fica em `window.AV_LIVE_AT`, no `<head>` do `index.html` (nas duas
+pastas). Antes dela: "A live começa em" (v1) / "A revelação começa em" (v2) + contagem. A partir
+dela: lâmpada vermelha + ESTAMOS AO VIVO. A página já abre no estado certo e, se estiver aberta
+às 20h, troca sozinha. O título do popup é o mesmo temporizador.
+
+Ao editar: `styles.css` e `app.js` são **iguais** nas duas pastas (mudou num, copie no outro).
+Só o `index.html` muda: headline, subheadline, texto do temporizador, ordem (v1: botão e depois o
+temporizador; v2: o contrário), `<title>` e description.
+
+Design: o único vermelho da página é a lâmpada do "ao vivo" (o 🔴 da copy), que acende piscando
+como luz de estúdio no fim da entrada da hero e fica pulsando. Os dígitos da contagem são
+cromados, cada um numa caixa fixa (a Saira não tem algarismos tabulares). Na v2, a tarja ciano
+da Black cobre "Calma que é desconto!" e recolhe até virar o sublinhado que a copy pede.
+Com "reduzir movimento", tudo aparece pronto e a lâmpada fica acesa sem pulsar.

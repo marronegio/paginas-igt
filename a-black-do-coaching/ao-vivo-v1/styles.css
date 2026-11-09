@@ -1,0 +1,567 @@
+/* ==========================================================================
+   A Black do Coaching — Captação "ao vivo" (live de 9/11, 20h, no Zoom)
+   Fonte de verdade do CSS. O <style> do index.html é a versão minificada
+   deste arquivo — editar SEMPRE nos dois. (README §2)
+   Este arquivo é IGUAL em ao-vivo-v1/ e ao-vivo-v2/: mudou num, copie no outro.
+   Prefixo de classe: av-
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Saira Condensed';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('assets/fonts/SairaCondensed-900-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('assets/fonts/Inter-400-800-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Saira Condensed Fallback';
+  src: local('Arial Narrow'), local('Arial'), local('ArialMT');
+  font-display: swap;
+  ascent-override: 143.3382%;
+  descent-override: 55.4409%;
+  line-gap-override: 0%;
+  size-adjust: 79.1834%;
+}
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial'), local('ArialMT');
+  font-display: swap;
+  ascent-override: 90.4881%;
+  descent-override: 22.5405%;
+  line-gap-override: 0%;
+  size-adjust: 107.0403%;
+}
+@font-face {
+  font-family: 'Twemoji Country Flags';
+  unicode-range: U+1F1E6-1F1FF, U+1F3F4, U+E0062-E0063, U+E0065, U+E0067, U+E006C, U+E006E, U+E0073-E0074, U+E0077, U+E007F;
+  src: url('assets/TwemojiCountryFlags.woff2') format('woff2');
+  font-display: swap;
+}
+
+:root {
+  --ink-950: #030507;
+  --ink-850: #0A1119;
+  --ink-800: #0E1822;   /* popup */
+  --ink-700: #1A2C3A;   /* bordas de campo */
+  --rule: rgba(255, 255, 255, .14);
+
+  --cyan: #19B5DE;
+  --grad-cyan: linear-gradient(135deg, var(--cyan) 0%, #8EDDF2 100%);
+  --grad-cyan-x: linear-gradient(90deg, var(--cyan) 0%, #8EDDF2 100%);
+  --grad-chrome: linear-gradient(180deg, #FFFFFF 8%, #D9D9D9 52%, #9C9C9C 100%);
+
+  --paper: #FFFFFF;
+  --mist: #B9C3CA;      /* texto corrido */
+  --mist-2: #8D9AA3;    /* legendas */
+  --alert: #FF5A5A;
+
+  /* a lâmpada do "ao vivo" (o 🔴 da copy). Só ela usa vermelho na página. */
+  --onair: #FF3B30;
+  --onair-hi: #FF9B8F;
+
+  --font-display: 'Saira Condensed', 'Saira Condensed Fallback', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter', 'Inter Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+/* ----- Base -------------------------------------------------------------- */
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--ink-950);
+  color: var(--paper);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body.av-locked { overflow: hidden; }
+img { max-width: 100%; display: block; }
+:where(a, button, input, select):focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+
+.av-cyan,
+.av-chrome {
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.av-cyan { color: var(--cyan); background-image: var(--grad-cyan); }
+.av-chrome { color: var(--paper); background-image: var(--grad-chrome); }
+.av-strong { color: var(--paper); font-weight: 700; }
+
+/* ----- Estrutura: uma dobra só ------------------------------------------- */
+.av-root {
+  position: relative;
+  isolation: isolate;
+  overflow-x: hidden;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Barra superior: placa ciano chapada + texto preto (a mesma da Black) */
+.av-topbar {
+  position: relative;
+  z-index: 3;
+  background: var(--grad-cyan);
+  color: var(--ink-950);
+  padding: 9px 16px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(.95rem, 1.6vw, 1.12rem);
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+.av-topbar__dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 9px;
+  border-radius: 50%;
+  background: var(--ink-950);
+  vertical-align: .12em;
+}
+
+/* fundo: a foto da hero da Black, com o mesmo degradê lateral */
+.av-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: url('assets/hero-geronimo.webp') right top / cover no-repeat;
+}
+.av-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, var(--ink-950) 0%, rgba(3, 5, 7, .94) 34%, rgba(3, 5, 7, .6) 54%, rgba(3, 5, 7, .1) 76%, rgba(3, 5, 7, 0) 100%),
+    linear-gradient(to top, var(--ink-950) 0%, rgba(3, 5, 7, .3) 22%, rgba(3, 5, 7, 0) 50%);
+}
+
+.av-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: clamp(24px, 5vh, 64px) 24px;
+}
+.av-inner { width: 100%; max-width: 1280px; margin: 0 auto; }
+.av-col { max-width: 640px; }
+
+.av-logo { width: clamp(130px, 17vh, 220px); height: auto; margin: 0 0 clamp(18px, 3.4vh, 40px); }
+
+/* ----- Headline ---------------------------------------------------------- */
+.av-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: clamp(2.3rem, 4.2vw, 3.7rem);
+  /* .98 e não .9 (como na Black): a headline da v1 tem 4 linhas, e com .9
+     a vírgula de "HOJE," e o til de "FORMAÇÃO" encostam nas linhas vizinhas */
+  line-height: .98;
+  letter-spacing: -.004em;
+  margin: 0;
+  text-wrap: balance;
+}
+/* cada cor numa linha; o respiro de cima impede o acento de bater na linha anterior */
+.av-title > span { display: block; }
+.av-title > span + span { padding-top: .09em; }
+
+/* v2: "Chá revelação do Geronimo:" menor, "Calma que é desconto!" gigante */
+.av-title__kicker { font-size: .52em; line-height: .95; }
+.av-title--reveal { font-size: clamp(3.1rem, 6.4vw, 5.6rem); }
+
+/* v2 — ASSINATURA: a tarja ciano da Black cobre "Calma que é desconto!" e
+   recolhe até virar o sublinhado da copy. É fundo de um span inline com
+   box-decoration-break: clone, então cada linha quebrada ganha a sua tarja.
+   Posições em em, medidas na Saira Condensed (ascendente 1.135em; maiúscula
+   a .696em da linha de base): o estado parado é o sublinhado. */
+/* sempre em duas linhas: numa só, em 1024px, a frase invade a foto */
+.av-title > .av-reveal { max-width: 6.2em; line-height: 1; padding-top: .14em; }
+.av-tape {
+  background-image: var(--grad-cyan-x);
+  background-repeat: no-repeat;
+  background-position: 0 1.25em;
+  background-size: 100% .07em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.av-lead {
+  font-size: clamp(1.05rem, 1.45vw, 1.2rem);
+  line-height: 1.55;
+  color: var(--mist);
+  margin: clamp(16px, 2.4vh, 24px) 0 0;
+  max-width: 50ch;
+}
+
+/* ----- Botão: placa ciano, texto preto. No hover, acende como lâmpada --- */
+.av-cta-wrap { margin-top: clamp(24px, 3.6vh, 36px); }
+.av-cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-width: min(100%, 360px);
+  padding: 20px 30px;
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(1.2rem, 1.9vw, 1.45rem);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  color: var(--ink-950);
+  background: var(--grad-cyan);
+  transition: box-shadow .45s ease, transform .2s var(--ease);
+}
+/* fundo branco do hover: camada que acende por cima do degradê */
+.av-cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--paper);
+  opacity: 0;
+  transition: opacity .45s ease;
+  pointer-events: none;
+}
+.av-cta:hover { box-shadow: 0 0 22px rgba(142, 221, 242, .75), 0 0 64px rgba(25, 181, 222, .45); }
+.av-cta:hover::after { opacity: 1; }
+.av-cta:active { transform: translateY(1px); }
+.av-cta--block { display: flex; width: 100%; }
+.av-cta[aria-busy="true"] { background: var(--mist-2); cursor: progress; box-shadow: none; }
+.av-cta[aria-busy="true"]::after { opacity: 0; }
+.av-cta__arrow { font-family: var(--font-body); font-weight: 700; font-size: .85em; transition: transform .2s var(--ease); }
+.av-cta:hover .av-cta__arrow { transform: translateX(5px); }
+
+/* ----- Temporizador + data ----------------------------------------------
+   Antes das 20h: "A live começa em" + dígitos cromados.
+   A partir das 20h (html.av-live): lâmpada vermelha + ESTAMOS AO VIVO.
+   O <script> do <head> põe .av-live antes da pintura; o app.js troca na
+   virada se a página estiver aberta.
+   ------------------------------------------------------------------------ */
+.av-slate { margin-top: clamp(24px, 3.6vh, 36px); }
+.av-timer { margin: 0; }
+.av-timer__pre {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 16px;
+}
+.av-timer__label { font-size: clamp(1rem, 1.3vw, 1.1rem); font-weight: 600; color: var(--mist); }
+.av-clock,
+.av-timer__live {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.6rem, 4vw, 3.4rem);
+  line-height: .9;
+  text-transform: uppercase;
+}
+.av-clock { white-space: nowrap; }
+/* a Saira não tem algarismos tabulares: cada dígito numa caixa fixa,
+   senão o relógio "dança" a cada segundo */
+.av-d {
+  display: inline-block;
+  width: .5em;
+  text-align: center;
+  color: var(--paper);
+  background-image: var(--grad-chrome);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.av-clock__sep { display: inline-block; padding: 0 .05em; color: var(--mist-2); }
+
+.av-timer__live { display: none; align-items: center; gap: .36em; color: var(--paper); letter-spacing: .01em; }
+.av-live .av-timer__pre { display: none; }
+.av-live .av-timer__live { display: inline-flex; }
+
+/* lâmpada de "no ar" */
+.av-lamp {
+  position: relative;
+  flex: none;
+  width: .42em;
+  height: .42em;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 32%, var(--onair-hi) 0%, var(--onair) 46%, #C4160C 100%);
+  box-shadow: 0 0 .22em rgba(255, 59, 48, .9), 0 0 .9em rgba(255, 59, 48, .5);
+}
+.av-lamp::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--onair);
+  opacity: 0;
+}
+
+.av-when { margin: 12px 0 0; font-size: clamp(.9rem, 1.1vw, .98rem); line-height: 1.5; font-weight: 500; color: var(--mist); }
+
+/* v2: temporizador e data vêm antes do botão */
+.av-slate + .av-cta-wrap { margin-top: clamp(22px, 3.2vh, 32px); }
+
+/* ----- Rodapé ------------------------------------------------------------ */
+.av-footer {
+  padding: 12px 24px 18px;
+  text-align: center;
+  font-size: .74rem;
+  line-height: 1.6;
+  color: var(--mist-2);
+}
+.av-footer p { margin: 0 auto; }
+
+/* ----- Popup de captura (README §5) -------------------------------------- */
+.av-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(2, 4, 6, .88);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: av-fade .18s ease-out;
+}
+.av-modal {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  background: var(--ink-800);
+  border-top: 4px solid var(--cyan);
+  border-image: var(--grad-cyan-x) 1;   /* border-image ignora raio: cantos retos */
+  padding: clamp(24px, 5vw, 34px);
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .95);
+  animation: av-rise .24s var(--ease);
+}
+.av-modal__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 4px;
+  color: var(--mist-2);
+  cursor: pointer;
+  transition: color .15s ease, background-color .15s ease;
+}
+.av-modal__close:hover { color: var(--paper); background: rgba(255, 255, 255, .07); }
+.av-modal__close-icon { width: 16px; height: 16px; fill: currentColor; }
+
+/* o título do popup é o próprio temporizador, em tamanho menor */
+.av-modal .av-timer { padding-right: 28px; }
+.av-modal .av-clock,
+.av-modal .av-timer__live { font-size: clamp(1.9rem, 6vw, 2.3rem); }
+.av-modal .av-timer__label { font-size: .95rem; }
+.av-modal .av-when { margin: 10px 0 22px; font-size: .9rem; }
+
+.av-fields { display: grid; gap: 14px; }
+.av-field__label {
+  display: block;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--mist-2);
+  margin-bottom: 7px;
+}
+.av-field__input,
+.av-country {
+  width: 100%;
+  padding: 13px 14px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--paper);
+  background: var(--ink-850);
+  border: 1px solid var(--ink-700);
+  border-radius: 3px;
+  outline: 0;
+  transition: border-color .16s ease, box-shadow .16s ease;
+}
+.av-field__input::placeholder { color: #5C6C78; }
+.av-field__input:focus,
+.av-country:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(25, 181, 222, .18); }
+.av-field__input[aria-invalid="true"] { border-color: var(--alert); box-shadow: 0 0 0 3px rgba(255, 90, 90, .14); }
+.av-phone__row { display: flex; gap: 8px; }
+.av-country {
+  flex: none;
+  width: 108px;
+  padding-inline: 6px;
+  font-family: 'Twemoji Country Flags', var(--font-body);
+  font-size: 14px;
+}
+.av-phone__row .av-field__input { flex: 1; min-width: 0; }
+.av-error { font-size: .82rem; color: #FF9A9A; margin: 6px 0 0; }
+.av-modal .av-cta-wrap { margin-top: 8px; }
+
+/* sucesso: só feedback enquanto o Zoom abre (README §5.5) */
+.av-success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5em;
+  padding: 18px 0 10px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.9rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.av-success__title { margin: 0; font-size: inherit; color: var(--paper); }
+
+/* ----- Responsivo -------------------------------------------------------- */
+@media (min-width: 900px) {
+  .av-fields { grid-template-columns: 1fr 1fr; }
+  .av-phone,
+  .av-fields .av-cta-wrap { grid-column: 1 / -1; }
+}
+
+/* notebook / tela baixa: aperta o ritmo vertical para tudo caber na dobra */
+@media (min-width: 681px) and (max-height: 860px) {
+  .av-logo { width: clamp(100px, 15vh, 150px); margin-bottom: clamp(14px, 2.6vh, 24px); }
+  .av-title { font-size: clamp(2.2rem, min(4.2vw, 6.6vh), 3.5rem); }
+  .av-title--reveal { font-size: clamp(2.8rem, min(6.4vw, 10vh), 5.2rem); }
+  .av-lead { margin-top: 14px; }
+  .av-cta { padding-block: 17px; }
+  .av-clock,
+  .av-timer__live { font-size: clamp(2.3rem, min(4vw, 6vh), 3.1rem); }
+  .av-when { margin-top: 8px; }
+}
+
+/* tablet em pé: a foto vai pro alto e o conteúdo desce, senão o texto cobre o rosto */
+@media (min-width: 681px) and (max-width: 1023px) {
+  .av-bg {
+    inset: 0 0 auto 0;
+    height: min(82vw, 62vh);
+    background-position: 80% top;
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 40%);
+    mask-image: linear-gradient(to top, transparent 0%, #000 40%);
+  }
+  .av-scrim { background: linear-gradient(to top, var(--ink-950) 0%, rgba(3, 5, 7, .95) 38%, rgba(3, 5, 7, .5) 56%, rgba(3, 5, 7, 0) 76%); }
+  .av-main { align-items: flex-end; }
+}
+
+@media (max-width: 680px) {
+  .av-topbar { padding-inline: 12px; font-size: .9rem; letter-spacing: .04em; }
+
+  /* foto no alto, conteúdo começa sobre o pé dela */
+  .av-bg {
+    inset: 0 0 auto 0;
+    height: 104vw;
+    background-position: 80% top;
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 42%);
+    mask-image: linear-gradient(to top, transparent 0%, #000 42%);
+  }
+  .av-scrim { background: linear-gradient(to top, var(--ink-950) 0%, rgba(3, 5, 7, .95) 38%, rgba(3, 5, 7, .55) 54%, rgba(3, 5, 7, 0) 74%); }
+  .av-main { align-items: flex-start; padding: 18px 20px 28px; }
+  .av-logo { width: 120px; margin-bottom: 30vw; }
+  .av-lead { font-size: 1rem; }
+  .av-cta { display: flex; width: 100%; padding: 19px 16px; font-size: 1.12rem; letter-spacing: .03em; gap: 10px; }
+  .av-clock,
+  .av-timer__live { font-size: 2.35rem; }
+  .av-timer__label { flex-basis: 100%; }
+  .av-modal-overlay { padding: 12px; align-items: flex-end; }
+  .av-modal { max-height: calc(100vh - 24px); }
+}
+
+/* ----- Animações ---------------------------------------------------------
+   Um momento orquestrado no carregamento: a hero sobe em sequência e, no
+   fim, a lâmpada do "ao vivo" acende (pisca como luz de estúdio e fica
+   pulsando). Se a página estiver aberta às 20h, o app.js põe .av-going-live
+   e a lâmpada acende na hora. v2: a tarja cobre e recolhe (ver .av-tape).
+   ------------------------------------------------------------------------ */
+@keyframes av-fade { from { opacity: 0; } }
+@keyframes av-rise { from { opacity: 0; transform: translateY(14px); } }
+@keyframes av-in-up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+/* luz de estúdio: pisca duas vezes e firma */
+@keyframes av-ignite {
+  0%   { opacity: .12; }
+  18%  { opacity: 1; }
+  30%  { opacity: .2; }
+  44%  { opacity: 1; }
+  54%  { opacity: .45; }
+  66%, 100% { opacity: 1; }
+}
+@keyframes av-ping {
+  0%   { opacity: .75; transform: scale(1); }
+  100% { opacity: 0; transform: scale(2.8); }
+}
+@keyframes av-onair-in { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: none; } }
+/* tarja: entra varrendo, segura, recolhe até a linha do sublinhado */
+@keyframes av-tape {
+  0%   { background-size: 0% .86em; background-position: 0 .36em; }
+  30%  { background-size: 100% .86em; background-position: 0 .36em; }
+  58%  { background-size: 100% .86em; background-position: 0 .36em; }
+  100% { background-size: 100% .07em; background-position: 0 1.25em; }
+}
+@keyframes av-unveil { from { opacity: 0; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  .av-logo,
+  .av-title,
+  .av-lead,
+  .av-col > .av-cta-wrap,
+  .av-col > .av-slate { animation: av-in-up .8s var(--ease) both; }
+  .av-title { animation-delay: .08s; }
+  .av-lead { animation-delay: .18s; }
+  /* v1: botão e depois o temporizador; v2: o contrário. A ordem do HTML manda. */
+  .av-col > :nth-child(4) { animation-delay: .28s; }
+  .av-col > :nth-child(5) { animation-delay: .38s; }
+
+  .av-live .av-timer__live { animation: av-onair-in .5s var(--ease) .75s both; }
+  .av-live .av-lamp { animation: av-ignite .9s steps(1, end) .95s both; }
+  .av-live .av-lamp::after { animation: av-ping 1.8s cubic-bezier(.2, .6, .35, 1) 1.9s infinite; }
+
+  /* virada às 20h com a página aberta: sem esperar a entrada */
+  .av-going-live .av-timer__live { animation-delay: 0s; }
+  .av-going-live .av-lamp { animation-delay: .15s; }
+  .av-going-live .av-lamp::after { animation-delay: 1.1s; }
+
+  /* popup: a lâmpada já está acesa quando ele abre */
+  .av-modal .av-timer__live,
+  .av-modal .av-lamp { animation: none; }
+  .av-live .av-modal .av-lamp::after { animation-delay: 0s; }
+
+  .av-tape { animation: av-tape 1.5s cubic-bezier(.7, 0, .2, 1) .35s both; }
+  .av-tape > .av-cyan { animation: av-unveil .5s ease 1.2s both; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .av-cta,
+  .av-cta__arrow { transition: none; }
+  .av-modal-overlay,
+  .av-modal { animation: none; }
+}
