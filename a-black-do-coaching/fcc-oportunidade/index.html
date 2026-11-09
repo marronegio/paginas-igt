@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Black do Coaching · Formação em Coaching Criacional</title>
+<meta name="description" content="A Black do Coaching: pela primeira vez, a Formação em Coaching Criacional entra numa Black.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#002A38">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WSTL4F8');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Fases da Black (horário de Brasília). Roda antes do CSS para a faixa do contador
+     e os banners de bônus já nascerem certos, sem pulo de layout:
+       fase 1: até 23h59 de 09/11 · fase 2: 10/11 · fase 3: depois de 10/11 (faixa e banners saem)
+     O app.js usa as mesmas datas (window.FC_FASES). Mudou aqui? Não precisa mexer lá.
+     Também liga as animações (html.fc-anim) só com IntersectionObserver e sem
+     "reduzir movimento"; se o app.js não rodar, desliga no load. -->
+<script>!function(d,w){var e=d.documentElement,F=w.FC_FASES=[Date.parse('2026-11-10T00:00:00-03:00'),Date.parse('2026-11-11T00:00:00-03:00')];w.fcFase=function(){var t=Date.now();return t<F[0]?1:t<F[1]?2:3};e.classList.add('fc-p'+w.fcFase());if('IntersectionObserver'in w&&!(w.matchMedia&&w.matchMedia('(prefers-reduced-motion: reduce)').matches)){e.classList.add('fc-anim');w.addEventListener('load',function(){if(!w.fcReady)e.classList.remove('fc-anim')})}}(document,window);</script>
+
+<link rel="preload" as="image" href="assets/hero-geronimo.webp" media="(min-width: 681px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/hero-geronimo-mobile.webp" media="(max-width: 680px)" fetchpriority="high">
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/Raleway-900-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/Montserrat-500-800-latin.woff2" crossorigin>
+
+<!-- CSS crítico INLINE (minificado). Fonte legível: styles.css — editar SEMPRE nos dois. -->
+<style>@font-face{font-family:'Raleway';font-style:normal;font-weight:900;font-display:swap;src:url('assets/fonts/Raleway-900-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Montserrat';font-style:normal;font-weight:500 800;font-display:swap;src:url('assets/fonts/Montserrat-500-800-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Montserrat';font-style:italic;font-weight:500 800;font-display:swap;src:url('assets/fonts/Montserrat-italic-500-800-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:'Twemoji Country Flags';unicode-range:U+1F1E6-1F1FF,U+1F3F4,U+E0062-E0063,U+E0065,U+E0067,U+E006C,U+E006E,U+E0073-E0074,U+E0077,U+E007F;src:url('assets/TwemojiCountryFlags.woff2') format('woff2');font-display:swap}@font-face{font-family:'Montserrat Fallback';src:local('Arial'),local('ArialMT');ascent-override:85.79%;descent-override:22.25%;line-gap-override:0%;size-adjust:112.83%}@font-face{font-family:'Raleway Fallback';src:local('Arial Black'),local('Arial-Black'),local('Arial Bold'),local('Arial');ascent-override:92%;descent-override:23%;line-gap-override:0%;size-adjust:94%}:root{--ink:#002A38;--abyss:#00333E;--deep:#004A5D;--petrol:#00657B;--blue:#0094BA;--blue-soft:#80CADD;--blue-hover:#007FA0;--slate:#80B2BD;--gold:#E5B100;--gold-soft:#F2D880;--gold-deep:#5C4700;--paper:#FFFFFF;--f-display:'Raleway','Raleway Fallback','Arial Black',sans-serif;--f-body:'Montserrat','Montserrat Fallback',Arial,sans-serif;--gutter:clamp(20px,5vw,40px);--wrap:1280px;--ease-out:cubic-bezier(.16,1,.3,1);--ease-io:cubic-bezier(.65,0,.35,1);--fg:#FFFFFF;--fg-body:rgba(255,255,255,.82);--fg-mute:rgba(255,255,255,.62);--kicker:var(--gold);--rule:rgba(128,202,221,.18)}*,*::before,*::after{box-sizing:border-box}[hidden]{display:none !important}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}body{margin:0;background:var(--abyss);color:var(--fg-body);font-family:var(--f-body);font-weight:500;font-size:clamp(1rem,.96rem + .2vw,1.0625rem);line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}body.fc-locked{overflow:hidden}img{max-width:100%;height:auto;display:block}p{margin:0 0 1em}p:last-child{margin-bottom:0}strong,b{font-weight:800;color:var(--fg)}a{color:inherit}:where(a,button,input,select,summary):focus-visible{outline:3px solid var(--gold-soft);outline-offset:3px;border-radius:6px}.fc-root{position:relative;overflow-x:hidden}.fc-wrap{width:min(var(--wrap),100% - 2 * var(--gutter));margin-inline:auto}.fc-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}.fc-display,.fc-h2{font-family:var(--f-display);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1.2;font-variant-numeric:lining-nums;color:var(--fg)}.fc-h2{margin:0 0 .7em;font-size:clamp(1.75rem,1.2rem + 2.3vw,3rem);text-wrap:balance}.fc-h2--center{text-align:center;margin-inline:auto;max-width:24ch}.fc-sub{margin:0 0 1em;font-weight:800;font-size:clamp(1.1rem,1rem + .55vw,1.45rem);line-height:1.5;color:var(--fg);text-wrap:balance}.fc-sub--center{text-align:center;max-width:40ch;margin-inline:auto}.fc-kicker{display:block;margin:0 0 14px;font-style:italic;font-weight:800;font-size:clamp(1rem,.95rem + .25vw,1.15rem);line-height:1.4;color:var(--kicker)}.fc-prose{max-width:66ch}:where(.fc-prose) p{color:var(--fg-body)}.fc-note{margin:14px 0 0;font-style:italic;font-weight:600;font-size:.875rem;line-height:1.5;color:var(--fg-mute);display:flex;align-items:center;gap:8px}.fc-note svg{width:15px;height:15px;flex:none;fill:currentColor}.fc-strike{position:relative;display:inline-block;text-decoration:none;white-space:nowrap}.fc-strike::after{content:'';position:absolute;left:-3%;right:-3%;top:50%;height:.13em;min-height:2px;margin-top:-.065em;border-radius:2px;background:var(--gold);transform:rotate(var(--strike-rot,-4deg));transform-origin:center}.fc-btn{display:inline-flex;align-items:center;justify-content:center;gap:.7em;min-height:60px;padding:18px clamp(26px,3vw,40px);border:0;border-radius:999px;background:var(--gold);color:var(--abyss);font-family:var(--f-body);font-style:italic;font-weight:800;font-size:clamp(1rem,.95rem + .3vw,1.15rem);line-height:1.15;letter-spacing:.01em;text-transform:uppercase;text-align:center;text-decoration:none;cursor:pointer;box-shadow:0 12px 24px -14px rgba(0,20,28,.55);transition:background-color .25s ease,color .25s ease,box-shadow .3s ease,transform .2s ease;-webkit-tap-highlight-color:transparent}.fc-btn:hover{background:var(--blue-hover);color:var(--paper);box-shadow:0 0 0 4px rgba(128,202,221,.35),0 12px 34px -8px rgba(0,148,186,.8)}.fc-btn:active{transform:translateY(1px)}.fc-btn svg{width:18px;height:18px;flex:none;fill:currentColor}.fc-btn--block{width:100%}.fc-cta-row{margin-top:clamp(28px,4vw,40px)}.fc-cta-row--center{display:flex;justify-content:center;text-align:center}.fc-sec{position:relative;isolation:isolate;padding-block:clamp(72px,9vw,128px)}.fc-sec--light{background:var(--paper);--fg:var(--abyss);--fg-body:rgba(0,51,62,.84);--fg-mute:rgba(0,51,62,.6);--kicker:var(--petrol);--rule:rgba(0,101,123,.18)}.fc-sec--deep{background:var(--deep)}.fc-sec--ink{background:var(--ink)}.fc-lattice{position:absolute;inset:0;z-index:-1;pointer-events:none;--fade:linear-gradient(180deg,#000 0%,transparent 70%);background:url('assets/grafismo.webp') 0 0 / 131px 398px repeat;opacity:.1;-webkit-mask-image:var(--fade);mask-image:var(--fade)}.fc-lattice--gold,.fc-lattice--blue{background:var(--gold);opacity:.1;-webkit-mask:url('assets/grafismo.webp') 0 0 / 131px 398px repeat,var(--fade);-webkit-mask-composite:source-in;mask:url('assets/grafismo.webp') 0 0 / 131px 398px repeat,var(--fade);mask-composite:intersect}.fc-lattice--blue{background:var(--blue-soft);opacity:.09}.fc-lattice--up{--fade:linear-gradient(0deg,#000 0%,transparent 65%)}.fc-lattice--left{--fade:linear-gradient(90deg,#000 0%,transparent 55%)}.fc-lattice--right{--fade:linear-gradient(270deg,#000 0%,transparent 55%)}.fc-lattice--corner{--fade:radial-gradient(70% 90% at 100% 0%,#000 0%,transparent 70%)}.fc-topbar{position:relative;z-index:2;margin:0;padding:11px var(--gutter);background:var(--gold);color:var(--abyss);font-weight:800;font-size:clamp(.72rem,.68rem + .25vw,.85rem);line-height:1.35;letter-spacing:.03em;text-align:center;text-wrap:balance}.fc-hero{position:relative;isolation:isolate;overflow:hidden;background:var(--ink);color:var(--paper)}.fc-hero__media{position:absolute;inset:0;z-index:-2;margin:0;overflow:hidden}.fc-hero__img{width:100%;height:100%;object-fit:cover;object-position:right top}.fc-hero::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,var(--ink) 0%,rgba(0,42,56,.9) 36%,rgba(0,42,56,.3) 56%,rgba(0,42,56,0) 66%),linear-gradient(0deg,var(--ink) 0%,rgba(0,42,56,0) 18%)}.fc-hero__inner{position:relative;z-index:1;min-height:clamp(560px,44vw,760px);display:flex;align-items:center;padding-block:clamp(48px,6vw,88px)}.fc-hero__content{max-width:min(760px,54vw)}.fc-lockup{display:flex;align-items:center;gap:clamp(14px,2vw,22px);margin:0 0 clamp(26px,3.4vw,40px)}.fc-lockup__fcc{width:clamp(108px,9vw,132px);height:auto}.fc-lockup__rule{width:1px;align-self:stretch;background:rgba(229,177,0,.55)}.fc-lockup__selo{width:clamp(92px,8vw,118px);height:auto}.fc-hero__title{margin:0 0 .55em;font-size:clamp(2.05rem,1.25rem + 2.6vw,3.45rem);line-height:1.3;color:var(--paper);text-wrap:balance}.fc-hero__title .fc-tape{margin:0 -.12em;padding:0 .2em;border-radius:.12em}.fc-hero__sub{max-width:46ch;margin:0 0 clamp(22px,3vw,30px);font-size:clamp(1.08rem,1rem + .4vw,1.3rem);line-height:1.5;color:rgba(255,255,255,.86)}.fc-hero__price{margin:0 0 22px;font-weight:600;font-size:clamp(1rem,.95rem + .25vw,1.12rem);line-height:1.6;color:rgba(255,255,255,.86)}.fc-hero__price strong{color:var(--gold-soft);white-space:nowrap}.fc-hero__price .fc-strike{color:rgba(255,255,255,.7)}.fc-clock{position:relative;z-index:2;background:var(--abyss);border-block:1px solid rgba(229,177,0,.5);padding-block:clamp(18px,2.4vw,26px);color:var(--paper)}.fc-clock__inner{display:flex;flex-wrap:wrap;align-items:center;gap:16px clamp(20px,4vw,48px)}.fc-clock__head{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px}.fc-clock__label{margin:0;font-style:italic;font-weight:700;font-size:1rem;color:var(--paper)}.fc-clock__digits{display:flex;align-items:flex-start;gap:8px}.fc-clock__unit{display:flex;flex-direction:column;align-items:center;gap:6px}.fc-clock__num{display:block;min-width:2.15em;padding:.16em .2em .12em;border-radius:6px;background:var(--gold);color:var(--abyss);font-family:var(--f-display);font-weight:900;font-size:clamp(1.6rem,1.2rem + 1.6vw,2.3rem);line-height:1;font-variant-numeric:lining-nums;text-align:center}.fc-clock__cap{font-weight:600;font-size:.72rem;line-height:1;color:rgba(255,255,255,.7)}.fc-clock__sep{font-family:var(--f-display);font-weight:900;font-size:clamp(1.4rem,1.1rem + 1.2vw,2rem);line-height:1.2;color:var(--gold)}.fc-clock__text{flex:1 1 340px;margin:0;font-weight:600;font-size:clamp(.95rem,.9rem + .2vw,1.05rem);line-height:1.5}.fc-clock__link{color:rgba(255,255,255,.92);text-decoration:none}.fc-clock__link:hover{color:var(--gold-soft)}.fc-clock__arrow{display:inline-block;color:var(--gold);font-weight:800}html:not(.fc-p2) [data-show="2"],.fc-p2 [data-show="1"],.fc-p3 [data-show]{display:none !important}.fc-p2 .fc-banners__grid{grid-template-columns:minmax(0,640px);justify-content:center}.fc-cases__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(36px,4vw,52px) clamp(20px,2.6vw,32px);margin-top:clamp(40px,5vw,60px)}.fc-case{margin:0}.fc-case__video{position:relative;display:block;width:100%;aspect-ratio:16 / 9;padding:0;border:0;border-radius:16px;overflow:hidden;background:var(--abyss);cursor:pointer;box-shadow:0 22px 40px -28px rgba(0,51,62,.7)}.fc-case__thumb{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease-out)}.fc-case__video::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,42,56,0) 45%,rgba(0,42,56,.55) 100%)}.fc-case__play{position:absolute;z-index:1;left:50%;top:50%;width:66px;height:66px;margin:-33px 0 0 -33px;border-radius:50%;background:var(--gold);display:grid;place-items:center;box-shadow:0 10px 26px -6px rgba(0,0,0,.55);transition:background-color .25s ease,transform .3s var(--ease-out),box-shadow .3s ease}.fc-case__play svg{width:24px;height:24px;margin-left:4px;fill:var(--abyss);transition:fill .25s ease}.fc-case__video:hover .fc-case__thumb{transform:scale(1.045)}.fc-case__video:hover .fc-case__play{background:var(--blue-hover);transform:scale(1.06);box-shadow:0 0 0 6px rgba(128,202,221,.35),0 10px 26px -6px rgba(0,0,0,.55)}.fc-case__video:hover .fc-case__play svg{fill:var(--paper)}.fc-case__name{margin:20px 0 8px;font-weight:800;font-size:1.15rem;line-height:1.3;color:var(--fg)}.fc-case__text{margin:0;color:var(--fg-body)}.fc-approval__grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(36px,6vw,96px);align-items:center}.fc-approval__lead{margin:0;font-weight:800;font-size:clamp(1.15rem,1rem + .7vw,1.6rem);line-height:1.3;color:var(--paper);max-width:14ch}.fc-approval__num{display:block;margin-top:.04em;font-size:clamp(6.5rem,3.5rem + 11vw,13.5rem);line-height:.92;letter-spacing:-.045em;color:var(--gold);white-space:nowrap}.fc-types__list{margin-top:clamp(44px,6vw,76px)}.fc-type{display:grid;grid-template-columns:clamp(140px,19vw,240px) minmax(0,1fr);gap:clamp(20px,4vw,64px);padding-block:clamp(40px,5vw,64px);border-top:1px solid var(--rule)}.fc-type__aside{position:sticky;top:28px;align-self:start}.fc-type__tag{display:block;font-weight:800;font-size:1rem;line-height:1;color:var(--petrol)}.fc-type__num{display:block;margin-top:6px;font-size:clamp(4rem,2.6rem + 5vw,7.5rem);line-height:.95;color:var(--blue)}.fc-type__title{margin:0 0 20px;font-weight:800;font-size:clamp(1.35rem,1.1rem + 1vw,1.95rem);line-height:1.3;color:var(--fg);text-wrap:balance}.fc-type__body .fc-cta-row{margin-top:30px}.fc-bonus{position:relative;isolation:isolate;background:var(--abyss)}.fc-bonus .fc-sec + .fc-sec{padding-top:0}.fc-bonus .fc-sec + .fc-sec>.fc-wrap{padding-top:clamp(64px,8vw,112px);border-top:1px solid var(--rule)}.fc-matrix__intro{margin:0;font-weight:800;font-size:1.1rem;color:var(--blue-soft)}.fc-matrix__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px;margin:24px 0 clamp(48px,6vw,72px);padding:0;list-style:none}.fc-matrix__card{position:relative;padding:26px 24px 28px;border-radius:18px;border:1px solid rgba(128,202,221,.22);background:linear-gradient(180deg,rgba(0,101,123,.42) 0%,rgba(0,74,93,.12) 100%)}.fc-matrix__letter{display:block;font-size:4.25rem;line-height:1;color:var(--gold)}.fc-matrix__name{margin:16px 0 8px;font-weight:800;font-size:1.15rem;line-height:1.3;color:var(--paper)}.fc-matrix__desc{margin:0;font-size:.95rem;color:var(--fg-body)}.fc-matrix__money{max-width:66ch}.fc-values{max-width:720px;margin-inline:auto}.fc-values__turn{margin:1.1em 0 1.05em;font-size:clamp(1.75rem,1.3rem + 2vw,2.75rem);line-height:1.15;color:var(--paper)}.fc-mentor__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,80px);align-items:start}.fc-mentor__panel{padding:clamp(28px,4vw,44px);border-radius:24px;border:1px solid rgba(229,177,0,.4);background:linear-gradient(160deg,rgba(229,177,0,.1) 0%,rgba(229,177,0,.02) 70%)}.fc-mentor__dots{display:flex;gap:12px;margin:0 0 24px;padding:0;list-style:none}.fc-mentor__dots li{width:16px;height:16px;border:2px solid var(--gold);background:var(--gold);transform:rotate(45deg)}.fc-mentor__highlight{margin:0 0 18px;font-weight:800;font-size:clamp(1.3rem,1.1rem + 1vw,1.8rem);line-height:1.4;color:var(--gold-soft);text-wrap:balance}.fc-combo__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(36px,4vw,52px) clamp(20px,2.6vw,32px);margin:clamp(40px,5vw,60px) 0 0;padding:0;list-style:none}.fc-combo__thumb{width:100%;aspect-ratio:349 / 159;border-radius:16px;background:var(--petrol)}.fc-combo__title{margin:20px 0 8px;font-weight:800;font-size:1.15rem;line-height:1.35;color:var(--fg)}.fc-combo__text{margin:0;color:var(--fg-body)}.fc-letter{max-width:720px;margin-inline:auto}.fc-letter .fc-h2{font-size:clamp(2rem,1.3rem + 3vw,3.6rem)}.fc-letter__quote{margin:1.5em 0;font-style:italic;font-weight:700;font-size:clamp(1.2rem,1.05rem + .7vw,1.55rem);line-height:1.5;color:var(--gold-soft);text-wrap:pretty}.fc-letter__final{margin-top:1.4em;font-weight:800;font-size:clamp(1.15rem,1rem + .6vw,1.45rem);line-height:1.5;color:var(--paper)}.fc-letter__final .fc-strike{color:rgba(255,255,255,.78)}.fc-banners{scroll-margin-top:16px}.fc-banners__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(24px,3vw,36px)}.fc-banner{position:relative;padding:clamp(30px,3.6vw,46px);border-radius:24px;border:1px solid rgba(229,177,0,.45);background:linear-gradient(160deg,rgba(229,177,0,.11) 0%,rgba(229,177,0,.02) 65%)}.fc-banner__title{margin:0 0 22px;font-size:clamp(1.35rem,1.05rem + 1.3vw,2.05rem);line-height:1.5}.fc-banner p{color:var(--fg-body)}.fc-tape{padding:.06em .3em .04em;border-radius:3px;background:linear-gradient(var(--gold),var(--gold)) no-repeat 0 0 / 100% 100%;color:var(--abyss);-webkit-box-decoration-break:clone;box-decoration-break:clone}.fc-offer{scroll-margin-top:16px}.fc-offer__card{position:relative;isolation:isolate;overflow:hidden;max-width:900px;margin-inline:auto;padding:clamp(36px,5vw,64px) clamp(22px,5vw,64px);border-radius:28px;background:var(--abyss);color:var(--paper);text-align:center;box-shadow:0 50px 90px -50px rgba(0,51,62,.75);--fg:#FFFFFF;--fg-body:rgba(255,255,255,.82);--fg-mute:rgba(255,255,255,.6);--rule:rgba(128,202,221,.2)}.fc-offer__logo{width:140px;margin:0 auto 26px}.fc-offer__selo{margin:0;font-size:clamp(1.05rem,.85rem + .9vw,1.5rem);line-height:1.55}.fc-offer__items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,auto);grid-auto-flow:column;gap:16px 32px;margin:clamp(30px,4vw,40px) auto;padding:clamp(22px,3vw,30px) 0;border-block:1px solid var(--rule);list-style:none;text-align:left}.fc-offer__items li{display:flex;align-items:flex-start;gap:12px;font-weight:700;color:var(--paper);line-height:1.4}.fc-check{flex:none;width:22px;height:22px;margin-top:1px;border-radius:50%;background:var(--gold);display:grid;place-items:center}.fc-check svg{width:13px;height:13px;fill:var(--abyss)}.fc-offer__ladder{margin:0 0 30px}.fc-offer__from{margin:0 0 4px;font-weight:700;font-size:1.05rem;color:var(--fg-mute)}.fc-offer__was{margin:0 0 14px;font-size:clamp(1.7rem,1.3rem + 1.6vw,2.5rem);line-height:1.2;color:rgba(255,255,255,.7);--strike-rot:-8deg}.fc-offer__now{margin:0;text-transform:uppercase}.fc-offer__por{display:block;font-weight:800;font-size:1.05rem;letter-spacing:.04em;color:var(--paper)}.fc-offer__big{display:block;margin:.02em 0 .1em;font-size:clamp(3.2rem,1.9rem + 6vw,6.25rem);line-height:1;letter-spacing:-.035em;color:var(--gold)}.fc-offer__terms{display:block;font-weight:800;font-size:clamp(.98rem,.9rem + .35vw,1.2rem);line-height:1.45;color:var(--paper)}.fc-offer__card .fc-btn{max-width:560px}.fc-parcela{white-space:nowrap}.fc-bio__grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,6vw,88px);align-items:center}.fc-bio__photo{width:100%;max-width:480px;border-radius:24px;margin-inline:auto}.fc-bio__list{margin:28px 0 0;padding:26px 0 0;border-top:1px solid var(--rule);list-style:none;display:grid;gap:14px}.fc-bio__list li{position:relative;padding-left:28px;color:var(--paper);font-weight:600}.fc-bio__list li::before{content:'';position:absolute;left:3px;top:.5em;width:9px;height:9px;background:var(--gold);transform:rotate(45deg)}.fc-faq__list{max-width:880px;margin:clamp(32px,5vw,52px) auto 0;border-top:1px solid var(--rule)}.fc-faq__item{border-bottom:1px solid var(--rule)}.fc-faq__h{margin:0}.fc-faq__q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 2px;border:0;background:none;color:var(--fg);font-family:var(--f-body);font-weight:800;font-size:clamp(1rem,.95rem + .35vw,1.18rem);line-height:1.4;text-align:left;cursor:pointer}.fc-faq__q:hover{color:var(--petrol)}.fc-faq__icon{position:relative;flex:none;width:30px;height:30px;border-radius:50%;border:2px solid var(--blue);transition:background-color .25s ease,border-color .25s ease}.fc-faq__icon::before,.fc-faq__icon::after{content:'';position:absolute;left:50%;top:50%;width:12px;height:2px;margin:-1px 0 0 -6px;border-radius:2px;background:var(--blue);transition:transform .3s var(--ease-out),background-color .25s ease}.fc-faq__icon::after{transform:rotate(90deg)}.fc-faq__a{display:grid;grid-template-rows:1fr}.fc-faq__inner{overflow:hidden}.fc-faq__inner>div{padding:0 2px 26px;color:var(--fg-body);max-width:70ch}.fc-faq__inner ul{margin:0 0 1em;padding:0;list-style:none;display:grid;gap:10px}.fc-faq__inner li{position:relative;padding-left:24px}.fc-faq__inner li::before{content:'';position:absolute;left:2px;top:.55em;width:8px;height:8px;background:var(--blue);transform:rotate(45deg)}.fc-faq--js .fc-faq__a{grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease-out)}.fc-faq--js .fc-faq__item.is-open .fc-faq__a{grid-template-rows:1fr}.fc-faq__item.is-open .fc-faq__icon{background:var(--blue)}.fc-faq__item.is-open .fc-faq__icon::before,.fc-faq__item.is-open .fc-faq__icon::after{background:var(--paper)}.fc-faq__item.is-open .fc-faq__icon::after{transform:rotate(0deg)}.fc-footer{padding:clamp(40px,5vw,56px) var(--gutter);background:var(--ink);text-align:center;border-top:1px solid rgba(229,177,0,.35)}.fc-footer__logo{width:92px;margin:0 auto 16px}.fc-footer p{margin:0;font-size:.85rem;color:rgba(255,255,255,.6)}.fc-overlay{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,24,32,.78);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);overflow-y:auto;animation:fc-fade .25s ease both}.fc-modal{position:relative;width:100%;max-width:470px;margin:auto;padding:clamp(30px,5vw,40px) clamp(22px,5vw,36px) clamp(26px,4vw,32px);border-radius:24px;border:1px solid rgba(128,202,221,.22);background:var(--abyss);color:var(--paper);box-shadow:0 40px 80px -30px rgba(0,0,0,.7);animation:fc-pop .4s var(--ease-out) both}.fc-modal::before{content:'';position:absolute;left:28px;right:28px;top:-1px;height:3px;border-radius:0 0 3px 3px;background:var(--gold)}.fc-modal__close{position:absolute;top:12px;right:12px;width:42px;height:42px;display:grid;place-items:center;border:0;border-radius:50%;background:transparent;color:rgba(255,255,255,.7);cursor:pointer;transition:background-color .2s ease,color .2s ease}.fc-modal__close:hover{background:rgba(255,255,255,.08);color:var(--paper)}.fc-modal__close svg{width:22px;height:22px;fill:currentColor}.fc-modal__logo{width:96px;margin:0 0 18px}.fc-modal__title{margin:0 0 22px;font-size:clamp(1.5rem,1.25rem + 1vw,1.9rem);line-height:1.15;padding-right:30px}.fc-fields{display:grid;gap:16px}.fc-field__label{display:block;margin:0 0 7px;font-weight:700;font-size:.875rem;color:rgba(255,255,255,.88)}.fc-input,.fc-country{width:100%;min-height:52px;padding:13px 16px;border-radius:12px;border:1px solid rgba(128,202,221,.3);background:var(--ink);color:var(--paper);font-family:var(--f-body);font-weight:600;font-size:1rem;outline:0;transition:border-color .2s ease,box-shadow .2s ease}.fc-input::placeholder{color:rgba(255,255,255,.38)}.fc-input:focus,.fc-country:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(229,177,0,.25)}.fc-input[aria-invalid="true"]{border-color:#FF9C8F}.fc-phone__row{display:flex;gap:8px}.fc-country{flex:none;width:108px;padding-inline:8px;font-family:'Twemoji Country Flags',var(--f-body);font-size:.95rem;cursor:pointer}.fc-phone__row .fc-input{flex:1;min-width:0}.fc-error{margin:7px 0 0;font-weight:600;font-size:.82rem;color:#FFB3A9}.fc-modal .fc-btn{margin-top:6px}.fc-modal .fc-note{justify-content:center;margin-top:16px}.fc-btn[aria-busy="true"]{cursor:progress;opacity:.85}.fc-success{text-align:center;padding:18px 0 6px}.fc-spinner{width:44px;height:44px;margin:0 auto 18px;border-radius:50%;border:3px solid rgba(229,177,0,.25);border-top-color:var(--gold);animation:fc-spin .8s linear infinite}.fc-success p{margin:0;font-weight:700;color:var(--paper)}.fc-video{position:relative;width:min(1040px,100%);margin:auto;animation:fc-pop .4s var(--ease-out) both}.fc-video__frame{position:relative;aspect-ratio:16 / 9;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 40px 80px -30px rgba(0,0,0,.8)}.fc-video__frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.fc-video .fc-modal__close{top:-52px;right:0;color:var(--paper)}@keyframes fc-fade{from{opacity:0}}@keyframes fc-pop{from{opacity:0;transform:translateY(14px) scale(.98)}}@keyframes fc-spin{to{transform:rotate(360deg)}}@keyframes fc-rise{from{opacity:0;transform:translateY(22px)}}@keyframes fc-settle{from{transform:scale(1.07)}}@keyframes fc-draw{from{clip-path:inset(0 100% 0 0)}}@keyframes fc-nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}@keyframes fc-tape{0%{background-size:0% 100%;color:var(--paper)}45%{color:var(--paper)}}.fc-anim .fc-hero__img{animation:fc-settle 2.4s var(--ease-out) both}.fc-anim .fc-hero [data-enter]{animation:fc-rise .9s var(--ease-out) both;animation-delay:calc(var(--i,0) * 110ms + 120ms)}.fc-anim .fc-hero .fc-tape{animation:fc-tape .8s var(--ease-io) .75s both}.fc-anim .fc-hero .fc-strike::after{animation:fc-draw .65s var(--ease-io) both;animation-delay:1.05s}.fc-anim .fc-clock__arrow{animation:fc-nudge 1.4s ease-in-out 1.8s 3}.fc-anim [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out);transition-delay:var(--d,0s)}.fc-anim [data-reveal].is-in{opacity:1;transform:none}.fc-anim [data-strike] .fc-strike::after{clip-path:inset(0 100% 0 0);transition:clip-path .6s var(--ease-io)}.fc-anim [data-strike].is-in .fc-strike::after{clip-path:inset(0 0 0 0);transition-delay:var(--sd,.35s)}.fc-anim .fc-offer__now{opacity:0;transform:translateY(14px) scale(.97);transition:opacity .7s var(--ease-out) .85s,transform .7s var(--ease-out) .85s}.fc-anim .is-in .fc-offer__now{opacity:1;transform:none}.fc-anim [data-tape] .fc-tape{background-size:0% 100%;color:var(--paper);transition:background-size .7s var(--ease-io),color .3s ease .35s}.fc-anim [data-tape].is-in .fc-tape{background-size:100% 100%;color:var(--abyss)}.fc-anim .fc-mentor__dots li{background:transparent;transition:background-color .3s ease}.fc-anim .is-in .fc-mentor__dots li{background:var(--gold)}.fc-anim .is-in .fc-mentor__dots li:nth-child(2){transition-delay:.12s}.fc-anim .is-in .fc-mentor__dots li:nth-child(3){transition-delay:.24s}.fc-anim .is-in .fc-mentor__dots li:nth-child(4){transition-delay:.36s}.fc-anim .is-in .fc-mentor__dots li:nth-child(5){transition-delay:.48s}.fc-anim .is-in .fc-mentor__dots li:nth-child(6){transition-delay:.6s}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;transition-delay:0s !important}}@media (max-width:980px){.fc-hero__media{position:relative;inset:auto;aspect-ratio:1672 / 941;-webkit-mask-image:linear-gradient(180deg,#000 55%,transparent 100%);mask-image:linear-gradient(180deg,#000 55%,transparent 100%)}.fc-hero::before{display:none}.fc-hero__inner{min-height:0;display:block;margin-top:-14%;padding-top:0}.fc-hero__content{max-width:640px}.fc-approval__grid,.fc-bio__grid,.fc-mentor__grid{grid-template-columns:minmax(0,1fr)}.fc-approval__lead{max-width:none}.fc-bio__photo{max-width:400px;margin-inline:0}}@media (max-width:680px){.fc-hero__media{aspect-ratio:760 / 769}.fc-hero__inner{position:static;margin-top:-18%}.fc-lockup{position:absolute;top:clamp(20px,6vw,32px);left:var(--gutter);flex-direction:column;align-items:flex-start;gap:clamp(12px,4vw,18px);margin:0}.fc-lockup__rule{display:none}.fc-lockup__fcc{width:clamp(96px,28vw,150px)}.fc-lockup__selo{order:-1;width:clamp(84px,24vw,128px)}.fc-btn{width:100%;padding-inline:18px;font-size:.98rem}.fc-mentor__panel{padding:26px 22px}.fc-type{grid-template-columns:minmax(0,1fr);gap:14px}.fc-type__aside{position:static;display:flex;align-items:baseline;gap:12px}.fc-type__num{margin-top:0;font-size:3.4rem}.fc-offer__items{grid-template-columns:minmax(0,1fr);grid-template-rows:none;grid-auto-flow:row}.fc-clock__inner{justify-content:center;text-align:center}.fc-clock__head{justify-content:center}.fc-clock__text{flex-basis:100%}}</style>
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WSTL4F8"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<div class="fc-root">
+
+  <p class="fc-topbar">A BLACK DO COACHING • PELA PRIMEIRA VEZ, A MELHOR CONDIÇÃO DA HISTÓRIA DA FORMAÇÃO</p>
+
+  <!-- ===================================================== HERO -->
+  <header class="fc-hero">
+    <picture class="fc-hero__media">
+      <source media="(max-width: 680px)" srcset="assets/hero-geronimo-mobile.webp" width="760" height="769">
+      <img class="fc-hero__img" src="assets/hero-geronimo.webp" width="1672" height="941" alt="Geronimo Theml" fetchpriority="high">
+    </picture>
+
+    <div class="fc-wrap fc-hero__inner">
+      <div class="fc-hero__content">
+        <div class="fc-lockup" data-enter style="--i:0">
+          <img class="fc-lockup__fcc" src="assets/logo-fcc-dourado.webp" width="270" height="123" alt="Formação em Coaching Criacional">
+          <span class="fc-lockup__rule" aria-hidden="true"></span>
+          <img class="fc-lockup__selo" src="assets/selo-black-do-coaching.webp" width="1039" height="685" alt="A Black do Coaching">
+        </div>
+
+        <h1 class="fc-display fc-hero__title" data-enter style="--i:1">Do zero a Coach em 8 dias, com o <span class="fc-tape">maior desconto da história da Formação</span></h1>
+
+        <p class="fc-hero__sub" data-enter style="--i:2">A Black do Coaching: pela primeira vez, a Formação em Coaching Criacional entra numa Black.</p>
+
+        <p class="fc-hero__price" data-enter style="--i:3">De <s class="fc-strike">R$&nbsp;4.995</s> por <strong>12x de <span class="fc-parcela">R$&nbsp;249,26</span></strong> ou <strong>R$&nbsp;2.497,50 à vista</strong></p>
+
+        <div data-enter style="--i:4">
+          <button type="button" class="fc-btn" data-action="openCheckout">Garanta sua vaga agora</button>
+          <p class="fc-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 9V7A5 5 0 0 0 7 7v2a3 3 0 0 0-3 3v7a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-7a3 3 0 0 0-3-3ZM9 7a3 3 0 0 1 6 0v2H9Zm4 10.5V19h-2v-1.5a2 2 0 1 1 2 0Z"/></svg>Pagamento seguro · Pix ou cartão de crédito</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================== FAIXA DO CONTADOR (sai depois de 10/11) -->
+  <section class="fc-clock" data-show="12" aria-labelledby="clock-label">
+    <div class="fc-wrap fc-clock__inner">
+      <div class="fc-clock__head">
+        <p class="fc-clock__label" id="clock-label">O bônus acaba em:</p>
+        <div class="fc-clock__digits" role="timer" aria-live="off">
+          <div class="fc-clock__unit"><span class="fc-clock__num" data-clock="h">--</span><span class="fc-clock__cap">Horas</span></div>
+          <span class="fc-clock__sep" aria-hidden="true">:</span>
+          <div class="fc-clock__unit"><span class="fc-clock__num" data-clock="m">--</span><span class="fc-clock__cap">Minutos</span></div>
+          <span class="fc-clock__sep" aria-hidden="true">:</span>
+          <div class="fc-clock__unit"><span class="fc-clock__num" data-clock="s">--</span><span class="fc-clock__cap">Segundos</span></div>
+        </div>
+      </div>
+      <p class="fc-clock__text">
+        <a class="fc-clock__link" href="#bonus">
+          <span data-show="1">Inscrevendo-se até 23h59 de hoje, você leva a aula ao vivo “Como eu atendo online” e concorre ao meu kit de atendimento</span><span data-show="2">Inscrevendo-se até 23h59 de hoje, você leva a Imersão Viver de Coaching e concorre a 1 processo individual com o meu time</span>
+          <span class="fc-clock__arrow" aria-hidden="true">↓</span>
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <main>
+
+    <!-- ===================================================== 2 · CASES -->
+    <section class="fc-sec fc-sec--light">
+      <div class="fc-lattice" aria-hidden="true"></div>
+      <div class="fc-wrap">
+        <h2 class="fc-h2 fc-h2--center" data-reveal>Domine o método que mais potencializa resultados no mundo começando do absoluto zero...</h2>
+        <p class="fc-sub fc-sub--center" data-reveal>Gente como você, que começou com um sonho e fez dele uma profissão.</p>
+
+        <div class="fc-cases__grid" data-stagger="3">
+          <article class="fc-case" data-reveal>
+            <button type="button" class="fc-case__video" data-yt="PkT2l-ekZPo" aria-label="Assistir ao depoimento de Hérverton Sobrinho">
+              <img class="fc-case__thumb" src="https://i.ytimg.com/vi/PkT2l-ekZPo/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/PkT2l-ekZPo/hqdefault.jpg'" width="1280" height="720" alt="" loading="lazy" decoding="async">
+              <span class="fc-case__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></svg></span>
+            </button>
+            <h3 class="fc-case__name">Hérverton Sobrinho</h3>
+            <p class="fc-case__text">De estagnado no serviço público a 3 promoções para cargos de chefia, com o coaching quase dobrando a renda do mês.</p>
+          </article>
+
+          <article class="fc-case" data-reveal>
+            <button type="button" class="fc-case__video" data-yt="DcAEiR58fyg" aria-label="Assistir ao depoimento de Alex Silva">
+              <img class="fc-case__thumb" src="https://i.ytimg.com/vi/DcAEiR58fyg/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/DcAEiR58fyg/hqdefault.jpg'" width="1280" height="720" alt="" loading="lazy" decoding="async">
+              <span class="fc-case__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></svg></span>
+            </button>
+            <h3 class="fc-case__name">Alex Silva</h3>
+            <p class="fc-case__text">Bancário que iniciou no Coaching como renda extra realiza transição total de carreira: “Cada cliente hoje é um mês de salário que eu ganhava.”</p>
+          </article>
+
+          <article class="fc-case" data-reveal>
+            <button type="button" class="fc-case__video" data-yt="6V5hFkPAjAs" aria-label="Assistir ao depoimento de Alex Bruno">
+              <img class="fc-case__thumb" src="https://i.ytimg.com/vi/6V5hFkPAjAs/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/6V5hFkPAjAs/hqdefault.jpg'" width="1280" height="720" alt="" loading="lazy" decoding="async">
+              <span class="fc-case__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></svg></span>
+            </button>
+            <h3 class="fc-case__name">Alex Bruno</h3>
+            <p class="fc-case__text">Cirurgião oncológico descobre no Coaching como liderar equipe, migrar para o particular e ainda operar de graça quem não pode pagar.</p>
+          </article>
+
+          <article class="fc-case" data-reveal>
+            <button type="button" class="fc-case__video" data-yt="IgxVybrl9B4" aria-label="Assistir ao depoimento de Clarissa Boeira">
+              <img class="fc-case__thumb" src="https://i.ytimg.com/vi/IgxVybrl9B4/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/IgxVybrl9B4/hqdefault.jpg'" width="1280" height="720" alt="" loading="lazy" decoding="async">
+              <span class="fc-case__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></svg></span>
+            </button>
+            <h3 class="fc-case__name">Clarissa Boeira</h3>
+            <p class="fc-case__text">De frustrada profissionalmente para carreira com faturamento mensal de +R$&nbsp;30.000: “Me encontrei sendo quem eu sou.”</p>
+          </article>
+
+          <article class="fc-case" data-reveal>
+            <button type="button" class="fc-case__video" data-yt="FD5ehOLXmdw" aria-label="Assistir ao depoimento de Tati Pelicel">
+              <img class="fc-case__thumb" src="https://i.ytimg.com/vi/FD5ehOLXmdw/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/FD5ehOLXmdw/hqdefault.jpg'" width="1280" height="720" alt="" loading="lazy" decoding="async">
+              <span class="fc-case__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></svg></span>
+            </button>
+            <h3 class="fc-case__name">Tati Pelicel</h3>
+            <p class="fc-case__text">De gestora de liderança a Coach que cobra R$&nbsp;5.000 por processo e fecha contratos de R$&nbsp;100.000.</p>
+          </article>
+
+          <article class="fc-case" data-reveal>
+            <button type="button" class="fc-case__video" data-yt="P8eE1jLcFyk" aria-label="Assistir ao depoimento de Carla Gama">
+              <img class="fc-case__thumb" src="https://i.ytimg.com/vi/P8eE1jLcFyk/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/P8eE1jLcFyk/hqdefault.jpg'" width="1280" height="720" alt="" loading="lazy" decoding="async">
+              <span class="fc-case__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></svg></span>
+            </button>
+            <h3 class="fc-case__name">Carla Gama</h3>
+            <p class="fc-case__text">8 meses depois da FCC, pediu demissão e encerrou negócio próprio para viver de Coaching: “Faturo 10x mais do que com 2 fontes de renda antes.”</p>
+          </article>
+        </div>
+
+        <div class="fc-cta-row fc-cta-row--center" data-reveal>
+          <button type="button" class="fc-btn" data-action="openCheckout">Garanta sua vaga agora</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== 3 · APROVAÇÃO -->
+    <section class="fc-sec">
+      <div class="fc-lattice fc-lattice--gold fc-lattice--left" aria-hidden="true"></div>
+      <div class="fc-wrap fc-approval__grid">
+        <div data-reveal>
+          <p class="fc-approval__lead">Índice de aprovação de mais de</p>
+          <span class="fc-display fc-approval__num"><span data-count="90">90</span>%</span>
+        </div>
+        <div class="fc-prose" data-reveal style="--d:.12s">
+          <p>Não é à toa que resultados como esses são o padrão dos nossos alunos e alunas. Nem que o IGT seja hoje a escola que forma os Coaches mais bem pagos do mercado.</p>
+          <p><strong>O IGT tem mais de 90% de aprovação dos alunos.</strong> O que explica tamanho índice em uma escola que já formou milhares de pessoas? Metodologia. Preparo. Prática.</p>
+          <p>Em apenas 8 dias, você sai pronto para aplicar o Coaching Criacional. Sem enrolação.</p>
+          <p>E ainda leva um certificado internacional, para você atuar em qualquer parte do mundo, se assim desejar.</p>
+          <div class="fc-cta-row">
+            <button type="button" class="fc-btn" data-action="openCheckout">Garanta sua vaga agora</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== 4 · OS 4 TIPOS DE PESSOAS -->
+    <section class="fc-sec fc-sec--light">
+      <div class="fc-lattice fc-lattice--corner" aria-hidden="true"></div>
+      <div class="fc-wrap">
+        <h2 class="fc-h2 fc-h2--center" data-reveal>Os 4 tipos de pessoas que vão se beneficiar desta oportunidade</h2>
+
+        <div class="fc-types__list">
+          <article class="fc-type">
+            <div class="fc-type__aside" data-reveal>
+              <span class="fc-type__tag">Grupo</span>
+              <span class="fc-display fc-type__num">01</span>
+            </div>
+            <div class="fc-type__body fc-prose" data-reveal style="--d:.1s">
+              <h3 class="fc-type__title">Quem quer viver de Coaching</h3>
+              <p>Para quem quer ter uma nova profissão e poder trabalhar de qualquer lugar do mundo, só precisando de um computador e acesso à internet — e potencial de faturar mais de R$&nbsp;10.000/mês.</p>
+              <p>Normalmente, é aquela pessoa que não está feliz com sua carreira atual ou está desempregada, em busca de uma nova profissão.</p>
+              <p>Como foi o caso da Clarissa Boeira, que passou a ganhar mais com 1 processo de Coaching do que o salário do mês inteiro no emprego anterior.</p>
+              <p>Só pra você ter uma ideia, há 4 anos ela é Coach de agenda lotada e já chegou a atender 23 clientes ao mesmo tempo.</p>
+              <p>Isso também aconteceu com a Laíse Vieira, que relatou que o maior ganho para ela, vivendo de coaching, foi poder passar mais tempo com o filho de 7 meses.</p>
+              <div class="fc-cta-row"><button type="button" class="fc-btn" data-action="openCheckout">Garanta sua vaga agora</button></div>
+            </div>
+          </article>
+
+          <article class="fc-type">
+            <div class="fc-type__aside" data-reveal>
+              <span class="fc-type__tag">Grupo</span>
+              <span class="fc-display fc-type__num">02</span>
+            </div>
+            <div class="fc-type__body fc-prose" data-reveal style="--d:.1s">
+              <h3 class="fc-type__title">Quem quer ter uma renda extra como Coach sem largar o emprego atual</h3>
+              <p>É aquela pessoa que quer trabalhar nas horas vagas sem precisar fazer uma transição de carreira. E são inúmeros casos assim.</p>
+              <p>O Rafael Serpa, por exemplo, que é Servidor Público e mantém o Coaching como 2ª profissão, atendendo dezenas de clientes.</p>
+              <p>O Hérverton Sobrinho é outro. Ele estava estagnado em seu cargo público quando entrou na FCC.</p>
+              <p>Depois disso, ganhou 3 promoções para cargos de chefia e passou a atender como Coach nas horas vagas. Nas palavras dele, “a remuneração do coaching quase dobrou o meu financeiro mensal”.</p>
+              <div class="fc-cta-row"><button type="button" class="fc-btn" data-action="openCheckout">Garanta sua vaga agora</button></div>
+            </div>
+          </article>
+
+          <article class="fc-type">
+            <div class="fc-type__aside" data-reveal>
+              <span class="fc-type__tag">Grupo</span>
+              <span class="fc-display fc-type__num">03</span>
+            </div>
+            <div class="fc-type__body fc-prose" data-reveal style="--d:.1s">
+              <h3 class="fc-type__title">Líderes que desejam gerar resultados extraordinários com seus times</h3>
+              <p>O profissional que foi promovido porque entregava resultado. Mas que nunca aprendeu a fazer o time entregar. Cobra, incentiva, dá feedback, e o resultado não vem. Não é culpa sua. É que liderar pessoas é uma técnica, e técnica tem método.</p>
+              <p>Não é por acaso que empresas multinacionais, como a Ernst &amp; Young, passaram a treinar literalmente todos os seus líderes em Coaching.</p>
+              <p>Não é à toa, também, que Eric Schmidt, ex-presidente do Google, e Bill Gates afirmam que “todo mundo precisa de um Coach”.</p>
+              <p>Olha o caso da nossa aluna Paulinha: depois da FCC, ela bateu sua meta do ano em menos de 6 meses e hoje treina outros líderes para terem resultados tão expressivos quanto os que teve.</p>
+              <div class="fc-cta-row"><button type="button" class="fc-btn" data-action="openCheckout">Garanta sua vaga agora</button></div>
+            </div>
+          </article>
+
+          <article class="fc-type">
+            <div class="fc-type__aside" data-reveal>
+              <span class="fc-type__tag">Grupo</span>
+              <span class="fc-display fc-type__num">04</span>
+            </div>
+            <div class="fc-type__body fc-prose" data-reveal style="--d:.1s">
+              <h3 class="fc-type__title">Quem quer se transformar como pessoa</h3>
+              <p>Eu não sei qual é o problema que te mantém na média hoje. Mas, até conhecer o Coaching, a minha vida era sobreviver por mais um dia numa carreira que me aprisionava. Que contaminava, uma a uma, todas as áreas da minha existência.</p>
+              <p>Hoje, posso dizer que, graças a essa Metodologia, eu me tornei outra pessoa: com uma carreira fora da média, um dinheiro fora da média, um casamento fora da média, com a saúde aos 52 melhor que aos 30, com filhos fora da média. E não sou um caso isolado.</p>
+              <p>O Felipe Pereira, em 3 meses, bateu seu recorde de vendas na empresa. O Jefferson Silva, em 20 dias, foi promovido a um cargo de gerência. A Regina Borges, que temia ser demitida, passou a ser reconhecida e colocada em projetos importantes. São literalmente milhares de alunos com resultados como esses.</p>
+              <div class="fc-cta-row"><button type="button" class="fc-btn" data-action="openCheckout">Garanta sua vaga agora</button></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== 5–7 · BÔNUS -->
+    <div class="fc-bonus">
+      <div class="fc-lattice fc-lattice--blue" aria-hidden="true"></div>
+
+      <!-- 5 · Matriz Comportamental -->
+      <section class="fc-sec">
+        <div class="fc-wrap">
+          <div data-reveal>
+            <p class="fc-kicker">Comece agora e ganhe de presente...</p>
+            <h2 class="fc-h2" style="max-width:22ch">Especialização em Matriz Comportamental liberada gratuitamente para alunos FCC</h2>
+            <p class="fc-matrix__intro">Existem 4 matrizes comportamentais:</p>
+          </div>
+
+          <ul class="fc-matrix__grid" data-stagger="4">
+            <li class="fc-matrix__card" data-reveal>
+              <span class="fc-display fc-matrix__letter" aria-hidden="true">E</span>
+              <h3 class="fc-matrix__name">Expressivo</h3>
+              <p class="fc-matrix__desc">Aqueles dotados de grande carisma e poder de persuasão, que inspiram pessoas.</p>
+            </li>
+            <li class="fc-matrix__card" data-reveal>
+              <span class="fc-display fc-matrix__letter" aria-hidden="true">D</span>
+              <h3 class="fc-matrix__name">Direto</h3>
+              <p class="fc-matrix__desc">Aqueles dotados de extrema autoconfiança, que se dão bem com desafios e dificuldades.</p>
+            </li>
+            <li class="fc-matrix__card" data-reveal>
+              <span class="fc-display fc-matrix__letter" aria-hidden="true">C</span>
+              <h3 class="fc-matrix__name">Constante</h3>
+              <p class="fc-matrix__desc">Estáveis, pacientes e leais, de ritmo constante e alto grau de conservadorismo.</p>
+            </li>
+            <li class="fc-matrix__card" data-reveal>
+              <span class="fc-display fc-matrix__letter" aria-hidden="true">D</span>
+              <h3 class="fc-matrix__name">Detalhista</h3>
+              <p class="fc-matrix__desc">Organizados e responsáveis, hábeis em controlar processos e rotinas repetitivas.</p>
+            </li>
+          </ul>
+
+          <div class="fc-matrix__money fc-prose" data-reveal>
+            <h3 class="fc-sub">E como você pode fazer MUITO dinheiro sabendo disso?</h3>
+            <p>Para que uma pessoa possa se destacar em sua função, é preciso que ela tenha o perfil adequado. E, se ela não tiver, é possível que certas habilidades sejam desenvolvidas. É aí que você entra em ação!</p>
+            <p>Com a Especialização em Matriz Comportamental, o Coach consegue monetizar as análises de matriz comportamental, além de poder oferecer um processo de coaching com foco no resultado almejado. <strong>E o melhor disso tudo?</strong></p>
+            <p>Esse é um bônus da Formação em Coaching Criacional. Assim que você concluir a sua inscrição, você ganhará esse presente de forma 100% gratuita!</p>
+            <div class="fc-cta-row"><button type="button" class="fc-btn" data-action="openCheckout">Garanta sua vaga agora</button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6 · Matriz de Valores -->
+      <section class="fc-sec">
+        <div class="fc-wrap">
+          <div class="fc-values fc-prose" data-reveal>
+            <p class="fc-kicker">E tem mais...</p>
+            <h2 class="fc-h2">Especialização em Matriz de Valores Liberada Gratuitamente para alunos FCC</h2>
+            <p>Quando eu era Advogado da União ganhando R$&nbsp;21.000 por mês, quase todo mundo achava que eu tava feito. Mas eu definhava por dentro. E não entendia por quê.</p>
+            <p>Foi numa sessão de coaching que descobri: meus valores eram Desafio e Contribuição. E no emprego público, eu não tinha nem um nem outro.</p>
+            <p class="fc-display fc-values__turn">Entender isso MUDOU tudo.</p>
+            <p>A Matriz de Valores mapeia o seu “por quê”: o que verdadeiramente te move, o que te paralisa, o que te faz reagir de formas que você mesmo não entende.</p>
+            <p>Como Coach, quando você identifica os valores do seu cliente, liderado ou de você mesmo, você sabe exatamente onde está a trava (e como destravá-lo).</p>
+            <p>Essa especialização é sua, gratuitamente, ao concluir sua inscrição na FCC.</p>
+            <div class="fc-cta-row"><button type="button" class="fc-btn" data-action="openCheckout">Garanta sua vaga agora</button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7 · Mentoria -->
+      <section class="fc-sec">
+        <div class="fc-wrap fc-mentor__grid">
+          <div class="fc-prose" data-reveal>
+            <p class="fc-kicker">Bônus exclusivo</p>
+            <h2 class="fc-h2">Mentoria gratuita por 6 meses</h2>
+            <p>Assim que você finalizar sua Formação, você terá acesso a uma mentoria por mês, durante o período de 6 meses, com um Trainer do IGT International Coaching.</p>
+            <p>Ou seja, você poderá tirar todas as suas dúvidas sobre o Coaching Criacional, a Metodologia, as Ferramentas e os atendimentos com seus clientes e/ou liderados.</p>
+          </div>
+          <div class="fc-mentor__panel" data-reveal style="--d:.12s">
+            <ul class="fc-mentor__dots" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+            <p class="fc-mentor__highlight">São 6 encontros ao vivo, um por mês, com os trainers do IGT.</p>
+            <p>Isso significa que, além da melhor condição da história da Formação + as Especializações em Matriz Comportamental e Matriz de Valores, você ainda ganha 6 meses de acompanhamento com o meu time de trainers.</p>
+            <div class="fc-cta-row"><button type="button" class="fc-btn" data-action="openCheckout">Garanta sua vaga agora</button></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================== 8 · COMBO -->
+    <section class="fc-sec fc-sec--light">
+      <div class="fc-lattice fc-lattice--up" aria-hidden="true"></div>
+      <div class="fc-wrap">
+        <h2 class="fc-h2 fc-h2--center" style="max-width:28ch" data-reveal>O combo completo para você alcançar resultados extraordinários começando do absoluto zero</h2>
+
+        <ul class="fc-combo__grid" data-stagger="3">
+          <li data-reveal>
+            <img class="fc-combo__thumb" src="assets/combo-1.webp" width="349" height="159" alt="" loading="lazy" decoding="async">
+            <h3 class="fc-combo__title">Formação em Coaching Criacional</h3>
+            <p class="fc-combo__text">Forme-se junto com os Coaches mais bem pagos do mercado. Comece do absoluto zero e saia em 8 dias pronto para aplicar o Coaching Levado a Sério na sua vida e sua carreira.</p>
+          </li>
+          <li data-reveal>
+            <img class="fc-combo__thumb" src="assets/combo-2.webp" width="349" height="159" alt="" loading="lazy" decoding="async">
+            <h3 class="fc-combo__title">Especialização em Matriz Comportamental</h3>
+            <p class="fc-combo__text">Desenvolva uma visão verdadeiramente profunda de como cada pessoa funciona (inclusive você), e leve o potencial de cada projeto para o próximo nível.</p>
+          </li>
+          <li data-reveal>
+            <img class="fc-combo__thumb" src="assets/combo-3.webp" width="349" height="159" alt="" loading="lazy" decoding="async">
+            <h3 class="fc-combo__title">Especialização em Matriz de Valores</h3>
+            <p class="fc-combo__text">Tenha clareza que 99,9% das pessoas não têm sobre os valores que pautam a sua vida e a vida dos outros. Aqui, você aprende a desenvolver planos alinhados a eles.</p>
+          </li>
+          <li data-reveal>
+            <img class="fc-combo__thumb" src="assets/combo-4.webp" width="349" height="159" alt="" loading="lazy" decoding="async">
+            <h3 class="fc-combo__title">Especialização em Atendimento para Coaches</h3>
+            <p class="fc-combo__text">Economize anos de experiência com essa especialização, e comece atendendo com a segurança dos Coaches mais bem pagos e experientes do mercado.</p>
+          </li>
+          <li data-reveal>
+            <img class="fc-combo__thumb" src="assets/combo-5.webp" width="349" height="159" alt="" loading="lazy" decoding="async">
+            <h3 class="fc-combo__title">6 encontros de mentoria mensal com Trainers do IGT</h3>
+            <p class="fc-combo__text">Receba todo o suporte e esclarecimento de dúvidas pra aplicação do Coaching Levado a Sério em mentorias com os melhores Coaches do mercado.</p>
+          </li>
+          <li data-reveal>
+            <img class="fc-combo__thumb" src="assets/combo-6.webp" width="349" height="159" alt="" loading="lazy" decoding="async">
+            <h3 class="fc-combo__title">Kit Coach Criacional</h3>
+            <p class="fc-combo__text">Receba na sua casa, em qualquer endereço do Brasil e sem nenhum custo adicional, o material completo pra você ter uma experiência única e diferenciada, que levará pra toda a vida.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================================================== 9 · QUANTO VALE MUDAR SUA VIDA? -->
+    <section class="fc-sec fc-sec--ink">
+      <div class="fc-lattice fc-lattice--gold fc-lattice--right" aria-hidden="true"></div>
+      <div class="fc-wrap">
+        <article class="fc-letter fc-prose">
+          <h2 class="fc-h2" data-reveal>Quanto vale mudar sua vida?</h2>
+          <div data-reveal>
+            <p>A oportunidade que você tem hoje na sua frente não é uma mera promessa, como você vê todos os dias na internet. Também não é mais um curso, que você vai comprar empolgado, fazer um pouco e largar para nunca mais abrir de novo.</p>
+            <p>A Formação em Coaching Criacional é, como o próprio nome diz, uma formação.</p>
+            <p>Uma formação robusta, profundamente validada por CEOs, líderes, Coaches, médicos, advogados... todas as profissões que você pode imaginar. Os mais de 90% de aprovação não me deixam mentir.</p>
+            <p>A comparação mais próxima que eu consigo ver é um MBA. E, sendo bastante sincero aqui, dificilmente você encontra um bom hoje por menos de R$&nbsp;30.000.</p>
+            <p>Mas eu sei o nível de transformação que o Coaching Levado a Sério gera nas pessoas. Eu sei como o crescimento dessa metodologia é positivo para mim, para você, para os seus clientes, para a sua empresa, para a sua família, para toda a sociedade.</p>
+          </div>
+          <p class="fc-letter__quote" data-reveal>Não é à toa que Jack Welch, considerado um dos maiores executivos de todos os tempos, disse que “no futuro, todo líder será Coach – ou será varrido do mercado.”</p>
+          <div data-reveal>
+            <p>Por isso, eu ofereço sempre uma condição especial para quem deseja entrar (menos de R$&nbsp;10.000).</p>
+            <p>Nas últimas turmas, a Formação chegou a ser oferecida a R$&nbsp;4.995. Só que esta é A Black do Coaching, e é a primeira vez que a Formação entra numa Black. Por isso, eu vou te dar mais 50% em cima desse valor.</p>
+            <p>E olha o momento: novembro é quando a gente faz o balanço do ano e decide como quer entrar no próximo. Quem decide agora entra em 2027 com uma profissão nova nas mãos.</p>
+          </div>
+          <p class="fc-letter__final" data-reveal data-strike>Então, NA BLACK DO COACHING, você não vai precisar investir <s class="fc-strike">R$&nbsp;30.000</s> de um MBA... nem os <s class="fc-strike" style="--sd:.7s">R$&nbsp;4.995</s> das últimas turmas.</p>
+          <div class="fc-cta-row" data-reveal>
+            <button type="button" class="fc-btn" data-action="openCheckout">Garanta sua vaga agora</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================================================== 10 · BANNERS DE BÔNUS (fases no <head>) -->
+    <section class="fc-sec fc-sec--ink fc-banners" id="bonus" data-show="12">
+      <div class="fc-wrap fc-banners__grid">
+        <!-- Banner 1: no ar até 23h59 de 09/11 -->
+        <article class="fc-banner" data-show="1" data-reveal data-tape>
+          <h3 class="fc-display fc-banner__title"><span class="fc-tape">Só pra quem se inscrever hoje, até 23h59</span></h3>
+          <p>Aula ao vivo “Como eu atendo online”: eu te mostro exatamente como eu atendo os meus clientes online hoje, como eu divido a minha tela e como eu conduzo a sessão do começo ao fim, pra você poder atender de qualquer lugar do mundo. Depois, eu abro pra perguntas e respostas, só pra quem estiver lá. 17/12, às 19h (de Brasília).</p>
+          <p>E, dentro da aula, eu vou sortear o mesmo kit que eu uso nos meus atendimentos: um MacBook e um iPad.</p>
+        </article>
+        <!-- Banner 2: no ar até 23h59 de 10/11 (título muda no dia 10) -->
+        <article class="fc-banner" data-reveal data-tape style="--d:.12s">
+          <h3 class="fc-display fc-banner__title"><span class="fc-tape"><span data-show="1">Só até amanhã, 23h59</span><span data-show="2">Só até hoje, 23h59</span></span></h3>
+          <p>Imersão Viver de Coaching: o meu método de conseguir clientes, do posicionamento aos primeiros atendimentos, passando pela sessão de convite e pelo fechamento.</p>
+          <p>E você ainda concorre a 1 processo individual de coaching com o meu time e a uma de 3 cafeteiras.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================================================== 11 · BLOCO DE PREÇO -->
+    <section class="fc-sec fc-sec--light fc-offer" id="oferta">
+      <div class="fc-lattice fc-lattice--up" aria-hidden="true"></div>
+      <div class="fc-wrap">
+        <div class="fc-offer__card" data-reveal data-tape data-strike>
+          <div class="fc-lattice fc-lattice--gold fc-lattice--corner" aria-hidden="true"></div>
+          <img class="fc-offer__logo" src="assets/logo-fcc-dourado.webp" width="270" height="123" alt="Formação em Coaching Criacional" loading="lazy">
+          <h2 class="fc-display fc-offer__selo"><span class="fc-tape">Atenção: condição da Black do Coaching</span></h2>
+
+          <ul class="fc-offer__items">
+            <li><span class="fc-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>Formação em Coaching Criacional</li>
+            <li><span class="fc-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>Especialização em Matriz Comportamental</li>
+            <li><span class="fc-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>Especialização em Matriz de Valores</li>
+            <li><span class="fc-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>Especialização em Atendimento para Coaches</li>
+            <li><span class="fc-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>6 encontros de mentoria mensal com Trainers do IGT</li>
+            <li><span class="fc-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></span>Kit Coach Criacional</li>
+          </ul>
+
+          <div class="fc-offer__ladder">
+            <p class="fc-offer__from">DE R$&nbsp;9.990</p>
+            <p class="fc-display fc-offer__was"><s class="fc-strike">R$&nbsp;4.995</s></p>
+            <p class="fc-offer__now">
+              <span class="fc-offer__por">Por</span>
+              <span class="fc-display fc-offer__big">R$&nbsp;2.497,50</span>
+              <span class="fc-offer__terms">à vista ou em até 12x de <span class="fc-parcela">R$&nbsp;249,26</span></span>
+            </p>
+          </div>
+
+          <button type="button" class="fc-btn fc-btn--block" data-action="openCheckout">Garanta sua vaga agora</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== 12 · BIO -->
+    <section class="fc-sec fc-sec--deep">
+      <div class="fc-lattice fc-lattice--blue fc-lattice--right" aria-hidden="true"></div>
+      <div class="fc-wrap fc-bio__grid">
+        <img class="fc-bio__photo" src="assets/geronimo-bio.webp" width="650" height="864" alt="Geronimo Theml" loading="lazy" decoding="async" data-reveal>
+        <div class="fc-prose" data-reveal style="--d:.12s">
+          <h2 class="fc-h2">O criador do método</h2>
+          <p>Geronimo Theml é escritor Best-seller, palestrante internacional e referência no desenvolvimento humano há mais de 20 anos. Como Coach e treinador, já impactou dezenas de milhares de pessoas com seus treinamentos transformadores.</p>
+          <p>Ex-advogado da União, tomou a decisão ousada de deixar a estabilidade do serviço público para seguir sua missão: ajudar pessoas a destravarem seu verdadeiro potencial e construírem uma vida de propósito e realização.</p>
+          <p>Além de sua atuação no Coaching, é fundador do Instituto O Bem Nunca Para e idealizador do Movimento Dia Mundial Sem Fome, uma iniciativa que apoia a distribuição de alimentos no dia 16 de outubro – data reconhecida pela ONU como o Dia Mundial da Alimentação.</p>
+          <ul class="fc-bio__list">
+            <li>Criador do método Coaching Criacional, que já ajudou milhares de pessoas a começarem no mercado.</li>
+            <li>Fundador do IGT (Instituto Geronimo Theml), referência em Coaching no Brasil.</li>
+            <li>Mentor dos Coaches mais bem pagos do país, que hoje atuam profissionalmente no Brasil e no exterior.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== 13 · PERGUNTAS FREQUENTES -->
+    <section class="fc-sec fc-sec--light">
+      <div class="fc-lattice" aria-hidden="true"></div>
+      <div class="fc-wrap">
+        <h2 class="fc-h2 fc-h2--center" data-reveal>Perguntas frequentes</h2>
+
+        <div class="fc-faq__list" id="faq">
+          <div class="fc-faq__item">
+            <h3 class="fc-faq__h"><button type="button" class="fc-faq__q" aria-expanded="true" aria-controls="faq-1">O que é a Formação em Coaching Criacional?<span class="fc-faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="fc-faq__a" id="faq-1"><div class="fc-faq__inner"><div>
+              <p>A Formação em Coaching Criacional é uma formação completa do IGT Coaching em que você terá acesso a toda a metodologia criada por Geronimo Theml para aplicar com clientes e liderados. São 8 dias seguidos de formação com toda a metodologia do Coaching Criacional esmiuçada e as ferramentas que você precisa para fazer processos bem-sucedidos de Coaching.</p>
+            </div></div></div>
+          </div>
+          <div class="fc-faq__item">
+            <h3 class="fc-faq__h"><button type="button" class="fc-faq__q" aria-expanded="true" aria-controls="faq-2">A Formação em Coaching Criacional é presencial ou online?<span class="fc-faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="fc-faq__a" id="faq-2"><div class="fc-faq__inner"><div>
+              <p>A Formação em Coaching Criacional é 100% online, para você fazer de onde quiser.</p>
+            </div></div></div>
+          </div>
+          <div class="fc-faq__item">
+            <h3 class="fc-faq__h"><button type="button" class="fc-faq__q" aria-expanded="true" aria-controls="faq-3">Quando será a Formação em Coaching Criacional?<span class="fc-faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="fc-faq__a" id="faq-3"><div class="fc-faq__inner"><div>
+              <p>A Formação em Coaching Criacional será de 17 a 24 de março de 2027.</p>
+            </div></div></div>
+          </div>
+          <div class="fc-faq__item">
+            <h3 class="fc-faq__h"><button type="button" class="fc-faq__q" aria-expanded="true" aria-controls="faq-4">Qual é o acompanhamento que terei na Formação em Coaching Criacional?<span class="fc-faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="fc-faq__a" id="faq-4"><div class="fc-faq__inner"><div>
+              <p>Você será acompanhado pela equipe de trainers do IGT Coaching ao longo de toda a formação, podendo esclarecer suas dúvidas com o Time, expor suas dificuldades e participar de mentorias diárias ao longo de todo o processo. Além do acompanhamento ao longo de toda a formação, você também terá mentorias em grupo, um encontro mensal com a equipe de trainers que vai ajudar você a ter resultados robustos na aplicação da metodologia.</p>
+            </div></div></div>
+          </div>
+          <div class="fc-faq__item">
+            <h3 class="fc-faq__h"><button type="button" class="fc-faq__q" aria-expanded="true" aria-controls="faq-5">Qual a duração da Formação em Coaching Criacional?<span class="fc-faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="fc-faq__a" id="faq-5"><div class="fc-faq__inner"><div>
+              <p>A Formação em Coaching Criacional tem duração de 8 dias e um total de 84 horas de conteúdo.</p>
+            </div></div></div>
+          </div>
+          <div class="fc-faq__item">
+            <h3 class="fc-faq__h"><button type="button" class="fc-faq__q" aria-expanded="true" aria-controls="faq-6">Quais resultados terei com a Formação em Coaching Criacional?<span class="fc-faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="fc-faq__a" id="faq-6"><div class="fc-faq__inner"><div>
+              <p>Você sairá da Formação pronto para fazer sua primeira sessão de Coaching com um cliente pagante.</p>
+            </div></div></div>
+          </div>
+          <div class="fc-faq__item">
+            <h3 class="fc-faq__h"><button type="button" class="fc-faq__q" aria-expanded="true" aria-controls="faq-7">Terei acesso a alguma ferramenta de Coaching na Formação?<span class="fc-faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="fc-faq__a" id="faq-7"><div class="fc-faq__inner"><div>
+              <p>Sim. Você terá acesso a todas as ferramentas que precisa para conduzir um processo completo de Coaching com um cliente, passo a passo, da primeira à última sessão.</p>
+            </div></div></div>
+          </div>
+          <div class="fc-faq__item">
+            <h3 class="fc-faq__h"><button type="button" class="fc-faq__q" aria-expanded="true" aria-controls="faq-8">Quando conseguirei fazer meu primeiro atendimento após a Formação?<span class="fc-faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="fc-faq__a" id="faq-8"><div class="fc-faq__inner"><div>
+              <p>Assim que finalizar a Formação, você já estará apto ou apta a realizar seu primeiro atendimento como Coach. Você entrará como é hoje e sairá um Coach.</p>
+            </div></div></div>
+          </div>
+          <div class="fc-faq__item">
+            <h3 class="fc-faq__h"><button type="button" class="fc-faq__q" aria-expanded="true" aria-controls="faq-9">Como serei remunerado como Coach Criacional?<span class="fc-faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="fc-faq__a" id="faq-9"><div class="fc-faq__inner"><div>
+              <p>De acordo com o relatório da International Coaching Federation, os ganhos mensais médios de um Coach na América Latina são de cerca de R$&nbsp;9.100 por mês.</p>
+              <p>Mas sua remuneração pode ser substancialmente maior do que isso. Não são poucos os Coaches que cobram entre R$&nbsp;15.000 e R$&nbsp;25.000 por um processo de Coaching de dez sessões. Um Processo com Geronimo Theml, por exemplo, sai hoje por R$&nbsp;100.000. Para você que vai começar agora, os ganhos iniciais médios ficam entre R$&nbsp;200 e R$&nbsp;500 por hora de sessão (ou seja, entre R$&nbsp;2.000 e R$&nbsp;5.000 por um processo completo).</p>
+            </div></div></div>
+          </div>
+          <div class="fc-faq__item">
+            <h3 class="fc-faq__h"><button type="button" class="fc-faq__q" aria-expanded="true" aria-controls="faq-10">Nunca trabalhei como Coach. Vale a pena fazer a Formação?<span class="fc-faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="fc-faq__a" id="faq-10"><div class="fc-faq__inner"><div>
+              <p>Com certeza. A Formação em Coaching Criacional é voltada para quem quer ter domínio total da metodologia de Geronimo Theml para se profissionalizar, aplicar com liderados ou mesmo na própria vida. É uma Formação criada para você começar do zero e sair pronto para fazer sua primeira sessão.</p>
+            </div></div></div>
+          </div>
+          <div class="fc-faq__item">
+            <h3 class="fc-faq__h"><button type="button" class="fc-faq__q" aria-expanded="true" aria-controls="faq-11">Já sou Coach. A Formação serve para mim?<span class="fc-faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="fc-faq__a" id="faq-11"><div class="fc-faq__inner"><div>
+              <p>Sim. A Formação em Coaching Criacional leva para você a metodologia criada por Geronimo Theml com começo, meio e fim. É uma metodologia exclusiva do IGT Coaching. E muitos coaches formados em outras instituições entram na Formação em busca de abordagens mais efetivas para aplicar com seus Coachees.</p>
+            </div></div></div>
+          </div>
+          <div class="fc-faq__item">
+            <h3 class="fc-faq__h"><button type="button" class="fc-faq__q" aria-expanded="true" aria-controls="faq-12">Para quem é indicada a Formação em Coaching Criacional?<span class="fc-faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="fc-faq__a" id="faq-12"><div class="fc-faq__inner"><div>
+              <p>A Formação em Coaching Criacional é indicada para:</p>
+              <ul>
+                <li>Quem quer um método para causar um impacto real no mundo.</li>
+                <li>Quem quer ter liberdade para trabalhar de onde quiser, no seu tempo e sendo seu próprio chefe.</li>
+                <li>Quem busca uma profissão bem remunerada ou que quer uma segunda fonte de renda para ter mais liberdade financeira.</li>
+                <li>Quem está insatisfeito com a carreira e busca um novo caminho profissional.</li>
+                <li>Quem deseja autoconhecimento para conseguir cumprir os objetivos que estabelece na sua vida.</li>
+                <li>Quem procura uma maneira efetiva de ajudar as pessoas a potencializarem seus resultados profissionais e pessoais.</li>
+              </ul>
+            </div></div></div>
+          </div>
+          <div class="fc-faq__item">
+            <h3 class="fc-faq__h"><button type="button" class="fc-faq__q" aria-expanded="true" aria-controls="faq-13">Receberei certificado após a Formação em Coaching Criacional?<span class="fc-faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="fc-faq__a" id="faq-13"><div class="fc-faq__inner"><div>
+              <p>Sim. Você receberá seu certificado após finalizar a Formação. O melhor de tudo: nosso Certificado é internacional, você estará apto para atender em qualquer lugar do mundo.</p>
+            </div></div></div>
+          </div>
+          <div class="fc-faq__item">
+            <h3 class="fc-faq__h"><button type="button" class="fc-faq__q" aria-expanded="true" aria-controls="faq-14">A metodologia da Formação foi desenvolvida pelo Geronimo Theml?<span class="fc-faq__icon" aria-hidden="true"></span></button></h3>
+            <div class="fc-faq__a" id="faq-14"><div class="fc-faq__inner"><div>
+              <p>Sim. A metodologia do Coaching Criacional foi inteiramente desenvolvida por Geronimo Theml e sua eficácia é comprovada por centenas de clientes e milhares de alunos.</p>
+            </div></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================================================== 14 · RODAPÉ -->
+  <footer class="fc-footer">
+    <img class="fc-footer__logo" src="assets/fcc-dourado.webp" width="133" height="43" alt="FCC" loading="lazy">
+    <p>2026 © Geronimo Theml. Direitos Autorais Reservados.</p>
+  </footer>
+
+</div>
+
+<!-- ===================================================== POPUP PRÉ-CHECKOUT (README §5) -->
+<div class="fc-overlay" id="checkout" data-action="overlayClose" hidden>
+  <div class="fc-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button type="button" class="fc-modal__close" data-action="closeCheckout" aria-label="Fechar">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </button>
+
+    <div id="modal-form">
+      <h2 class="fc-display fc-modal__title" id="modal-title">Garanta sua vaga agora</h2>
+
+      <form data-ab-form class="fc-fields" id="checkout-form" novalidate>
+        <div>
+          <label class="fc-field__label" for="in-nome">Nome completo</label>
+          <input class="fc-input" id="in-nome" name="nome" type="text" placeholder="Seu nome" autocomplete="name" required>
+          <p class="fc-error" id="err-nome" role="alert" hidden></p>
+        </div>
+        <div>
+          <label class="fc-field__label" for="in-email">E-mail</label>
+          <input class="fc-input" id="in-email" name="email" type="email" placeholder="voce@email.com" autocomplete="email" required>
+          <p class="fc-error" id="err-email" role="alert" hidden></p>
+        </div>
+        <div>
+          <label class="fc-field__label" for="phone-input">WhatsApp</label>
+          <div class="fc-phone__row">
+            <select class="fc-country" id="country-select" aria-label="Código do país (DDI)"></select>
+            <input class="fc-input" id="phone-input" name="phone" type="tel" placeholder="(00) 00000-0000" autocomplete="tel" required>
+          </div>
+          <p class="fc-error" id="err-phone" role="alert" hidden></p>
+        </div>
+        <button type="submit" class="fc-btn fc-btn--block" id="checkout-cta">Garanta sua vaga agora</button>
+      </form>
+
+      <p class="fc-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 9V7A5 5 0 0 0 7 7v2a3 3 0 0 0-3 3v7a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-7a3 3 0 0 0-3-3ZM9 7a3 3 0 0 1 6 0v2H9Zm4 10.5V19h-2v-1.5a2 2 0 1 1 2 0Z"/></svg>Pagamento seguro · Pix ou cartão de crédito</p>
+    </div>
+
+    <div id="modal-success" hidden>
+      <div class="fc-success" role="status">
+        <div class="fc-spinner" aria-hidden="true"></div>
+        <p>Indo para o pagamento seguro…</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================================================== VÍDEO DOS CASES -->
+<div class="fc-overlay" id="video" data-action="videoOverlay" hidden>
+  <div class="fc-video" role="dialog" aria-modal="true" aria-labelledby="video-title">
+    <h2 class="fc-sr" id="video-title">Depoimento</h2>
+    <button type="button" class="fc-modal__close" data-action="closeVideo" aria-label="Fechar vídeo">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </button>
+    <div class="fc-video__frame" id="video-frame"></div>
+  </div>
+</div>
+
+<script src="app.js?v=4" defer></script>
+
+<!-- Rastreamento: Central de Links (README §8) -->
+<script src="https://centrallinks-beta.vercel.app/t.js" async></script>
+</body>
+</html>

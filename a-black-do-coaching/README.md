@@ -14,6 +14,10 @@ Fluxo: CTA → popup (nome, e-mail, WhatsApp) → webhooks n8n + Clint → `../o
 `member-get-member/` é a página de indique e ganhe: gera o link da `oportunidade-v1a/`
 com `utm_term` = e-mail de quem indicou. Detalhes no [README dela](member-get-member/README.md).
 
+`fcc-oportunidade/` é a página de vendas da FCC na condição da Black, com a obrigado em
+`fcc-oportunidade-obrigado/`. Segue o manual da FCC (não a identidade da captação).
+Detalhes e pendências no [README dela](fcc-oportunidade/README.md).
+
 ## Configuração da ação
 
 | Item | Onde |
