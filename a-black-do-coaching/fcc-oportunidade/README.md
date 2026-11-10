@@ -8,8 +8,10 @@ Segue o padrão do [README da raiz](../../README.md). Copy: "(Ajustado) Copy · 
 | `fcc-oportunidade/` | Página de vendas |
 | `fcc-oportunidade-obrigado/` | Página de obrigado (destino do checkout) |
 
-Fluxo: CTA → popup (nome, e-mail, WhatsApp) → webhooks n8n + Clint → checkout (com UTMs) →
-Hotmart redireciona para `fcc-oportunidade-obrigado/`.
+Fluxo: CTA → popup (nome, e-mail, WhatsApp) → webhooks n8n + Clint → **WhatsApp do comercial**
+(`links.igtcoaching.com.br/fale-com-o-comercial`, em `COMERCIAL_URL` no `app.js`, com os parâmetros
+da URL repassados, menos `xcod`). Desde 09/11/2026 o popup não leva mais ao checkout da Hotmart.
+Quem compra pelo checkout continua sendo levado pela Hotmart para `fcc-oportunidade-obrigado/`.
 
 ## Pendências antes de subir
 
