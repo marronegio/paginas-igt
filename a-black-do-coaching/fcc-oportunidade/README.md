@@ -9,8 +9,12 @@ Segue o padrão do [README da raiz](../../README.md). Copy: "(Ajustado) Copy · 
 | `fcc-oportunidade-obrigado/` | Página de obrigado (destino do checkout) |
 
 Fluxo: CTA → popup (nome, e-mail, WhatsApp) → webhooks n8n + Clint → **WhatsApp do comercial**
-(`links.igtcoaching.com.br/fale-com-o-comercial`, em `COMERCIAL_URL` no `app.js`, com os parâmetros
-da URL repassados, menos `xcod`). Desde 09/11/2026 o popup não leva mais ao checkout da Hotmart.
+(`wa.me/554331960964` com a mensagem "Quero garantir minha vaga na FCC da Black do Coaching",
+em `COMERCIAL_WHATSAPP` / `COMERCIAL_MENSAGEM` no `app.js`, com os parâmetros da URL repassados,
+menos `xcod`). Desde 09/11/2026 o popup não leva mais ao checkout da Hotmart.
+Vai direto para o wa.me porque o encurtador `links.igtcoaching.com.br/fale-com-o-comercial`
+(Pretty Link, mesmo número) descarta parâmetros e a mensagem se perderia. Se o número do
+comercial mudar no encurtador, troque também `COMERCIAL_WHATSAPP`.
 Quem compra pelo checkout continua sendo levado pela Hotmart para `fcc-oportunidade-obrigado/`.
 
 ## Pendências antes de subir

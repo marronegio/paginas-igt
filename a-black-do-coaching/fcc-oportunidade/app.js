@@ -19,10 +19,14 @@
      CONFIGURAÇÃO DA AÇÃO  (README §11 — é só isto que muda entre ações)
      ---------------------------------------------------------------------- */
 
-  // Destino depois do formulário: WhatsApp do time comercial (link da Central de Links).
+  // Destino depois do formulário: WhatsApp do time comercial, já com a mensagem
+  // pronta. Vai direto pro wa.me porque o encurtador (links.igtcoaching.com.br/
+  // fale-com-o-comercial, que aponta pro mesmo número) descarta o ?text=.
   // O lead não vai mais direto para o checkout da Hotmart. Os parâmetros da LP
-  // (UTMs etc.) são somados a este link.
-  var COMERCIAL_URL = 'https://links.igtcoaching.com.br/fale-com-o-comercial';
+  // (UTMs etc.) são somados a este link; o WhatsApp ignora e mantém o texto.
+  var COMERCIAL_WHATSAPP = '554331960964';
+  var COMERCIAL_MENSAGEM = 'Quero garantir minha vaga na FCC da Black do Coaching';
+  var COMERCIAL_URL = 'https://wa.me/' + COMERCIAL_WHATSAPP + '?text=' + encodeURIComponent(COMERCIAL_MENSAGEM);
 
   // Webhook com "{" na URL é ignorado (UUID não configurado).
   var WEBHOOKS = [
