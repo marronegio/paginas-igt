@@ -8,14 +8,22 @@ Segue o padrão do [README da raiz](../../README.md). Copy: "(Ajustado) Copy · 
 | `fcc-oportunidade/` | Página de vendas |
 | `fcc-oportunidade-obrigado/` | Página de obrigado (destino do checkout) |
 
-Fluxo: CTA → popup (nome, e-mail, WhatsApp) → webhooks n8n + Clint → **WhatsApp do comercial**
-(`wa.me/554331960964` com a mensagem "Quero garantir minha vaga na FCC da Black do Coaching",
-em `COMERCIAL_WHATSAPP` / `COMERCIAL_MENSAGEM` no `app.js`, com os parâmetros da URL repassados,
-menos `xcod`). Desde 09/11/2026 o popup não leva mais ao checkout da Hotmart.
-Vai direto para o wa.me porque o encurtador `links.igtcoaching.com.br/fale-com-o-comercial`
-(Pretty Link, mesmo número) descarta parâmetros e a mensagem se perderia. Se o número do
-comercial mudar no encurtador, troque também `COMERCIAL_WHATSAPP`.
-Quem compra pelo checkout continua sendo levado pela Hotmart para `fcc-oportunidade-obrigado/`.
+Fluxo: CTA → popup (nome, e-mail, WhatsApp) → webhooks n8n + Clint → checkout (com UTMs) →
+Hotmart redireciona para `fcc-oportunidade-obrigado/`.
+Entre 09 e 12/11/2026 o popup levou ao WhatsApp do comercial; em 12/11 voltou para o checkout.
+
+## WhatsApp fixo
+
+Botão no canto inferior direito, com o balão "Tem alguma dúvida? Fale com o nosso time!" e pulso
+suave (só com `html.fc-anim`). Leva a `wa.me/554331960964` (o mesmo número do encurtador
+`links.igtcoaching.com.br/fale-com-o-comercial`) com a mensagem "Tenho uma dúvida sobre a FCC da
+Black do Coaching", e abre em outra aba. O link fica no `href` do `<a class="fc-wa">`, no fim do
+`index.html`; se o número do comercial mudar no encurtador, troque lá também. Vai direto para o
+wa.me porque o encurtador descarta o `?text=`.
+
+- Fica abaixo dos popups (z-index 40 contra 50): com o popup ou um vídeo aberto, some sob o fundo.
+- No celular (≤ 680px) só aparece depois que o botão "Garanta sua vaga agora" da hero sai da
+  tela, para não cobri-lo na primeira tela (`initWhatsapp()` no `app.js`). No desktop fica sempre visível.
 
 ## Pendências antes de subir
 

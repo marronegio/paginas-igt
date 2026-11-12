@@ -1,6 +1,6 @@
 /* ==========================================================================
    FCC · A Black do Coaching — Página de vendas
-   CTA -> popup (nome + e-mail + WhatsApp) -> webhooks -> WhatsApp do comercial
+   CTA -> popup (nome + e-mail + WhatsApp) -> webhooks -> checkout
 
    O popup segue o padrão da README §5: overlay + modal com os dois estados
    irmãos, abertura/fechamento por delegação `data-action`, três saídas
@@ -19,14 +19,13 @@
      CONFIGURAÇÃO DA AÇÃO  (README §11 — é só isto que muda entre ações)
      ---------------------------------------------------------------------- */
 
-  // Destino depois do formulário: WhatsApp do time comercial, já com a mensagem
-  // pronta. Vai direto pro wa.me porque o encurtador (links.igtcoaching.com.br/
-  // fale-com-o-comercial, que aponta pro mesmo número) descarta o ?text=.
-  // O lead não vai mais direto para o checkout da Hotmart. Os parâmetros da LP
-  // (UTMs etc.) são somados a este link; o WhatsApp ignora e mantém o texto.
-  var COMERCIAL_WHATSAPP = '554331960964';
-  var COMERCIAL_MENSAGEM = 'Quero garantir minha vaga na FCC da Black do Coaching';
-  var COMERCIAL_URL = 'https://wa.me/' + COMERCIAL_WHATSAPP + '?text=' + encodeURIComponent(COMERCIAL_MENSAGEM);
+  // Checkout (Hotmart) da condição da Black. Os parâmetros da LP (UTMs etc.) são
+  // somados a este link; os que já estão aqui (off, split, sck...) não são trocados.
+  var CHECKOUT_URL = 'https://pay.hotmart.com/D108011000U?off=2sbtx5ep&split=12&checkoutMode=10&hidewallet=1&sck=is-atendimentoXX';
+
+  // Enquanto CHECKOUT_URL estiver vazio, o popup leva ao time comercial
+  // (mesmo destino da LP anterior da FCC), para nenhum lead ficar sem saída.
+  var FALLBACK_URL = 'https://links.igtcoaching.com.br/fale-com-o-comercial';
 
   // Webhook com "{" na URL é ignorado (UUID não configurado).
   var WEBHOOKS = [
@@ -178,13 +177,26 @@
 
       // repassa TODOS os parâmetros da LP, sem lista branca
       incoming.forEach(function (value, key) {
-        if (key === 'xcod') return;                       // xcod (legado da VK) não vai pro WhatsApp
         if (!target.searchParams.has(key)) target.searchParams.append(key, value);
       });
 
       return target.toString();
     } catch (e) {
-      return baseUrl;   // qualquer erro: manda pro comercial mesmo assim
+      return baseUrl;   // qualquer erro: manda pro checkout mesmo assim
+    }
+  }
+
+  /* Checkout com UTMs + nome e e-mail pré-preenchidos (Hotmart lê `name` e `email`). */
+  function checkoutTarget(fields) {
+    if (!CHECKOUT_URL) return withForwardedParams(FALLBACK_URL);
+    var url = withForwardedParams(CHECKOUT_URL);
+    try {
+      var u = new URL(url);
+      if (!u.searchParams.has('name'))  u.searchParams.set('name', fields.nome.value.trim());
+      if (!u.searchParams.has('email')) u.searchParams.set('email', fields.email.value.trim());
+      return u.toString();
+    } catch (e) {
+      return url;
     }
   }
 
@@ -308,7 +320,7 @@
     modalForm.hidden = true;
     modalSuccess.hidden = false;
 
-    window.location.href = withForwardedParams(COMERCIAL_URL);
+    window.location.href = checkoutTarget(fields);
     return true;
   }
 
@@ -460,6 +472,23 @@
   }
 
   /* ----------------------------------------------------------------------
+     WhatsApp fixo: `fc-wa--wait` enquanto o CTA da hero está na tela ou
+     ainda abaixo dela. Só o CSS do celular (≤ 680px) esconde o botão com
+     essa classe, para ele não cobrir o CTA principal na primeira tela.
+     ---------------------------------------------------------------------- */
+
+  function initWhatsapp() {
+    var wa  = $('.fc-wa');
+    var cta = $('.fc-hero [data-action="openCheckout"]');
+    if (!wa || !cta || !('IntersectionObserver' in window)) return;
+
+    new IntersectionObserver(function (entries) {
+      var e = entries[0];
+      wa.classList.toggle('fc-wa--wait', e.isIntersecting || e.boundingClientRect.top > 0);
+    }).observe(cta);
+  }
+
+  /* ----------------------------------------------------------------------
      Init
      ---------------------------------------------------------------------- */
 
@@ -468,6 +497,7 @@
     initClock();
     initFaq();
     initCheckout();
+    initWhatsapp();
 
     video      = $('#video');
     videoFrame = $('#video-frame');

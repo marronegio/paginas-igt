@@ -1020,6 +1020,91 @@ html:not(.fc-p2) [data-show="2"],
 .fc-video .fc-modal__close { top: -52px; right: 0; color: var(--paper); }
 
 /* --------------------------------------------------------------------------
+   WhatsApp fixo (canto inferior direito)
+   z-index 40, abaixo dos popups (50): com um deles aberto, fica sob o fundo.
+   O balão branco com o filete dourado repete o topo do popup e se lê sobre
+   as seções escuras e as claras. O pulso só roda com html.fc-anim.
+   -------------------------------------------------------------------------- */
+.fc-wa {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.fc-wa__bubble {
+  position: relative;
+  padding: 11px 16px 12px;
+  border-radius: 14px;
+  background: var(--paper);
+  color: var(--petrol);
+  font-family: var(--f-body);
+  font-weight: 600;
+  font-size: .875rem;
+  line-height: 1.35;
+  white-space: nowrap;
+  box-shadow: 0 14px 32px -12px rgba(0, 24, 32, .5), 0 1px 3px rgba(0, 24, 32, .16);
+  transform-origin: right center;
+  transition: translate .25s var(--ease-out);
+}
+.fc-wa__bubble b { display: block; font-weight: 800; color: var(--abyss); }
+.fc-wa__bubble::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  top: 0;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: var(--gold);
+}
+.fc-wa__bubble::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -5px;
+  width: 12px;
+  height: 12px;
+  margin-top: -6px;
+  border-radius: 2px;
+  background: var(--paper);
+  transform: rotate(45deg);
+}
+.fc-wa__icon {
+  position: relative;
+  flex: none;
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #25D366;
+  color: #FFFFFF;
+  box-shadow: 0 12px 26px -10px rgba(0, 24, 32, .6);
+  transition: scale .25s var(--ease-out), background-color .2s ease;
+}
+.fc-wa__icon svg { width: 32px; height: 32px; fill: currentColor; }
+/* anel do pulso: cresce e some atrás do botão */
+.fc-wa__icon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 50%;
+  background: #25D366;
+  opacity: 0;
+  pointer-events: none;
+}
+.fc-wa:hover .fc-wa__icon { scale: 1.07; background: #1EBE5B; }
+.fc-wa:hover .fc-wa__bubble { translate: -3px 0; }
+.fc-wa:focus-visible { outline: none; }
+.fc-wa:focus-visible .fc-wa__icon { outline: 3px solid var(--gold-soft); outline-offset: 3px; }
+
+/* --------------------------------------------------------------------------
    Animações
    Só com html.fc-anim (script do <head>: há IntersectionObserver e o
    visitante não pediu menos movimento). Sem isso, tudo aparece pronto.
@@ -1061,6 +1146,15 @@ html:not(.fc-p2) [data-show="2"],
 /* Fita dourada: varre da esquerda para a direita ao entrar */
 .fc-anim [data-tape] .fc-tape { background-size: 0% 100%; color: var(--paper); transition: background-size .7s var(--ease-io), color .3s ease .35s; }
 .fc-anim [data-tape].is-in .fc-tape { background-size: 100% 100%; color: var(--abyss); }
+
+/* WhatsApp fixo: o botão chega depois da hero, o balão logo atrás; depois, pulso suave contínuo */
+@keyframes fc-wa-pop { from { opacity: 0; transform: scale(.6); } }
+@keyframes fc-wa-in { from { opacity: 0; transform: translateX(10px) scale(.94); } }
+@keyframes fc-wa-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.045); } }
+@keyframes fc-wa-ring { 0% { transform: scale(1); opacity: .42; } 75%, 100% { transform: scale(1.6); opacity: 0; } }
+.fc-anim .fc-wa__icon { animation: fc-wa-pop .55s var(--ease-out) 1.2s both, fc-wa-breathe 2.8s ease-in-out 1.75s infinite; }
+.fc-anim .fc-wa__icon::before { animation: fc-wa-ring 2.8s var(--ease-out) 1.75s infinite; }
+.fc-anim .fc-wa__bubble { animation: fc-wa-in .6s var(--ease-out) 1.6s both; }
 
 /* Mentoria: os 6 encontros acendem em sequência */
 .fc-anim .fc-mentor__dots li { background: transparent; transition: background-color .3s ease; }
@@ -1123,4 +1217,17 @@ html:not(.fc-p2) [data-show="2"],
   .fc-clock__inner { justify-content: center; text-align: center; }
   .fc-clock__head { justify-content: center; }
   .fc-clock__text { flex-basis: 100%; }
+  .fc-wa { gap: 10px; transition: opacity .35s ease, translate .45s var(--ease-out), visibility 0s; }
+  /* no celular, espera o CTA da hero sair da tela (app.js) para não cobri-lo */
+  .fc-wa--wait {
+    opacity: 0;
+    visibility: hidden;
+    translate: 0 16px;
+    transition: opacity .2s ease, translate .2s ease, visibility 0s .2s;
+  }
+  .fc-wa__bubble { padding: 10px 13px 11px; font-size: .8rem; }
+  .fc-wa__icon { width: 54px; height: 54px; }
+  .fc-wa__icon svg { width: 29px; height: 29px; }
+  /* o rodapé termina acima do botão fixo, sem texto escondido atrás dele */
+  .fc-footer { padding-bottom: 104px; }
 }
