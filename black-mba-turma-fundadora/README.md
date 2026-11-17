@@ -1,6 +1,6 @@
 # Black MBA · Turma Fundadora: captação (revelação ao vivo 24/11, 20h)
 
-LP de captação do MBA em Neurociência e Liderança de Alta Performance (EHaF, by IGT).
+LP de captação do MBA em Neurociência e Liderança para Alta Performance (EHaF, by IGT).
 Segue o padrão do [README da raiz](../README.md). Copy: artefato "Página de captura · Turma Fundadora".
 
 | Pasta | Página |
