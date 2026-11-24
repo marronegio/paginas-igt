@@ -105,8 +105,8 @@ o Typeform só guarda os que existirem como hidden fields no formulário.
 | # | O que | Onde |
 |---|---|---|
 | 1 | Página de obrigado da Hotmart apontando para `oportunidade-obrigado/` | painel da Hotmart |
-| 2 | Foto da Patricia Morais | o `<li>` dela em "Os professores deste MBA" está com `hidden`. Quando a foto chegar: recorte 4:5 em `assets/prof-patricia-morais.webp`, troque a silhueta pelo `<img>`, tire o `hidden` e renumere o `--i` dos `<li>` (comentário no HTML) |
-| 3 | Mini-bios dos professores | a seção hoje mostra só foto e nome. A área de cada um (Neurociência, Liderança...) e o [MINI-BIO] estão na copy; quando as mini-bios chegarem, o card precisa de espaço para texto |
+| 2 | Fotos da Patricia Morais e do Léo Farah | o `<li>` de cada um em "Os professores deste MBA" está com `hidden`. Quando a foto chegar: recorte 4:5 em `assets/prof-<nome>.webp`, troque a silhueta pelo `<img>`, tire o `hidden` e renumere o `--i` dos `<li>` (comentário no HTML) |
+| 3 | Mini-bios dos professores | a seção hoje mostra só foto e nome. A área de cada um (Neurociência, Liderança...) e o [MINI-BIO] estão na copy; quando as mini-bios chegarem, o card precisa de espaço para texto. O Robson Dias não está na lista de professores da copy: entrou com a foto, a área e a mini-bio dele também precisam vir |
 | 4 | Logos de Next Shipping, Grupo Permaneo e Arcadis | `.mv-logos` (hoje são os nomes em texto) |
 
 Editou `app.js`/`ty.js`? Suba o `?v=`. Depois, faça um envio real e confira o lead nos painéis do n8n e da Clint.
