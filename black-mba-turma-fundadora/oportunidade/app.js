@@ -19,11 +19,12 @@
      CONFIGURAÇÃO DA AÇÃO  (README §11 — é só isto que muda entre ações)
      ---------------------------------------------------------------------- */
 
-  // Checkout da Turma Fundadora (encurtador do IGT, que leva à Hotmart).
-  // Os parâmetros da LP (UTMs etc.) e o nome/e-mail são somados a este link;
-  // só chegam à Hotmart se o encurtador repassar parâmetros. Vazio = o popup
-  // envia o lead para os webhooks, mas não redireciona.
-  var CHECKOUT_URL = 'https://links.igtcoaching.com.br/oportunidade-mba-nov26';
+  // Checkout da Turma Fundadora (link direto da Hotmart: o encurtador do IGT
+  // descartava os parâmetros). Os parâmetros da LP (UTMs etc.) e nome, e-mail
+  // e telefone são somados a este link, sem sobrescrever os que ele já traz
+  // (o `sck` fica fixo). Vazio = o popup envia o lead para os webhooks, mas
+  // não redireciona.
+  var CHECKOUT_URL = 'https://pay.hotmart.com/N108554917X?off=ovemfiuz&split=12&checkoutMode=10&hidewallet=1&sck=oportunidade-mba-nov26';
 
   // Webhook com "{" na URL é ignorado (UUID não configurado).
   var WEBHOOKS = [
@@ -171,14 +172,21 @@
     }
   }
 
-  /* Checkout com UTMs + nome e e-mail pré-preenchidos (Hotmart lê `name` e `email`). */
+  /* Checkout com UTMs + nome, e-mail e telefone pré-preenchidos.
+     Hotmart lê `name`, `email`, `phoneac` (DDD) e `phonenumber` (número sem DDD).
+     Fora do Brasil não há DDD: vai só o número, sem o DDI. */
   function checkoutTarget(fields) {
     if (!CHECKOUT_URL) return '';
     var url = withForwardedParams(CHECKOUT_URL);
     try {
       var u = new URL(url);
+      var d = nationalDigits(fields.phone.value);
+      var ac = state.country === 'BR' ? d.slice(0, 2) : '';
+      var num = state.country === 'BR' ? d.slice(2) : d;
       if (!u.searchParams.has('name'))  u.searchParams.set('name', fields.nome.value.trim());
       if (!u.searchParams.has('email')) u.searchParams.set('email', fields.email.value.trim());
+      if (ac && !u.searchParams.has('phoneac'))      u.searchParams.set('phoneac', ac);
+      if (num && !u.searchParams.has('phonenumber')) u.searchParams.set('phonenumber', num);
       return u.toString();
     } catch (e) {
       return url;

@@ -78,13 +78,19 @@ Configuração (`oportunidade/app.js`):
 
 | O que | Valor |
 |---|---|
-| Checkout (`CHECKOUT_URL`) | `https://links.igtcoaching.com.br/oportunidade-mba-nov26` |
+| Checkout (`CHECKOUT_URL`) | `https://pay.hotmart.com/N108554917X?off=ovemfiuz&split=12&checkoutMode=10&hidewallet=1&sck=oportunidade-mba-nov26` |
 | Webhook n8n | `https://webhook.igtcoaching.com.br/webhook/03e851f3-364a-42d9-8b51-f312741e3014` |
 | Webhook Clint | `https://functions-api.clint.digital/endpoints/integration/webhook/4623d7a7-d516-4a72-a909-bb1682856182` |
 
-O checkout é um link do encurtador: as UTMs e o nome/e-mail vão somados a ele, mas só chegam à
-Hotmart se esse link do encurtador repassar parâmetros (o `fale-com-o-comercial` da FCC descarta).
-As UTMs do lead ficam salvas de qualquer jeito, porque vão nos webhooks.
+O checkout já abre com nome, e-mail e telefone do popup: vão como `name`, `email`, `phoneac` (DDD)
+e `phonenumber` (número sem DDD; fora do Brasil vai só o número, sem DDI), os parâmetros de
+preenchimento da Hotmart. A Hotmart só preenche o "Celular" se o número for um celular brasileiro
+válido (DDD + 9 + 8 dígitos): telefone fixo ou número inventado (ex.: 11 12345-6789) chega vazio,
+sem erro. Para testar, use um celular de verdade.
+
+O checkout é o link direto da Hotmart, não o do encurtador (`links.igtcoaching.com.br/oportunidade-mba-nov26`
+descartava os parâmetros e o checkout abria vazio). As UTMs da URL vão somadas a ele sem sobrescrever o que o
+link já traz: o `sck=oportunidade-mba-nov26` fica fixo. As UTMs do lead também vão nos webhooks.
 
 Link do time (WhatsApp): `https://links.igtcoaching.com.br/fale-com-o-time`, no `href` do botão
 "Falar com o nosso time" (`oportunidade/index.html`) e "Fale com o nosso time" (`oportunidade-obrigado/index.html`).
