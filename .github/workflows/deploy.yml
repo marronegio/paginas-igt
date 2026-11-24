@@ -5,6 +5,13 @@ on:
     branches: [ main ]
   workflow_dispatch: {}
 
+# Um deploy por vez. Dois envios simultâneos disputam o mesmo servidor e o
+# .ftp-deploy-sync-state.json: o mais lento sobrescreve arquivos novos com a
+# versão antiga e grava o estado por último (aconteceu em 24/11/2026).
+concurrency:
+  group: ftp-deploy
+  cancel-in-progress: false
+
 jobs:
   ftp-deploy:
     name: FTP Deploy

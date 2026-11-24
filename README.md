@@ -740,6 +740,10 @@ Push em `main` → GitHub Actions → FTP. [.github/workflows/deploy.yml](.githu
 
 Ao criar o repositório de uma ação nova, cadastre os três secrets antes do primeiro push.
 
+**Um deploy por vez.** O workflow tem `concurrency: ftp-deploy`: um push feito com outro deploy em andamento espera na fila. Sem isso, dois envios simultâneos disputam o servidor e o `.ftp-deploy-sync-state.json`. Em 24/11/2026, três pushes em 4 minutos deixaram no ar o `index.html` do Black MBA de dois commits antes. A Cloudflare não tinha culpa (`cf-cache-status: DYNAMIC`, HTML não fica em cache) e limpar o cache não resolve.
+
+**Página no ar diferente do repositório?** Compare o HTML do servidor com o do commit (`curl` com `?x=<aleatório>`) e veja o hash do arquivo em `/lp/.ftp-deploy-sync-state.json`. Se o hash do estado já for o do commit atual, a action acha que o arquivo está em dia e não o reenvia: é preciso mudar o arquivo (ou removê-lo do estado) para forçar o envio.
+
 ### 10.2 Cache-busting — obrigatório ao editar `app.js`
 
 O `.htaccess` guarda JS/CSS por 30 dias e há CDN na frente. **Toda alteração no `app.js` exige incrementar a query string:**
