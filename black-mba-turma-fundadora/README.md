@@ -118,7 +118,7 @@ As datas ficam no `<script>` do `<head>` de `oportunidade/index.html` (`window.M
 
 Bônus (ajuste de última hora, 24/11):
 
-- os 10 primeiros a se matricularem ganham o pack com os 3 livros, assinados pelo Geronimo (não é sorteio);
+- os 10 primeiros a se matricularem ganham o pack com os 3 livros (não é sorteio; os livros não vêm assinados);
 - quem se matricular até 23h59 de 24/11 concorre a 1 dos 3 Kindles;
 - quem se matricular na primeira hora ganha ticket duplo no sorteio dos Kindles.
 
