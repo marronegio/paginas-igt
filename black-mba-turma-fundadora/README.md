@@ -116,19 +116,30 @@ Editou `app.js`/`ty.js`? Suba o `?v=`. Depois, faça um envio real e confira o l
 As datas ficam no `<script>` do `<head>` de `oportunidade/index.html` (`window.MV_FASES`). Ele põe
 `mv-p1`, `mv-p2` ou `mv-p3` no `<html>` antes do CSS, então a página já nasce certa:
 
+Bônus (ajuste de última hora, 24/11):
+
+- os 10 primeiros a se matricularem ganham o pack com os 3 livros, assinados pelo Geronimo (não é sorteio);
+- quem se matricular até 23h59 de 24/11 concorre a 1 dos 3 Kindles;
+- quem se matricular na primeira hora ganha ticket duplo no sorteio dos Kindles.
+
 | Fase | Quando | Barra do sorteio (contador, entre o topo e a hero) | Banners de bônus |
 |---|---|---|---|
-| 1 | até 23h59 de 24/11 | faixa do Kindle + pack de livros | os três; o 3º diz "Até amanhã, 23h59" |
-| 2 | 25/11 | faixa do pack de livros | 1º e 3º; o 3º diz "Só até hoje, 23h59" |
-| 3 | depois de 25/11 | sai | só o 1º (isenção da matrícula) |
+| 1 | até 23h59 de 24/11 | "concorra a um dos 3 Kindles" | os três: isenção, Kindles (com o ticket duplo da primeira hora) e pack dos 10 primeiros |
+| 2 e 3 | a partir de 25/11 | sai | só o 1º (isenção da matrícula) |
 
-O contador vai sempre até 23h59 do dia e a página troca de fase sozinha à meia-noite.
-No HTML, `data-show="1"`, `"2"` e `"12"` marcam o que aparece em cada fase.
-Na fase 3 a seção "O que só a Turma Fundadora tem" e o FAQ 12 continuam falando dos sorteios (a copy não traz outra versão).
+O pack não tem sorteio no dia 25 e nada mais usa `data-show="2"`: a fase 2 ficou igual à 3, sem mexer no script.
+O contador vai até 23h59 e a página troca de fase sozinha à meia-noite.
+No HTML, `data-show="1"` marca o que só aparece em 24/11 (barra, banners 2 e 3 e os dois itens de bônus em
+"O que só a Turma Fundadora tem"). O FAQ 12 usa datas fixas e fica nas três fases.
 
-A data dos sorteios ficou de fora por enquanto. A copy a coloca em dois lugares: numa frase abaixo dos banners
-("Os sorteios vão acontecer no dia [DATA A DEFINIR], e o nosso time vai avisar os ganhadores.", com
-`data-show="12"`) e no fim do FAQ 12 ("O nosso time vai fazer os sorteios em [DATA A DEFINIR] e avisar os ganhadores.").
+A página não sabe quantos já se matricularam nem quando abriu o carrinho: o banner do pack e o ticket duplo da
+primeira hora só saem à meia-noite, junto com o resto da fase 1. Esgotou o pack ou passou a primeira hora? Tire
+na mão.
+
+A data do sorteio ficou de fora por enquanto. A copy a coloca em dois lugares: numa frase abaixo dos banners
+("Os sorteios vão acontecer no dia [DATA A DEFINIR], e o nosso time vai avisar os ganhadores.") e no fim do FAQ 12
+("O nosso time vai fazer os sorteios em [DATA A DEFINIR] e avisar os ganhadores."). Com o pack fora do sorteio,
+os dois viram "o sorteio".
 
 ## Ao editar
 

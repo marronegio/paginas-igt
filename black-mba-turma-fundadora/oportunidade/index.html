@@ -23,7 +23,8 @@
 
   <!-- Fases da Black (horário de Brasília). Roda antes do CSS para o contador e os
        banners já nascerem certos, sem pulo de layout:
-         fase 1: até 23h59 de 24/11 · fase 2: 25/11 · fase 3: depois de 25/11 (contador e sorteios saem)
+         fase 1: até 23h59 de 24/11 (contador, Kindles e pack dos 10 primeiros) · fases 2 e 3: a partir de 25/11, só a isenção
+         (desde os ajustes de 24/11 nada usa data-show="2"; a fase 2 ficou igual à 3)
        O app.js usa as mesmas datas (window.MV_FASES). Mudou aqui? Não precisa mexer lá.
        Também liga as animações (html.mv-anim) só com IntersectionObserver e sem
        "reduzir movimento"; se o app.js não rodar, desliga no load. -->
@@ -48,8 +49,8 @@
     <!-- ===== 1 · Topo ===== -->
     <p class="mv-topbar">As matrículas ficam abertas até 30 de novembro</p>
 
-    <!-- Contador do sorteio do dia: barra de largura total logo acima da hero, só em 24 e 25/11 (fases 1 e 2) -->
-    <div class="mv-clock" data-show="12">
+    <!-- Contador do sorteio dos Kindles: barra de largura total logo acima da hero, só em 24/11 (fase 1) -->
+    <div class="mv-clock" data-show="1">
       <div class="mv-clock__inner">
         <p class="mv-clock__row">
           <span>O sorteio de hoje termina em:</span>
@@ -59,10 +60,7 @@
             <span><b data-clock="s">--</b><small>s</small></span>
           </span>
         </p>
-        <a class="mv-clock__link" href="#bonus">
-          <span data-show="1">Matricule-se até 23h59 de hoje e concorra a um Kindle e a um pack de livros assinados pelo Geronimo&nbsp;↓</span>
-          <span data-show="2">Matricule-se até 23h59 de hoje e concorra a um pack de livros assinados pelo Geronimo&nbsp;↓</span>
-        </a>
+        <a class="mv-clock__link" href="#bonus">Matricule-se até 23h59 de hoje e concorra a um dos 3 Kindles&nbsp;↓</a>
       </div>
     </div>
 
@@ -513,7 +511,8 @@
               <ul class="mv-perks">
                 <li>paga o melhor preço que este MBA vai ter, porque as próximas turmas vão custar R$&nbsp;10.990;</li>
                 <li>não paga a taxa de matrícula, de R$&nbsp;890;</li>
-                <li>concorre aos sorteios dos Kindles e dos packs de livros assinados pelo Geronimo, de acordo com o dia da matrícula;</li>
+                <li data-show="1">concorre a 1 dos 3 Kindles, se entrar até 23h59 de hoje (com ticket duplo na primeira hora);</li>
+                <li data-show="1">ganha um pack com os 3 livros de liderança que mais influenciaram o Geronimo, assinados por ele, se estiver entre os 10 primeiros;</li>
                 <li>é membro fundador e constrói a Escola de Habilidades do Futuro ao lado do Geronimo e do nosso time.</li>
               </ul>
               <p class="mv-perks__end">Essa condição é só desta turma e não vai voltar.</p>
@@ -556,24 +555,27 @@
                 <p>A matrícula custa R$&nbsp;890. Quem entra na Turma Fundadora não paga.</p>
               </article>
 
-              <!-- Banner 2: no ar até 23h59 de 24/11 -->
+              <!-- Banner 2: sorteio dos Kindles, no ar até 23h59 de 24/11 -->
               <article class="mv-banner mv-banner--timed mv-framed" data-show="1">
                 <h3 class="mv-banner__t">
                   <svg class="mv-banner__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
                   Só para quem se matricular hoje, até 23h59
                 </h3>
-                <p>Sorteio de 3 Kindles entre todos que se matricularem no dia da live.</p>
+                <p>
+                  Sorteio de 3 Kindles entre todos que se matricularem até 23h59 de hoje. Quem se matricular na
+                  primeira hora ganha ticket duplo e concorre em dobro.
+                </p>
               </article>
 
-              <!-- Banner 3: versão de 24/11 e versão de 25/11 -->
-              <article class="mv-banner mv-banner--timed mv-framed" data-show="12">
+              <!-- Banner 3: pack de livros para os 10 primeiros, no ar até 23h59 de 24/11 -->
+              <article class="mv-banner mv-banner--timed mv-framed" data-show="1">
                 <h3 class="mv-banner__t">
-                  <svg class="mv-banner__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-                  <span><span data-show="1">Até amanhã, 23h59</span><span data-show="2">Só até hoje, 23h59</span></span>
+                  <svg class="mv-banner__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 5.5 12 8c0-2.5 2-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>
+                  Para os 10 primeiros a se matricularem
                 </h3>
                 <p>
-                  Sorteio de 3 packs surpresa com os 3 livros de liderança que mais influenciaram o Geronimo, assinados
-                  por ele. Quem se matriculou no dia da live também concorre.
+                  Os 10 primeiros a entrar na Turma Fundadora ganham um pack com os 3 livros de liderança que mais
+                  influenciaram o Geronimo, assinados por ele.
                 </p>
               </article>
             </div>
@@ -851,7 +853,8 @@
             <div class="mv-faq__item">
               <h3 class="mv-faq__h"><button type="button" class="mv-faq__q" aria-expanded="true" aria-controls="faq-12">Como funcionam os sorteios?<span class="mv-faq__icon" aria-hidden="true"></span></button></h3>
               <div class="mv-faq__a" id="faq-12"><div class="mv-faq__inner"><div>
-                <p>Quem se matricular até 23h59 de 24/11 concorre a 1 dos 3 Kindles. Quem se matricular até 23h59 de 25/11 concorre a 1 dos 3 packs de livros assinados pelo Geronimo, e quem entrou no dia 24 concorre aos dois.</p>
+                <p>Quem se matricular até 23h59 de 24/11 concorre a 1 dos 3 Kindles. Quem se matricular na primeira hora depois que as matrículas abrirem ganha ticket duplo e concorre em dobro.</p>
+                <p>O pack com os 3 livros de liderança que mais influenciaram o Geronimo, assinados por ele, não é sorteado: ele vai para os 10 primeiros a se matricularem.</p>
               </div></div></div>
             </div>
           </div>
