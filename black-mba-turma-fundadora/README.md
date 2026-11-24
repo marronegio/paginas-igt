@@ -86,17 +86,20 @@ O checkout é um link do encurtador: as UTMs e o nome/e-mail vão somados a ele,
 Hotmart se esse link do encurtador repassar parâmetros (o `fale-com-o-comercial` da FCC descarta).
 As UTMs do lead ficam salvas de qualquer jeito, porque vão nos webhooks.
 
+Link do time (WhatsApp): `https://links.igtcoaching.com.br/fale-com-o-time`, no `href` do botão
+"Falar com o nosso time" (`oportunidade/index.html`) e "Fale com o nosso time" (`oportunidade-obrigado/index.html`).
+Os `utm_*` da URL vão somados a ele.
+
 ## Pendências antes de subir
 
 | # | O que | Onde |
 |---|---|---|
 | 1 | Página de obrigado da Hotmart apontando para `oportunidade-obrigado/` | painel da Hotmart |
-| 2 | [LINK DO TIME] (WhatsApp) | `href="#"` do botão "Falar com o nosso time" (`oportunidade/index.html`) e "Fale com o nosso time" (`oportunidade-obrigado/index.html`) |
-| 3 | [LINK DA PESQUISA] | `href="#"` do botão "Responder a pesquisa agora" (`oportunidade-obrigado/index.html`) |
-| 4 | Texto entre colchetes da copy: [MINI-BIO] (6 professores) | `oportunidade/index.html`: ficam com fundo bronze (`.mv-tbd`) para ninguém publicar sem trocar. Ao trocar, tire o `<span class="mv-tbd">` |
-| 5 | Fotos dos 6 professores | trocar a silhueta de cada `.mv-prof__photo` por `<img>` (comentário no HTML) |
-| 5b | Seção "Os professores deste MBA" está **escondida** (atributo `hidden` no `<section>`) | depois de fazer o 4 e o 5, tire o `hidden` para ela voltar à página |
-| 6 | Logos de Next Shipping, Grupo Permaneo e Arcadis | `.mv-logos` (hoje são os nomes em texto) |
+| 2 | [LINK DA PESQUISA] | `href="#"` do botão "Responder a pesquisa agora" (`oportunidade-obrigado/index.html`) |
+| 3 | Texto entre colchetes da copy: [MINI-BIO] (6 professores) | `oportunidade/index.html`: ficam com fundo bronze (`.mv-tbd`) para ninguém publicar sem trocar. Ao trocar, tire o `<span class="mv-tbd">` |
+| 4 | Fotos dos 6 professores | trocar a silhueta de cada `.mv-prof__photo` por `<img>` (comentário no HTML) |
+| 4b | Seção "Os professores deste MBA" está **escondida** (atributo `hidden` no `<section>`) | depois de fazer o 3 e o 4, tire o `hidden` para ela voltar à página |
+| 5 | Logos de Next Shipping, Grupo Permaneo e Arcadis | `.mv-logos` (hoje são os nomes em texto) |
 
 Editou `app.js`/`ty.js`? Suba o `?v=`. Depois, faça um envio real e confira o lead nos painéis do n8n e da Clint.
 
