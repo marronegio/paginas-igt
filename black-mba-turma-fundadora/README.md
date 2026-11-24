@@ -105,9 +105,8 @@ o Typeform só guarda os que existirem como hidden fields no formulário.
 | # | O que | Onde |
 |---|---|---|
 | 1 | Página de obrigado da Hotmart apontando para `oportunidade-obrigado/` | painel da Hotmart |
-| 2 | Texto entre colchetes da copy: [MINI-BIO] (6 professores) | `oportunidade/index.html`: ficam com fundo bronze (`.mv-tbd`) para ninguém publicar sem trocar. Ao trocar, tire o `<span class="mv-tbd">` |
-| 3 | Fotos dos 6 professores | trocar a silhueta de cada `.mv-prof__photo` por `<img>` (comentário no HTML) |
-| 3b | Seção "Os professores deste MBA" está **escondida** (atributo `hidden` no `<section>`) | depois de fazer o 2 e o 3, tire o `hidden` para ela voltar à página |
+| 2 | Foto da Patricia Morais | o `<li>` dela em "Os professores deste MBA" está com `hidden`. Quando a foto chegar: recorte 4:5 em `assets/prof-patricia-morais.webp`, troque a silhueta pelo `<img>`, tire o `hidden` e renumere o `--i` dos `<li>` (comentário no HTML) |
+| 3 | Mini-bios dos professores | a seção hoje mostra só foto e nome. A área de cada um (Neurociência, Liderança...) e o [MINI-BIO] estão na copy; quando as mini-bios chegarem, o card precisa de espaço para texto |
 | 4 | Logos de Next Shipping, Grupo Permaneo e Arcadis | `.mv-logos` (hoje são os nomes em texto) |
 
 Editou `app.js`/`ty.js`? Suba o `?v=`. Depois, faça um envio real e confira o lead nos painéis do n8n e da Clint.
