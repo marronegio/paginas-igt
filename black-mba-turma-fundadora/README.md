@@ -90,16 +90,19 @@ Link do time (WhatsApp): `https://links.igtcoaching.com.br/fale-com-o-time`, no 
 "Falar com o nosso time" (`oportunidade/index.html`) e "Fale com o nosso time" (`oportunidade-obrigado/index.html`).
 Os `utm_*` da URL vão somados a ele.
 
+Link da pesquisa (Typeform): `https://igtcoaching.typeform.com/to/JxlrdwJo`, no `href` do botão
+"Responder a pesquisa agora" (`oportunidade-obrigado/index.html`). Os `utm_*` da URL vão somados a ele;
+o Typeform só guarda os que existirem como hidden fields no formulário.
+
 ## Pendências antes de subir
 
 | # | O que | Onde |
 |---|---|---|
 | 1 | Página de obrigado da Hotmart apontando para `oportunidade-obrigado/` | painel da Hotmart |
-| 2 | [LINK DA PESQUISA] | `href="#"` do botão "Responder a pesquisa agora" (`oportunidade-obrigado/index.html`) |
-| 3 | Texto entre colchetes da copy: [MINI-BIO] (6 professores) | `oportunidade/index.html`: ficam com fundo bronze (`.mv-tbd`) para ninguém publicar sem trocar. Ao trocar, tire o `<span class="mv-tbd">` |
-| 4 | Fotos dos 6 professores | trocar a silhueta de cada `.mv-prof__photo` por `<img>` (comentário no HTML) |
-| 4b | Seção "Os professores deste MBA" está **escondida** (atributo `hidden` no `<section>`) | depois de fazer o 3 e o 4, tire o `hidden` para ela voltar à página |
-| 5 | Logos de Next Shipping, Grupo Permaneo e Arcadis | `.mv-logos` (hoje são os nomes em texto) |
+| 2 | Texto entre colchetes da copy: [MINI-BIO] (6 professores) | `oportunidade/index.html`: ficam com fundo bronze (`.mv-tbd`) para ninguém publicar sem trocar. Ao trocar, tire o `<span class="mv-tbd">` |
+| 3 | Fotos dos 6 professores | trocar a silhueta de cada `.mv-prof__photo` por `<img>` (comentário no HTML) |
+| 3b | Seção "Os professores deste MBA" está **escondida** (atributo `hidden` no `<section>`) | depois de fazer o 2 e o 3, tire o `hidden` para ela voltar à página |
+| 4 | Logos de Next Shipping, Grupo Permaneo e Arcadis | `.mv-logos` (hoje são os nomes em texto) |
 
 Editou `app.js`/`ty.js`? Suba o `?v=`. Depois, faça um envio real e confira o lead nos painéis do n8n e da Clint.
 
